@@ -1,0 +1,289 @@
+[
+  {
+    "id": "quick-start",
+    "categoryId": "getting-started",
+    "title": "Quick Start Flow",
+    "description": "Smallest useful setup path for new creators.",
+    "order": 1
+  },
+  {
+    "id": "screen-setup",
+    "categoryId": "getting-started",
+    "title": "Screen Setup",
+    "description": "Full screen, canvas dimensions, and skybox basics.",
+    "order": 2
+  },
+  {
+    "id": "variables",
+    "categoryId": "language-fundamentals",
+    "title": "Variables and Data Types",
+    "description": "Numbers, strings, updates, ranges, shared values, and shortcuts.",
+    "order": 3
+  },
+  {
+    "id": "arrays",
+    "categoryId": "language-fundamentals",
+    "title": "Arrays",
+    "description": "Number arrays, object arrays, random access, and nested arrays.",
+    "order": 4
+  },
+  {
+    "id": "control-flow",
+    "categoryId": "language-fundamentals",
+    "title": "Control Flow",
+    "description": "If/else, loops, async loops, for-each, and go conditions.",
+    "order": 5
+  },
+  {
+    "id": "procedures",
+    "categoryId": "language-fundamentals",
+    "title": "Procedures and Functions",
+    "description": "Declare, run, schedule, parameterize, and return from procedures.",
+    "order": 6
+  },
+  {
+    "id": "events-input",
+    "categoryId": "language-fundamentals",
+    "title": "Events and Input",
+    "description": "Keyboard, mouse, object clicks, groups, and ray checks.",
+    "order": 7
+  },
+  {
+    "id": "primitives",
+    "categoryId": "objects-assets",
+    "title": "Primitive Objects",
+    "description": "Boxes, spheres, wedges, cylinders, cones, quads, stairs, and arches.",
+    "order": 8
+  },
+  {
+    "id": "models",
+    "categoryId": "objects-assets",
+    "title": "3D Models and Characters",
+    "description": "Load models, scale, rotate, hide, mass, vehicles, and async loading.",
+    "order": 9
+  },
+  {
+    "id": "colliders-assets",
+    "categoryId": "objects-assets",
+    "title": "Colliders, Debug, and Resources",
+    "description": "Collider objects, joint attachment, shadow modes, debug helpers, and resources.",
+    "order": 10
+  },
+  {
+    "id": "sprites-assets",
+    "categoryId": "objects-assets",
+    "title": "Sprites and Materials",
+    "description": "Load sprites, billboard them, animate sprites, and use materials as textures.",
+    "order": 11
+  },
+  {
+    "id": "object-lifecycle",
+    "categoryId": "objects-assets",
+    "title": "Object Lifecycle and Pools",
+    "description": "Dynamic type creation, pools, factory functions, release, and deletion.",
+    "order": 12
+  },
+  {
+    "id": "movement-basics",
+    "categoryId": "movement-animation",
+    "title": "Movement and Rotation Basics",
+    "description": "Move, turn, roll, rotate, hide, show, look-at, distance, and angle.",
+    "order": 13
+  },
+  {
+    "id": "motion-easing",
+    "categoryId": "movement-animation",
+    "title": "Motion Easing",
+    "description": "Classic easing, named functions, parameters, easeTime, and curve selection.",
+    "order": 14
+  },
+  {
+    "id": "animation-basics",
+    "categoryId": "movement-animation",
+    "title": "3D Animation Playback",
+    "description": "Animation names, chains, speed, protection, progress, and character mode.",
+    "order": 15
+  },
+  {
+    "id": "path-replay",
+    "categoryId": "movement-animation",
+    "title": "Path Replay",
+    "description": "Replay arrays, offsets, speed changes, pause/resume, and switching paths.",
+    "order": 16
+  },
+  {
+    "id": "camera-basics",
+    "categoryId": "cameras-cinematics",
+    "title": "Camera Basics",
+    "description": "Rotate, turn, chase, trail, distance, and attach cameras.",
+    "order": 17
+  },
+  {
+    "id": "cinematic-camera",
+    "categoryId": "cameras-cinematics",
+    "title": "Cinematic Camera Rigs",
+    "description": "Designer-authored cinematic rigs, runtime playback, targets, and reuse.",
+    "order": 18
+  },
+  {
+    "id": "camera-systems",
+    "categoryId": "cameras-cinematics",
+    "title": "Camera Systems",
+    "description": "Fighting, third-person, first-person, racing, platformer, and RTS systems.",
+    "order": 19
+  },
+  {
+    "id": "camera-modifiers",
+    "categoryId": "cameras-cinematics",
+    "title": "Camera Modifiers",
+    "description": "Hit, fall, shooting, acceleration, landing, earthquake, explosion, and near-miss modifiers.",
+    "order": 20
+  },
+  {
+    "id": "lighting-foundations",
+    "categoryId": "lighting-visuals",
+    "title": "Lighting Foundations",
+    "description": "Decision guide, color, intensity, position, direction, range, angle, and shadows.",
+    "order": 21
+  },
+  {
+    "id": "light-types",
+    "categoryId": "lighting-visuals",
+    "title": "Light Types",
+    "description": "Directional, point, spot, sky, ambient, and light probe lessons.",
+    "order": 22
+  },
+  {
+    "id": "lighting-recipes",
+    "categoryId": "lighting-visuals",
+    "title": "Lighting Recipes and Performance",
+    "description": "Outdoor, neon, interior, horror, fighting, mobile, and performance recipes.",
+    "order": 23
+  },
+  {
+    "id": "effekseer-runtime",
+    "categoryId": "lighting-visuals",
+    "title": "Effekseer Runtime Effects",
+    "description": "Declare, play, loop, aim, attach, hide, show, delete, and package effects.",
+    "order": 24
+  },
+  {
+    "id": "built-in-effects",
+    "categoryId": "lighting-visuals",
+    "title": "Built-In Effects",
+    "description": "Explosion, flame, TimeOrbit, and quick visual feedback.",
+    "order": 25
+  },
+  {
+    "id": "physics-motion",
+    "categoryId": "physics-gameplay",
+    "title": "Physics Motion",
+    "description": "Throw commands, raw physics, impulse, force, velocity, torque, and stop.",
+    "order": 26
+  },
+  {
+    "id": "collisions",
+    "categoryId": "physics-gameplay",
+    "title": "Collision Events",
+    "description": "Object collisions, equipped weapon colliders, multi-object checks, joints, and debug.",
+    "order": 27
+  },
+  {
+    "id": "audio",
+    "categoryId": "physics-gameplay",
+    "title": "Audio",
+    "description": "Play, loop, set volume, and stop sounds.",
+    "order": 28
+  },
+  {
+    "id": "levels-state",
+    "categoryId": "physics-gameplay",
+    "title": "Levels and Shared State",
+    "description": "Scene switching, shared variables, and shared models.",
+    "order": 29
+  },
+  {
+    "id": "minimap",
+    "categoryId": "physics-gameplay",
+    "title": "Minimap",
+    "description": "Show the minimap, set height/size, and follow a player.",
+    "order": 30
+  },
+  {
+    "id": "screen-canvas",
+    "categoryId": "ui-screen",
+    "title": "Screen and Canvas",
+    "description": "Full screen mode, canvas size, and skybox time-of-day.",
+    "order": 31
+  },
+  {
+    "id": "runtime-ui",
+    "categoryId": "ui-screen",
+    "title": "Runtime UI and Drawing",
+    "description": "Header text, UI messages, UI easing, drawing sprites, and material changes.",
+    "order": 32
+  },
+  {
+    "id": "weapons-designer",
+    "categoryId": "ide-designers",
+    "title": "Weapons Designer",
+    "description": "Weapon files, postures, preview, schema, runtime equip, validation, and attachment points.",
+    "order": 33
+  },
+  {
+    "id": "throw-motion-designer",
+    "categoryId": "ide-designers",
+    "title": "Throw Motion Designer",
+    "description": "Throw motion assets, layout, runtime syntax, motion types, patterns, and troubleshooting.",
+    "order": 34
+  },
+  {
+    "id": "ik-designer",
+    "categoryId": "ide-designers",
+    "title": "IK Designer",
+    "description": "IK assets, preview, chain types, targets, runtime commands, use cases, poles, and setup.",
+    "order": 35
+  },
+  {
+    "id": "effekseer-designer",
+    "categoryId": "ide-designers",
+    "title": "Effekseer Particle Designer",
+    "description": "Import pipeline, preview architecture, bridge, UI, delivery plan, and risks.",
+    "order": 36
+  },
+  {
+    "id": "mcp-server",
+    "categoryId": "ai-automation",
+    "title": "Built-In MCP Server",
+    "description": "Local endpoint setup, clients, tool schemas, workflows, security, and troubleshooting.",
+    "order": 37
+  },
+  {
+    "id": "mcp-tools",
+    "categoryId": "ai-automation",
+    "title": "MCP Tool Reference",
+    "description": "Project, file, designer, UI, viewport, runtime, diagnostics, and asset tools.",
+    "order": 38
+  },
+  {
+    "id": "meshy-ai",
+    "categoryId": "ai-automation",
+    "title": "Meshy AI Plugin",
+    "description": "Generate, search, filter, preview, import, metadata, animations, and troubleshooting.",
+    "order": 39
+  },
+  {
+    "id": "plugin-system",
+    "categoryId": "ai-automation",
+    "title": "Plugin System",
+    "description": "Discovery, lifecycle, host context, assets, metadata, packaging, and minimal plugins.",
+    "order": 40
+  },
+  {
+    "id": "publishing-itchio",
+    "categoryId": "publishing",
+    "title": "itch.io Integration",
+    "description": "Butler setup, auth, packaging, upload targets, security, troubleshooting, and limits.",
+    "order": 41
+  }
+]

@@ -1,0 +1,157 @@
+{
+  "site": {
+    "name": "SceneMax3D",
+    "tagline": "Create 3D games with a friendly visual studio and readable scripting language.",
+    "description": "SceneMax3D is a visual 3D game creation studio with approachable scripting, animation workflows, physics, effects, AI-assisted tools, and publishing support.",
+    "githubUrl": "https://github.com/scenemax3d/scenemax3d-desktop",
+    "license": "MIT"
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "label": "Tutorials",
+      "path": "/tutorials"
+    },
+    {
+      "label": "Docs",
+      "path": "/docs"
+    },
+    {
+      "label": "Showcase",
+      "path": "/showcase"
+    },
+    {
+      "label": "Download",
+      "path": "/download"
+    },
+    {
+      "label": "Roadmap",
+      "path": "/roadmap"
+    }
+  ],
+  "hero": {
+    "eyebrow": "Watch. Learn. Build 3D games.",
+    "title": "Build 3D games faster with SceneMax3D",
+    "subtitle": "A visual game creation studio with a readable programming language, animation tools, physics, effects, AI-assisted workflows, and publishing support.",
+    "buttons": [
+      {
+        "label": "Download",
+        "url": "/download",
+        "variant": "primary"
+      },
+      {
+        "label": "Start Learning",
+        "url": "/tutorials",
+        "variant": "secondary"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/scenemax3d/scenemax3d-desktop",
+        "variant": "ghost"
+      }
+    ],
+    "stats": [
+      {
+        "value": "658",
+        "label": "short lesson placeholders"
+      },
+      {
+        "value": "41",
+        "label": "organized subjects"
+      },
+      {
+        "value": "11",
+        "label": "academy tracks"
+      }
+    ]
+  },
+  "creatorAudiences": [
+    {
+      "title": "Beginners",
+      "description": "Start with visual scene building, friendly examples, and a scripting style that reads clearly.",
+      "icon": "graduation"
+    },
+    {
+      "title": "Indie developers",
+      "description": "Prototype character controllers, cameras, collisions, UI, effects, and game loops quickly.",
+      "icon": "gamepad"
+    },
+    {
+      "title": "Teachers",
+      "description": "Use a concrete 3D studio to teach programming concepts through visible cause and effect.",
+      "icon": "book"
+    },
+    {
+      "title": "Creators",
+      "description": "Import models, reuse animations, build levels, and package playable projects.",
+      "icon": "sparkles"
+    }
+  ],
+  "features": [
+    {
+      "title": "Visual Scene Designer",
+      "description": "Build scenes visually, place objects, control cameras, configure components, and preview game flow.",
+      "icon": "scene"
+    },
+    {
+      "title": "SceneMax Language",
+      "description": "Write readable game logic with events, conditions, functions, and beginner-friendly structure.",
+      "icon": "code"
+    },
+    {
+      "title": "Animation Import and Retargeting",
+      "description": "Import models and animations, reuse animation assets, and shape character-driven gameplay.",
+      "icon": "animation"
+    },
+    {
+      "title": "Physics and Collisions",
+      "description": "Add rigid bodies, triggers, collision responses, and tactile world interactions.",
+      "icon": "physics"
+    },
+    {
+      "title": "UI System",
+      "description": "Create menus, heads-up displays, labels, buttons, and game-state feedback.",
+      "icon": "layout"
+    },
+    {
+      "title": "Audio and Effects",
+      "description": "Layer sound, visual effects, lighting, and moment-to-moment feedback into your scenes.",
+      "icon": "audio"
+    },
+    {
+      "title": "AI Console / MCP Integration",
+      "description": "Use AI-assisted workflows to inspect projects, generate ideas, and speed up common studio tasks.",
+      "icon": "bot"
+    },
+    {
+      "title": "Packaging and Publishing",
+      "description": "Prepare builds, export playable projects, and publish your game when it is ready.",
+      "icon": "package"
+    }
+  ],
+  "languagePreview": {
+    "title": "Readable scripting for visible game logic",
+    "description": "SceneMax language lessons will teach game programming through clear, concrete examples that connect directly to the studio.",
+    "code": "when player starts:\n  set speed to 6\n  play animation \"idle\"\n\nwhen key \"W\" is down:\n  move player forward by speed\n  play animation \"run\"\n\nwhen player touches coin:\n  add 1 to score\n  destroy coin"
+  },
+  "showcase": [
+    {
+      "title": "Dragon Gate",
+      "description": "A planned sample project slot for a complete SceneMax3D game walkthrough.",
+      "status": "Coming in Phase 3"
+    },
+    {
+      "title": "Starter Platformer",
+      "description": "A small complete-game example for cameras, movement, collisions, UI, and packaging.",
+      "status": "Tutorial path"
+    },
+    {
+      "title": "Animation Lab",
+      "description": "A focused demo for GLTF, FBX, Mixamo workflows, and animation reuse.",
+      "status": "Tutorial path"
+    }
+  ]
+}

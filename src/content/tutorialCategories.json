@@ -1,0 +1,68 @@
+[
+  {
+    "id": "getting-started",
+    "title": "Getting Started",
+    "description": "Install, orient, and build the smallest complete SceneMax3D scene.",
+    "order": 1
+  },
+  {
+    "id": "language-fundamentals",
+    "title": "SceneMax Language Fundamentals",
+    "description": "Variables, arrays, conditions, procedures, events, and reusable expressions.",
+    "order": 2
+  },
+  {
+    "id": "objects-assets",
+    "title": "Objects, Models, and Assets",
+    "description": "Create primitives, load models, manage resources, sprites, pools, and object lifecycle.",
+    "order": 3
+  },
+  {
+    "id": "movement-animation",
+    "title": "Movement, Animation, and Replay",
+    "description": "Move objects, rotate them, ease motion, play animations, and replay paths.",
+    "order": 4
+  },
+  {
+    "id": "cameras-cinematics",
+    "title": "Cameras and Cinematics",
+    "description": "Manual cameras, chase/attach cameras, cinematic rigs, camera systems, and modifiers.",
+    "order": 5
+  },
+  {
+    "id": "lighting-visuals",
+    "title": "Lighting and Visual Effects",
+    "description": "Lights, sky, shadows, Effekseer effects, built-in effects, and visual recipes.",
+    "order": 6
+  },
+  {
+    "id": "physics-gameplay",
+    "title": "Physics, Collisions, and Gameplay Systems",
+    "description": "Physics motion, collision events, weapon colliders, minimaps, audio, levels, and shared state.",
+    "order": 7
+  },
+  {
+    "id": "ui-screen",
+    "title": "Screen, UI, and Drawing",
+    "description": "Canvas setup, skyboxes, header text, UI messages, UI easing, drawing, and material texture use.",
+    "order": 8
+  },
+  {
+    "id": "ide-designers",
+    "title": "IDE Designers and Authoring Tools",
+    "description": "Weapons Designer, Throw Motion Designer, IK Designer, and Effekseer designer workflows.",
+    "order": 9
+  },
+  {
+    "id": "ai-automation",
+    "title": "AI, MCP, Plugins, and Asset Automation",
+    "description": "Built-in MCP server, MCP tool reference, Meshy AI, Sketchfab, plugin system, and AI-assisted IDE workflows.",
+    "order": 10
+  },
+  {
+    "id": "publishing",
+    "title": "Packaging and Publishing",
+    "description": "Release prep, itch.io integration, Butler setup, authentication, uploads, and limitations.",
+    "order": 11
+  }
+]
