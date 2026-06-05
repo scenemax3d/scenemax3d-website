@@ -21,66 +21,7 @@
     ],
     "featured": true,
     "order": 1,
-    "relatedTutorialIds": [
-      "read-scenemax-syntax-out-loud",
-      "use-the-academy-roadmap"
-    ]
-  },
-  {
-    "id": "read-scenemax-syntax-out-loud",
-    "slug": "read-scenemax-syntax-out-loud",
-    "title": "Read SceneMax Syntax Out Loud",
-    "description": "A short focused SceneMax3D lesson about syntax basics.",
-    "categoryId": "getting-started",
-    "subcategoryId": "quick-start",
-    "subject": "syntax basics",
-    "clipFocus": "Explain object creation with =>, property assignment with =, and English-like commands before writing longer scripts.",
-    "sourceDoc": "README.md",
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "getting-started",
-      "quick-start",
-      "README",
-      "quick start"
-    ],
-    "featured": false,
-    "order": 2,
-    "relatedTutorialIds": [
-      "build-the-quick-start-scene",
-      "use-the-academy-roadmap",
-      "quick-start"
-    ]
-  },
-  {
-    "id": "use-the-academy-roadmap",
-    "slug": "use-the-academy-roadmap",
-    "title": "Use the Academy Roadmap",
-    "description": "A short focused SceneMax3D lesson about academy map.",
-    "categoryId": "getting-started",
-    "subcategoryId": "quick-start",
-    "subject": "academy map",
-    "clipFocus": "Show how the website categories, subjects, and lesson placeholders map back to the docs folder.",
-    "sourceDoc": "README.md",
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "getting-started",
-      "quick-start",
-      "README",
-      "quick start"
-    ],
-    "featured": false,
-    "order": 3,
-    "relatedTutorialIds": [
-      "read-scenemax-syntax-out-loud",
-      "quick-start",
-      "language-basics"
-    ]
+    "relatedTutorialIds": []
   },
   {
     "id": "quick-start",
@@ -110,7 +51,6 @@
     "featured": false,
     "order": 4,
     "relatedTutorialIds": [
-      "use-the-academy-roadmap",
       "language-basics"
     ]
   },
@@ -546,38 +486,6 @@
     ]
   },
   {
-    "id": "why-this-matters",
-    "slug": "why-this-matters",
-    "title": "Why This Matters",
-    "description": "A short focused SceneMax3D lesson about Why This Matters.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "mcp-server",
-    "subject": "Why This Matters",
-    "clipFocus": "Walk through Why This Matters from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "built-in-mcp-server.md",
-    "sourceLine": 7,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "mcp-server",
-      "built-in-mcp-server",
-      "built",
-      "in",
-      "mcp",
-      "server",
-      "and"
-    ],
-    "featured": true,
-    "order": 20,
-    "relatedTutorialIds": [
-      "how-it-works",
-      "tool-schemas-and-reference"
-    ]
-  },
-  {
     "id": "how-it-works",
     "slug": "how-it-works",
     "title": "How It Works",
@@ -605,7 +513,6 @@
     "featured": false,
     "order": 21,
     "relatedTutorialIds": [
-      "why-this-matters",
       "tool-schemas-and-reference",
       "what-you-can-actually-do-with-it"
     ]
@@ -2057,35 +1964,6 @@
     "order": 65,
     "relatedTutorialIds": [
       "local-gemma-fails-to-start-troubleshooting"
-    ]
-  },
-  {
-    "id": "overview",
-    "slug": "overview",
-    "title": "Overview",
-    "description": "A short focused SceneMax3D lesson about Overview.",
-    "categoryId": "cameras-cinematics",
-    "subcategoryId": "camera-systems",
-    "subject": "Overview",
-    "clipFocus": "Explain Overview from Camera Systems, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "camera-systems.md",
-    "sourceLine": 14,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "cameras-cinematics",
-      "camera-systems",
-      "camera",
-      "systems",
-      "overview"
-    ],
-    "featured": true,
-    "order": 66,
-    "relatedTutorialIds": [
-      "general-usage",
-      "shared-concepts"
     ]
   },
   {
@@ -3638,7 +3516,6 @@
     "featured": false,
     "order": 115,
     "relatedTutorialIds": [
-      "overview",
       "shared-concepts",
       "distance-shared-concepts"
     ]
@@ -6918,8 +6795,7 @@
     "order": 222,
     "relatedTutorialIds": [
       "fov-rts-camera-available-parameters",
-      "when-to-use-it-rts-camera",
-      "naming-note"
+      "when-to-use-it-rts-camera"
     ]
   },
   {
@@ -6950,39 +6826,7 @@
     "order": 223,
     "relatedTutorialIds": [
       "min-x-max-x-min-y-max-y-min-z-max-z-rts-camera-available-parameters",
-      "naming-note",
       "choosing-the-right-camera-system"
-    ]
-  },
-  {
-    "id": "naming-note",
-    "slug": "naming-note",
-    "title": "Naming Note",
-    "description": "A short focused SceneMax3D lesson about Naming Note.",
-    "categoryId": "cameras-cinematics",
-    "subcategoryId": "camera-systems",
-    "subject": "Naming Note",
-    "clipFocus": "Explain Naming Note from Camera Systems, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "camera-systems.md",
-    "sourceLine": 1324,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "cameras-cinematics",
-      "camera-systems",
-      "camera",
-      "systems",
-      "naming",
-      "note"
-    ],
-    "featured": false,
-    "order": 224,
-    "relatedTutorialIds": [
-      "when-to-use-it-rts-camera",
-      "choosing-the-right-camera-system",
-      "typical-workflow"
     ]
   },
   {
@@ -7012,7 +6856,6 @@
     "featured": false,
     "order": 225,
     "relatedTutorialIds": [
-      "naming-note",
       "typical-workflow",
       "camera-systems"
     ]
@@ -9096,71 +8939,6 @@
     ]
   },
   {
-    "id": "status-update",
-    "slug": "status-update",
-    "title": "Status Update",
-    "description": "A short focused SceneMax3D lesson about Status Update.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "effekseer-designer",
-    "subject": "Status Update",
-    "clipFocus": "Walk through Status Update from Effekseer Particle System Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "effekseer-particle-designer.md",
-    "sourceLine": 3,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "effekseer-designer",
-      "effekseer-particle-designer",
-      "effekseer",
-      "particle",
-      "system",
-      "designer",
-      "status"
-    ],
-    "featured": true,
-    "order": 295,
-    "relatedTutorialIds": [
-      "goal",
-      "why-a-new-path-is-required"
-    ]
-  },
-  {
-    "id": "goal",
-    "slug": "goal",
-    "title": "Goal",
-    "description": "A short focused SceneMax3D lesson about Goal.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "effekseer-designer",
-    "subject": "Goal",
-    "clipFocus": "Walk through Goal from Effekseer Particle System Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "effekseer-particle-designer.md",
-    "sourceLine": 22,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "effekseer-designer",
-      "effekseer-particle-designer",
-      "effekseer",
-      "particle",
-      "system",
-      "designer",
-      "goal"
-    ],
-    "featured": false,
-    "order": 296,
-    "relatedTutorialIds": [
-      "status-update",
-      "why-a-new-path-is-required",
-      "effekseer-facts-that-drive-the-design"
-    ]
-  },
-  {
     "id": "why-a-new-path-is-required",
     "slug": "why-a-new-path-is-required",
     "title": "Why A New Path Is Required",
@@ -9188,7 +8966,6 @@
     "featured": false,
     "order": 297,
     "relatedTutorialIds": [
-      "goal",
       "effekseer-facts-that-drive-the-design",
       "product-scope"
     ]
@@ -9947,8 +9724,7 @@
     "order": 320,
     "relatedTutorialIds": [
       "phase-2-scenemax-runtime-playback-delivery-plan",
-      "key-risks",
-      "recommendation"
+      "key-risks"
     ]
   },
   {
@@ -9979,39 +9755,7 @@
     "featured": false,
     "order": 321,
     "relatedTutorialIds": [
-      "phase-3-editing-and-language-wiring-delivery-plan",
-      "recommendation"
-    ]
-  },
-  {
-    "id": "recommendation",
-    "slug": "recommendation",
-    "title": "Recommendation",
-    "description": "A short focused SceneMax3D lesson about Recommendation.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "effekseer-designer",
-    "subject": "Recommendation",
-    "clipFocus": "Walk through Recommendation from Effekseer Particle System Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "effekseer-particle-designer.md",
-    "sourceLine": 320,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "effekseer-designer",
-      "effekseer-particle-designer",
-      "effekseer",
-      "particle",
-      "system",
-      "designer",
-      "recommendation"
-    ],
-    "featured": false,
-    "order": 322,
-    "relatedTutorialIds": [
-      "key-risks"
+      "phase-3-editing-and-language-wiring-delivery-plan"
     ]
   },
   {
@@ -10106,36 +9850,6 @@
     ]
   },
   {
-    "id": "file-placement",
-    "slug": "file-placement",
-    "title": "File Placement",
-    "description": "A short focused SceneMax3D lesson about File Placement.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "ik-designer",
-    "subject": "File Placement",
-    "clipFocus": "Walk through File Placement from IK Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "ik-designer.md",
-    "sourceLine": 7,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "ik-designer",
-      "ik",
-      "designer",
-      "file",
-      "placement"
-    ],
-    "featured": true,
-    "order": 326,
-    "relatedTutorialIds": [
-      "designer-workflow",
-      "running-the-preview"
-    ]
-  },
-  {
     "id": "designer-workflow",
     "slug": "designer-workflow",
     "title": "Designer Workflow",
@@ -10160,7 +9874,6 @@
     "featured": false,
     "order": 327,
     "relatedTutorialIds": [
-      "file-placement",
       "running-the-preview",
       "joint-field-mental-model"
     ]
@@ -10761,71 +10474,6 @@
     ]
   },
   {
-    "id": "what-scenemax-supports",
-    "slug": "what-scenemax-supports",
-    "title": "What SceneMax Supports",
-    "description": "A short focused SceneMax3D lesson about What SceneMax Supports.",
-    "categoryId": "publishing",
-    "subcategoryId": "publishing-itchio",
-    "subject": "What SceneMax Supports",
-    "clipFocus": "Walk through What SceneMax Supports from itch.io Integration Guide, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "itchio-integration.md",
-    "sourceLine": 14,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "publishing",
-      "publishing-itchio",
-      "itchio-integration",
-      "itch",
-      "io",
-      "integration",
-      "guide",
-      "what"
-    ],
-    "featured": true,
-    "order": 347,
-    "relatedTutorialIds": [
-      "before-you-start",
-      "project-settings"
-    ]
-  },
-  {
-    "id": "before-you-start",
-    "slug": "before-you-start",
-    "title": "Before You Start",
-    "description": "A short focused SceneMax3D lesson about Before You Start.",
-    "categoryId": "publishing",
-    "subcategoryId": "publishing-itchio",
-    "subject": "Before You Start",
-    "clipFocus": "Walk through Before You Start from itch.io Integration Guide, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "itchio-integration.md",
-    "sourceLine": 31,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "publishing",
-      "publishing-itchio",
-      "itchio-integration",
-      "itch",
-      "io",
-      "integration",
-      "guide",
-      "before"
-    ],
-    "featured": false,
-    "order": 348,
-    "relatedTutorialIds": [
-      "what-scenemax-supports",
-      "project-settings",
-      "installing-butler"
-    ]
-  },
-  {
     "id": "project-settings",
     "slug": "project-settings",
     "title": "Project Settings",
@@ -10853,7 +10501,6 @@
     "featured": false,
     "order": 349,
     "relatedTutorialIds": [
-      "before-you-start",
       "installing-butler",
       "option-1-browse-to-the-downloaded-zip-installing-butler"
     ]
@@ -11118,8 +10765,7 @@
     "order": 357,
     "relatedTutorialIds": [
       "option-2-project-api-key-authentication",
-      "how-upload-targets-are-built",
-      "what-the-user-sees"
+      "how-upload-targets-are-built"
     ]
   },
   {
@@ -11151,41 +10797,7 @@
     "order": 358,
     "relatedTutorialIds": [
       "packaging-and-upload-flow",
-      "what-the-user-sees",
       "recommended-setup"
-    ]
-  },
-  {
-    "id": "what-the-user-sees",
-    "slug": "what-the-user-sees",
-    "title": "What The User Sees",
-    "description": "A short focused SceneMax3D lesson about What The User Sees.",
-    "categoryId": "publishing",
-    "subcategoryId": "publishing-itchio",
-    "subject": "What The User Sees",
-    "clipFocus": "Walk through What The User Sees from itch.io Integration Guide, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "itchio-integration.md",
-    "sourceLine": 188,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "publishing",
-      "publishing-itchio",
-      "itchio-integration",
-      "itch",
-      "io",
-      "integration",
-      "guide",
-      "what"
-    ],
-    "featured": false,
-    "order": 359,
-    "relatedTutorialIds": [
-      "how-upload-targets-are-built",
-      "recommended-setup",
-      "troubleshooting-2"
     ]
   },
   {
@@ -11216,7 +10828,6 @@
     "featured": false,
     "order": 360,
     "relatedTutorialIds": [
-      "what-the-user-sees",
       "troubleshooting-2",
       "detect-does-not-find-butler-troubleshooting"
     ]
@@ -11415,8 +11026,7 @@
     "order": 366,
     "relatedTutorialIds": [
       "upload-fails-after-login-troubleshooting",
-      "security-notes",
-      "current-limitations"
+      "security-notes"
     ]
   },
   {
@@ -11447,39 +11057,7 @@
     "featured": false,
     "order": 367,
     "relatedTutorialIds": [
-      "api-key-or-login-session-troubleshooting",
-      "current-limitations"
-    ]
-  },
-  {
-    "id": "current-limitations",
-    "slug": "current-limitations",
-    "title": "Current Limitations",
-    "description": "A short focused SceneMax3D lesson about Current Limitations.",
-    "categoryId": "publishing",
-    "subcategoryId": "publishing-itchio",
-    "subject": "Current Limitations",
-    "clipFocus": "Walk through Current Limitations from itch.io Integration Guide, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "itchio-integration.md",
-    "sourceLine": 274,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "publishing",
-      "publishing-itchio",
-      "itchio-integration",
-      "itch",
-      "io",
-      "integration",
-      "guide",
-      "current"
-    ],
-    "featured": false,
-    "order": 368,
-    "relatedTutorialIds": [
-      "security-notes"
+      "api-key-or-login-session-troubleshooting"
     ]
   },
   {
@@ -11629,8 +11207,7 @@
     "order": 373,
     "relatedTutorialIds": [
       "quick-example",
-      "which-light-to-use",
-      "decision-guide"
+      "which-light-to-use"
     ]
   },
   {
@@ -11661,38 +11238,7 @@
     "order": 374,
     "relatedTutorialIds": [
       "declaration-syntax",
-      "decision-guide",
       "common-attributes"
-    ]
-  },
-  {
-    "id": "decision-guide",
-    "slug": "decision-guide",
-    "title": "Decision Guide",
-    "description": "A short focused SceneMax3D lesson about Decision Guide.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "lighting-foundations",
-    "subject": "Decision Guide",
-    "clipFocus": "Explain Decision Guide from Lighting, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "lighting.md",
-    "sourceLine": 77,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "lighting-foundations",
-      "lighting",
-      "decision",
-      "guide"
-    ],
-    "featured": false,
-    "order": 375,
-    "relatedTutorialIds": [
-      "which-light-to-use",
-      "common-attributes",
-      "color-common-attributes"
     ]
   },
   {
@@ -11720,7 +11266,6 @@
     "featured": false,
     "order": 376,
     "relatedTutorialIds": [
-      "decision-guide",
       "color-common-attributes",
       "intensity-common-attributes"
     ]
@@ -14570,38 +14115,6 @@
     ]
   },
   {
-    "id": "what-it-adds",
-    "slug": "what-it-adds",
-    "title": "What It Adds",
-    "description": "A short focused SceneMax3D lesson about What It Adds.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "meshy-ai",
-    "subject": "What It Adds",
-    "clipFocus": "Walk through What It Adds from Meshy AI Plugin, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "meshy-ai-plugin.md",
-    "sourceLine": 15,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "meshy-ai",
-      "meshy-ai-plugin",
-      "meshy",
-      "ai",
-      "plugin",
-      "what",
-      "it"
-    ],
-    "featured": true,
-    "order": 466,
-    "relatedTutorialIds": [
-      "plugin-registration",
-      "user-workflow"
-    ]
-  },
-  {
     "id": "plugin-registration",
     "slug": "plugin-registration",
     "title": "Plugin Registration",
@@ -14628,7 +14141,6 @@
     "featured": false,
     "order": 467,
     "relatedTutorialIds": [
-      "what-it-adds",
       "user-workflow",
       "1-open-the-plugin-user-workflow"
     ]
@@ -15089,8 +14601,7 @@
     "order": 481,
     "relatedTutorialIds": [
       "meshy-community-search-and-download-meshy-api-integration",
-      "bundled-animation-preview",
-      "developer-notes"
+      "bundled-animation-preview"
     ]
   },
   {
@@ -15122,41 +14633,7 @@
     "order": 482,
     "relatedTutorialIds": [
       "import-metadata",
-      "developer-notes",
       "network-work-developer-notes"
-    ]
-  },
-  {
-    "id": "developer-notes",
-    "slug": "developer-notes",
-    "title": "Developer Notes",
-    "description": "A short focused SceneMax3D lesson about Developer Notes.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "meshy-ai",
-    "subject": "Developer Notes",
-    "clipFocus": "Walk through Developer Notes from Meshy AI Plugin, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "meshy-ai-plugin.md",
-    "sourceLine": 341,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "meshy-ai",
-      "meshy-ai-plugin",
-      "meshy",
-      "ai",
-      "plugin",
-      "developer",
-      "notes"
-    ],
-    "featured": false,
-    "order": 483,
-    "relatedTutorialIds": [
-      "bundled-animation-preview",
-      "network-work-developer-notes",
-      "downloaded-file-types-developer-notes"
     ]
   },
   {
@@ -15187,7 +14664,6 @@
     "featured": false,
     "order": 484,
     "relatedTutorialIds": [
-      "developer-notes",
       "downloaded-file-types-developer-notes",
       "safe-names-developer-notes"
     ]
@@ -18091,38 +17567,6 @@
     ]
   },
   {
-    "id": "file-placement-2",
-    "slug": "file-placement-2",
-    "title": "File Placement",
-    "description": "A short focused SceneMax3D lesson about File Placement.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "throw-motion-designer",
-    "subject": "File Placement",
-    "clipFocus": "Walk through File Placement from Throw Motion Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "throw-motion.md",
-    "sourceLine": 14,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "throw-motion-designer",
-      "throw-motion",
-      "throw",
-      "motion",
-      "designer",
-      "file",
-      "placement"
-    ],
-    "featured": true,
-    "order": 578,
-    "relatedTutorialIds": [
-      "creating-a-throw-motion-asset",
-      "from-the-main-menu-creating-a-throw-motion-asset"
-    ]
-  },
-  {
     "id": "creating-a-throw-motion-asset",
     "slug": "creating-a-throw-motion-asset",
     "title": "Creating a Throw Motion Asset",
@@ -18150,7 +17594,6 @@
     "featured": false,
     "order": 579,
     "relatedTutorialIds": [
-      "file-placement-2",
       "from-the-main-menu-creating-a-throw-motion-asset",
       "from-a-folder-context-menu-creating-a-throw-motion-asset"
     ]
@@ -19066,8 +18509,7 @@
     "order": 607,
     "relatedTutorialIds": [
       "parallel-throws-common-patterns",
-      "motion-events-common-patterns",
-      "runtime-notes"
+      "motion-events-common-patterns"
     ]
   },
   {
@@ -19098,41 +18540,7 @@
     "order": 608,
     "relatedTutorialIds": [
       "collision-handling-with-the-weapon-collider-common-patterns",
-      "runtime-notes",
       "troubleshooting-4"
-    ]
-  },
-  {
-    "id": "runtime-notes",
-    "slug": "runtime-notes",
-    "title": "Runtime Notes",
-    "description": "A short focused SceneMax3D lesson about Runtime Notes.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "throw-motion-designer",
-    "subject": "Runtime Notes",
-    "clipFocus": "Walk through Runtime Notes from Throw Motion Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "throw-motion.md",
-    "sourceLine": 757,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "throw-motion-designer",
-      "throw-motion",
-      "throw",
-      "motion",
-      "designer",
-      "runtime",
-      "notes"
-    ],
-    "featured": false,
-    "order": 609,
-    "relatedTutorialIds": [
-      "motion-events-common-patterns",
-      "troubleshooting-4",
-      "the-motion-asset-is-not-found-troubleshooting"
     ]
   },
   {
@@ -19162,7 +18570,6 @@
     "featured": false,
     "order": 610,
     "relatedTutorialIds": [
-      "runtime-notes",
       "the-motion-asset-is-not-found-troubleshooting",
       "the-equipped-weapon-is-not-found-troubleshooting"
     ]
@@ -19848,36 +19255,6 @@
     ]
   },
   {
-    "id": "file-placement-3",
-    "slug": "file-placement-3",
-    "title": "File Placement",
-    "description": "A short focused SceneMax3D lesson about File Placement.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "weapons-designer",
-    "subject": "File Placement",
-    "clipFocus": "Walk through File Placement from Weapons Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "weapons-designer.md",
-    "sourceLine": 13,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "weapons-designer",
-      "weapons",
-      "designer",
-      "file",
-      "placement"
-    ],
-    "featured": true,
-    "order": 633,
-    "relatedTutorialIds": [
-      "designer-workflow-3",
-      "overview-fields-designer-workflow"
-    ]
-  },
-  {
     "id": "designer-workflow-3",
     "slug": "designer-workflow-3",
     "title": "Designer Workflow",
@@ -19902,7 +19279,6 @@
     "featured": false,
     "order": 634,
     "relatedTutorialIds": [
-      "file-placement-3",
       "overview-fields-designer-workflow",
       "posture-fields-designer-workflow"
     ]

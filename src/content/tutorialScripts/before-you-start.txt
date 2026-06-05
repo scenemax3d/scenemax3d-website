@@ -1,5 +1,0 @@
-Before You Start explains a packaging or publishing step for a SceneMax game.
-Publishing is needed because a project that works locally still has to become a build that players can access from the correct game page.
-Use this when you need to package files, configure Butler, authenticate, choose the target page or channel, upload, or understand an upload error.
-A concrete game task is releasing a Dragon Gate test build. The build folder, itch dot io account, game page, channel, and authentication must all match.
-The benefit is a predictable release process instead of guessing why an upload failed.

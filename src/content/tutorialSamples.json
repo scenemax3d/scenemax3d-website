@@ -4,16 +4,6 @@
     "caption": "SceneMax example from README.md.",
     "code": "// Set up a full-screen game with a skybox\nScreen.mode full\nCanvas.size 1600,900\nskybox.show \"lagoon\"\n\n// Create a character and make the camera follow it\nplayer => sinbad\nCamera.chase player\n\n// Move the player when a key is pressed\nwhen key up is pressed do\n  player.move forward 3 in 1 second\nend do"
   },
-  "read-scenemax-syntax-out-loud": {
-    "language": "scenemax",
-    "caption": "SceneMax example from README.md.",
-    "code": "// Set up a full-screen game with a skybox\nScreen.mode full\nCanvas.size 1600,900\nskybox.show \"lagoon\"\n\n// Create a character and make the camera follow it\nplayer => sinbad\nCamera.chase player\n\n// Move the player when a key is pressed\nwhen key up is pressed do\n  player.move forward 3 in 1 second\nend do"
-  },
-  "use-the-academy-roadmap": {
-    "language": "scenemax",
-    "caption": "SceneMax example from README.md.",
-    "code": "// Set up a full-screen game with a skybox\nScreen.mode full\nCanvas.size 1600,900\nskybox.show \"lagoon\"\n\n// Create a character and make the camera follow it\nplayer => sinbad\nCamera.chase player\n\n// Move the player when a key is pressed\nwhen key up is pressed do\n  player.move forward 3 in 1 second\nend do"
-  },
   "quick-start": {
     "language": "scenemax",
     "caption": "SceneMax example from README.md.",
@@ -93,11 +83,6 @@
     "language": "scenemax",
     "caption": "SceneMax example from audio.md.",
     "code": "audio.play \"walking1\" loop\nwait 10 seconds\naudio.stop \"walking1\""
-  },
-  "why-this-matters": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Why This Matters.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
   "how-it-works": {
     "language": "scenemax",
@@ -323,11 +308,6 @@
     "language": "scenemax",
     "caption": "Fighting-game-style example for Building From Source.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "overview": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "my_camera_system = camera.system.third_person(player1, distance 9, height 3)\ncamera.system = my_camera_system"
   },
   "camera-modifiers": {
     "language": "scenemax",
@@ -1114,11 +1094,6 @@
     "caption": "SceneMax example from camera-systems.md.",
     "code": "hit_fx = camera.system.modifiers.hit_modifier"
   },
-  "naming-note": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier"
-  },
   "choosing-the-right-camera-system": {
     "language": "scenemax",
     "caption": "SceneMax example from camera-systems.md.",
@@ -1469,16 +1444,6 @@
     "caption": "SceneMax example from effects.md.",
     "code": "effects.TimeOrbit.show : pos (0,0,0) and end size = 7 and duration = 10"
   },
-  "status-update": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Status Update.",
-    "code": "fire_burst => effects.effekseer.A_Salamander1\nfire_burst.play pos (player1.\"mixamorig:RightHand\"), attr = [\"play_back_speed\" 1.1]"
-  },
-  "goal": {
-    "language": "scenemax",
-    "caption": "SceneMax example from effekseer-particle-designer.md.",
-    "code": "resources/\n  effects/\n    fire_burst_01/\n      fire_burst_01.smeffectdesign\n      main.efkefc\n      Texture/\n      Model/\n      Sound/\n      Material/\n      Curve/"
-  },
   "why-a-new-path-is-required": {
     "language": "scenemax",
     "caption": "SceneMax example from effekseer-particle-designer.md.",
@@ -1604,11 +1569,6 @@
     "caption": "Fighting-game-style example for Key Risks.",
     "code": "fire_burst => effects.effekseer.A_Salamander1\nfire_burst.play pos (player1.\"mixamorig:RightHand\"), attr = [\"play_back_speed\" 1.1]"
   },
-  "recommendation": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Recommendation.",
-    "code": "fire_burst => effects.effekseer.A_Salamander1\nfire_burst.play pos (player1.\"mixamorig:RightHand\"), attr = [\"play_back_speed\" 1.1]"
-  },
   "keyboard-events": {
     "language": "scenemax",
     "caption": "SceneMax example from events-and-input.md.",
@@ -1623,11 +1583,6 @@
     "language": "scenemax",
     "caption": "SceneMax example from events-and-input.md.",
     "code": "D belongs to the enemies group"
-  },
-  "file-placement": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for File Placement.",
-    "code": "player1.ik = \"ik_test_ik\"\nplayer1.ik.layer2.play : target player2.weapon.colliders[\"weapon_sphere_collider_1\"], blend 0.2, weight 1\nwait 0.5 seconds\nplayer1.ik = empty"
   },
   "designer-workflow": {
     "language": "scenemax",
@@ -1729,16 +1684,6 @@
     "caption": "SceneMax example from ik-designer.md.",
     "code": "player.ik.right_hand_reach.stop : blend 0.15\nplayer.ik = empty"
   },
-  "what-scenemax-supports": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for What SceneMax Supports.",
-    "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
-  },
-  "before-you-start": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Before You Start.",
-    "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
-  },
   "project-settings": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Project Settings.",
@@ -1789,11 +1734,6 @@
     "caption": "Fighting-game-style example for How Upload Targets Are Built.",
     "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
   },
-  "what-the-user-sees": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for What The User Sees.",
-    "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
-  },
   "recommended-setup": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Recommended Setup.",
@@ -1834,11 +1774,6 @@
     "caption": "Fighting-game-style example for Security Notes.",
     "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
   },
-  "current-limitations": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Current Limitations.",
-    "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
-  },
   "switching-scenes": {
     "language": "scenemax",
     "caption": "SceneMax example from levels-and-shared-state.md.",
@@ -1865,11 +1800,6 @@
     "code": "name => Lights.type : attribute value, attribute value"
   },
   "which-light-to-use": {
-    "language": "scenemax",
-    "caption": "SceneMax example from lighting.md.",
-    "code": "warmLamp => Lights.point : color warm, intensity 700 lumens, pos (2,3,1), range 8\nmoon => Lights.directional : color cool, intensity 0.8, direction (0.2,-1,0.1)\nalert => Lights.point : color red, intensity 2.0, pos (0,2,0), range 5\ncustom => Lights.spot : color \"#66ccff\", pos (0,5,0), direction (0,-1,0), angle 25"
-  },
-  "decision-guide": {
     "language": "scenemax",
     "caption": "SceneMax example from lighting.md.",
     "code": "warmLamp => Lights.point : color warm, intensity 700 lumens, pos (2,3,1), range 8\nmoon => Lights.directional : color cool, intensity 0.8, direction (0.2,-1,0.1)\nalert => Lights.point : color red, intensity 2.0, pos (0,2,0), range 5\ncustom => Lights.spot : color \"#66ccff\", pos (0,5,0), direction (0,-1,0), angle 25"
@@ -2324,11 +2254,6 @@
     "caption": "Fighting-game-style example for Common Pitfalls.",
     "code": "// After an AI tool adds a primitive or UI widget, validate it in game code\ndebug.on\nrun set_camera_on_player\nheader.print \"Check generated scene entities\""
   },
-  "what-it-adds": {
-    "language": "scenemax",
-    "caption": "SceneMax example from meshy-ai-plugin.md.",
-    "code": "public class MeshySceneMax3DPlugin extends PluginBase {\n    static final String VIEW_ID = \"meshy.ai.models\";\n\n    @Override\n    public SceneMaxPluginManifest getManifest() {\n        return new SceneMaxPluginManifest(\n                \"meshy.ai\",\n                \"Meshy AI\",\n                \"1.0.0\",\n                \"Create, browse, refine, download and import Meshy AI 3D models.\",\n                Arrays.asList(\"menu\", \"toolbar\", \"view\", \"asset-provider\", \"settings\", \"asset-import\"));\n    }\n}"
-  },
   "plugin-registration": {
     "language": "scenemax",
     "caption": "SceneMax example from meshy-ai-plugin.md.",
@@ -2408,11 +2333,6 @@
     "language": "scenemax",
     "caption": "SceneMax example from meshy-ai-plugin.md.",
     "code": "model_1.\"walk\""
-  },
-  "developer-notes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from meshy-ai-plugin.md.",
-    "code": "metadata.put(\"isStatic\", staticModelCheck.isSelected());"
   },
   "network-work-developer-notes": {
     "language": "scenemax",
@@ -2884,11 +2804,6 @@
     "caption": "SceneMax example from sprites.md.",
     "code": "br.play (0 to 14) loop 5 times"
   },
-  "file-placement-2": {
-    "language": "scenemax",
-    "caption": "SceneMax example from throw-motion.md.",
-    "code": "motion = system.motion(\"motion_axe_throw\")"
-  },
   "creating-a-throw-motion-asset": {
     "language": "scenemax",
     "caption": "SceneMax example from throw-motion.md.",
@@ -3039,11 +2954,6 @@
     "caption": "SceneMax example from throw-motion.md.",
     "code": "motion = system.motion(\"motion_axe_throw\", target crystal_box)\nmotion.event(\"on_end\") = {\n}\nmotion.event(\"on_index\", 50) = {\n}\nmotion.apply player1.weapon"
   },
-  "runtime-notes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from throw-motion.md.",
-    "code": "motion = system.motion(\"motion_axe_throw\")"
-  },
   "troubleshooting-4": {
     "language": "scenemax",
     "caption": "SceneMax example from throw-motion.md.",
@@ -3158,11 +3068,6 @@
     "language": "scenemax",
     "caption": "SceneMax example from variables-and-data-types.md.",
     "code": "var @allow_collision_check = coll==0 &&\n  is_jumping==0 &&\n  is_old_fighter_jumping==0 &&\n  ko==0"
-  },
-  "file-placement-3": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for File Placement.",
-    "code": "player1 => dynamic fighter1 : pos (0,0,0), scale 3\nplayer1.weapon = \"weapon_player_weapon\"\nplayer1.weapon.posture = \"fight\"\nplayer1.\"Sword Slash\""
   },
   "designer-workflow-3": {
     "language": "scenemax",
