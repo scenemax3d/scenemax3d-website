@@ -1,0 +1,5 @@
+Defining a Procedure explains how to package repeated behavior into one reusable command.
+Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
+In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
+The sample begins with my_proc = {. In plain language, it shows the command or data shape used by this lesson.
+The key idea is reuse: one named behavior can be called from many places.

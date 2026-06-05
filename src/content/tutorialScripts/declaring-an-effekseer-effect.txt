@@ -1,0 +1,5 @@
+Declaring An Effekseer Effect explains how visuals make the scene clearer or more expressive.
+Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
+In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
+The sample begins with my_effect => effects.effekseer.my_effect_name. In plain language, it creates or loads an object and gives it a name for later commands.
+The key idea is readability first. Effects and lights should support the action, not distract from it.

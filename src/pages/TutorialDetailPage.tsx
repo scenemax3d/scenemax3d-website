@@ -10,6 +10,7 @@ import {
   getCategoryTitle,
   getRelatedTutorials,
   getSubcategoryTitle,
+  getTutorialScript,
   getTutorialNeighbors,
   siteContent,
 } from '../utils/content'
@@ -52,6 +53,7 @@ export function TutorialDetailPage() {
   const { previous, next } = getTutorialNeighbors(tutorial)
   const related = getRelatedTutorials(tutorial)
   const sampleCode = sampleState?.tutorialId === tutorial.id ? sampleState.sample : undefined
+  const tutorialScript = getTutorialScript(tutorial)
 
   return (
     <section className="py-10 md:py-16">
@@ -65,7 +67,7 @@ export function TutorialDetailPage() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <article>
-            <TutorialScriptPlayer key={tutorial.id} tutorial={tutorial} />
+            <TutorialScriptPlayer key={tutorial.id} scriptText={tutorialScript} tutorial={tutorial} />
             <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
                 {getCategoryTitle(tutorial.categoryId)}

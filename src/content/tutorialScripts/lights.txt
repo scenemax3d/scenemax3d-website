@@ -1,0 +1,5 @@
+Lights explains a helper for hits, attachments, resources, or debugging around objects.
+Use this when visual objects also need gameplay meaning, such as being hit, attached, detected, or debugged.
+In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
+The sample begins with lights.add probe "5" : pos (10,5,0). In plain language, it changes visibility, mood, or visual focus.
+The key idea is to know what problem this feature solves before using it in a larger scene.

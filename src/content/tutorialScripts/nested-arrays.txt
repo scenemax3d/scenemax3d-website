@@ -1,0 +1,5 @@
+Nested arrays are arrays that contain other arrays.
+They are useful when one list is not enough because the data has groups inside groups. A regular array can store one row of values; a nested array can store several rows, several paths, or several groups of options.
+In the sample, arr1, arr2, and arr3 are separate arrays, and my_arrays stores those arrays together. That means the script can choose which list to use first, and then choose a value inside that list.
+A concrete game task is storing several patrol paths or several waves of enemies. Each inner array can describe one path or one wave, while the outer array keeps all of them together.
+The benefit is structure. Nested arrays let you keep related lists organized without inventing many separate variable names.

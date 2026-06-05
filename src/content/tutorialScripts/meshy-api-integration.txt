@@ -1,0 +1,5 @@
+Meshy API Integration explains a Meshy AI asset workflow step.
+Meshy is useful when the project needs a generated or community model instead of building every asset by hand.
+The important idea is to move from prompt or search, to preview, to import, and then to a named project asset.
+A concrete game task is adding a new arena prop or creature model. Preview first so you know whether the model is static, rigged, animated, and sized appropriately.
+The benefit is faster asset creation, but only if imported models are named clearly and checked before they become part of the scene.

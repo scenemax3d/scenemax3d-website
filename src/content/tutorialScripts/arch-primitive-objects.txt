@@ -1,0 +1,5 @@
+Arch, Primitive Objects explains how a simple 3D shape is used in the scene.
+Use this when a simple shape is enough for testing, blocking, collision, or early level layout.
+In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
+The sample begins with entry_arch => arch. In plain language, it creates or loads an object and gives it a name for later commands.
+The key idea is to know what problem this feature solves before using it in a larger scene.

@@ -1,0 +1,5 @@
+Random Numbers explains how one named value is stored, read, or updated.
+Use this when one value needs a meaningful name. It is better than repeating the same number or text in several commands.
+In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
+The sample begins with var random_obj = my_objects[rnd(4)]. In plain language, it creates one named list instead of many separate variables.
+The key idea is meaning: the name explains what the value represents in the game.

@@ -1,0 +1,5 @@
+Path bases, Shared Conventions explains an AI-assisted SceneMax workflow.
+Assistant workflows are needed when the project is large enough that context matters: the active project, selected file, open scene, available assets, and current errors all affect the right answer.
+Use this when the assistant should inspect the project, suggest a targeted change, create content, compare results, or help debug a specific problem.
+A concrete game task is asking for help with Dragon Gate movement or camera logic. The assistant should first understand the relevant script or scene, then suggest the smallest useful change.
+The benefit is project-aware help instead of generic advice.

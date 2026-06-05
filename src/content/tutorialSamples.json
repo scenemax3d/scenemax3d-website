@@ -67,7 +67,7 @@
   "defining-arrays": {
     "language": "scenemax",
     "caption": "SceneMax example from arrays.md.",
-    "code": "var arr=[10,20,30,40,50,60,70]"
+    "code": "var objects = [\"Sinbad\", \"Ninja\", \"Fighter1\", \"helicopter\", \"house\"]\nmy_object => (objects[rnd(5)])\nmy_object.move left 5 in 3 Seconds"
   },
   "object-arrays": {
     "language": "scenemax",

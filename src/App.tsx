@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { DownloadPage } from './pages/DownloadPage'
 import { HomePage } from './pages/HomePage'
 import { SimplePage } from './pages/SimplePage'
 import { TutorialDetailPage } from './pages/TutorialDetailPage'
@@ -23,17 +24,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="download"
-          element={
-            <SimplePage
-              description="Download links, release notes, requirements, and installation steps will live here."
-              eyebrow="Download"
-              items={['Latest release', 'Windows requirements', 'GitHub source', 'Installation notes']}
-              title="Download SceneMax3D"
-            />
-          }
-        />
+        <Route path="download" element={<DownloadPage />} />
         <Route
           path="showcase"
           element={

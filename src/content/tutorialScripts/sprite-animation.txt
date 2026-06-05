@@ -1,0 +1,5 @@
+Sprite Animation explains how images, billboards, animation, or materials are used visually.
+Use this when a flat image, billboard, animation, or material is the clearest way to show something.
+In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
+The sample begins with br.play (0 to 14) loop 5 times. In plain language, it controls feedback the player can see or hear.
+The key idea is to know what problem this feature solves before using it in a larger scene.

@@ -4,6 +4,19 @@ import rawTutorialSubcategories from '../content/tutorialSubcategories.json'
 import rawTutorials from '../content/tutorials.json'
 import type { Difficulty, SiteContent, Tutorial } from '../types/content'
 
+const rawTutorialScripts = import.meta.glob('../content/tutorialScripts/*.txt', {
+  eager: true,
+  import: 'default',
+  query: '?raw',
+}) as Record<string, string>
+
+const tutorialScriptsById = new Map(
+  Object.entries(rawTutorialScripts).map(([path, script]) => {
+    const id = path.split('/').pop()?.replace(/\.txt$/, '') ?? path
+    return [id, script.trim()]
+  }),
+)
+
 export const siteContent = {
   ...rawSiteBase,
   tutorialCategories: rawTutorialCategories,
@@ -62,6 +75,10 @@ export function getRelatedTutorials(tutorial: Tutorial) {
   return tutorial.relatedTutorialIds
     .map((id) => orderedTutorials.find((item) => item.id === id))
     .filter((item): item is Tutorial => Boolean(item))
+}
+
+export function getTutorialScript(tutorial: Tutorial) {
+  return tutorialScriptsById.get(tutorial.id) ?? tutorial.tutorialScript?.trim() ?? ''
 }
 
 export function formatDifficulty(difficulty: Difficulty) {

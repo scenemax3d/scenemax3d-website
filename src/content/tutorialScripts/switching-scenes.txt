@@ -1,0 +1,5 @@
+Switching Scenes explains a gameplay rule or feedback system.
+Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
+In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
+The sample begins with switch to "level2". In plain language, it shows the command or data shape used by this lesson.
+The key idea is to know what problem this feature solves before using it in a larger scene.

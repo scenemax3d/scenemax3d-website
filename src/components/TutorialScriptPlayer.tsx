@@ -46,6 +46,7 @@ interface ParsedTutorialScript {
 }
 
 interface TutorialScriptPlayerProps {
+  scriptText?: string
   tutorial: Tutorial
 }
 
@@ -63,8 +64,8 @@ function buildDefaultTutorialScript(tutorial: Tutorial) {
   ].join('\n')
 }
 
-export function TutorialScriptPlayer({ tutorial }: TutorialScriptPlayerProps) {
-  const script = tutorial.tutorialScript?.trim() || buildDefaultTutorialScript(tutorial)
+export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPlayerProps) {
+  const script = scriptText?.trim() || tutorial.tutorialScript?.trim() || buildDefaultTutorialScript(tutorial)
   const parsedScript = useMemo(() => parseTutorialScript(script), [script])
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)

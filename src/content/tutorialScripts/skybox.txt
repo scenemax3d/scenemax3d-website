@@ -1,0 +1,5 @@
+Skybox explains how information is shown on the screen.
+Use this when the player needs information without reading code or guessing what happened.
+In a game screen, this helps show health, score, prompts, messages, buttons, or feedback while the player is focused on action.
+The sample begins with skybox.show "lagoon". In plain language, it shows the command or data shape used by this lesson.
+The key idea is to know what problem this feature solves before using it in a larger scene.

@@ -1,0 +1,5 @@
+When Conditions, Go Conditions explains how a script decides what to do next.
+Use this when the game situation changes. A fixed script is fine for a demo, but a game needs branches, loops, and conditions.
+In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
+The sample begins with when x==1 && y==2 do. In plain language, it waits for a player input or event before running the commands inside.
+The key idea is decision making: game logic reacts to state instead of running blindly.

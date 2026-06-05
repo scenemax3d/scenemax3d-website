@@ -1,0 +1,5 @@
+Light Types In Detail explains how visuals make the scene clearer or more expressive.
+Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
+In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
+The sample begins with sun => Lights.directional : color "#fff3d2", intensity 3.0, direction (-0.3,-0.8,-0.4), shadow high. In plain language, it creates or loads an object and gives it a name for later commands.
+The key idea is readability first. Effects and lights should support the action, not distract from it.

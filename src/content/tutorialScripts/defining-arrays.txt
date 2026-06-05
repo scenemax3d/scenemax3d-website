@@ -1,0 +1,6 @@
+An array is one variable that holds many values in a fixed order.
+A regular variable is perfect for one value, like score or player health. But if you need a list of damage values, spawn points, animation names, or path positions, separate variables quickly become hard to read and hard to loop through.
+The sample creates an array named objects with five model names: Sinbad, Ninja, Fighter1, helicopter, and house. The script then chooses one random name from the array, creates that model, and moves it left.
+This is easier than writing five separate creation commands and then choosing between them with many if statements. The array keeps all possible model types in one place, and the random index chooses which one to use.
+A concrete game task is spawning a random object at the start of a level. One time the game may create a fighter, another time a helicopter, and another time a house. The same idea can also choose random enemies, pickups, effects, or arena props.
+Use an array whenever the question is not what is the value, but which value from this group should I use now.

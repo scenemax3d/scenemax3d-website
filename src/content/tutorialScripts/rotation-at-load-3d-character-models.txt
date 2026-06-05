@@ -1,0 +1,5 @@
+Rotation at Load, 3D Character Models explains how a model or character becomes a controllable scene object.
+Use this when a simple primitive is no longer enough and the scene needs a character, vehicle, or detailed object.
+In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
+The sample begins with d => dragon : turn 90. In plain language, it creates or loads an object and gives it a name for later commands.
+The key idea is to know what problem this feature solves before using it in a larger scene.

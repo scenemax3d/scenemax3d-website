@@ -1,0 +1,5 @@
+Object arrays are lists that hold objects instead of plain numbers.
+They are needed when the same command should work on several scene objects. Separate variables are fine for s1, s2, and s3, but they do not help when you want to choose one of them randomly or loop over all of them.
+The sample creates several objects, stores them in my_objects, chooses one random object, and turns that chosen object. The array makes the group feel like one collection.
+A concrete game task is choosing a random target in an arena. You can place fighters, crates, pickups, or enemies in one array, pick one item, and apply the action to that item. Without the array, you would need a separate if statement for every possible target.
+The main benefit is that the code works with the group, while still letting you control one object at a time.

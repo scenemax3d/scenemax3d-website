@@ -1,0 +1,5 @@
+Read SceneMax Syntax Out Loud explains one first working SceneMax building block.
+Use this when the project needs this exact behavior, not as a general rule for every script.
+For a first SceneMax project, the goal is a small result that works before the beginner adds more features.
+The sample begins with Screen.mode full. In plain language, it shows the command or data shape used by this lesson.
+The key idea is to know what problem this feature solves before using it in a larger scene.

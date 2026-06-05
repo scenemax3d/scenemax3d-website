@@ -1,0 +1,5 @@
+Dynamic Type Creation explains how scene objects are created, reused, hidden, released, or removed.
+Use this when objects appear and disappear during play. Reusing or removing objects keeps the scene manageable.
+In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
+The sample begins with var model_type="Sinbad". In plain language, it gives a value a name so later commands can read or change it.
+The key idea is to know what problem this feature solves before using it in a larger scene.

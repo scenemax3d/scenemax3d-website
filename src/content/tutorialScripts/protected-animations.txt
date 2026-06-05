@@ -1,0 +1,5 @@
+Protected Animations explains how a 3D character or model plays animation clips.
+Use this when a model needs a named action, a controlled speed, a chain of actions, or a protected animation.
+In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
+The sample begins with fighter.jump_high : protected. In plain language, it shows the command or data shape used by this lesson.
+The key idea is to know what problem this feature solves before using it in a larger scene.
