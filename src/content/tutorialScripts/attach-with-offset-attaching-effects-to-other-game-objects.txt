@@ -1,5 +1,4 @@
-Attach With Offset, Attaching Effects To Other Game Objects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with drone => drone_bot. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
+Sometimes the effect should follow an object, but not from the object's exact center.
+Add a pos offset to the attach command. The offset is local to the parent, so it moves with the parent.
+In the sample, aura_fx attaches to player with pos zero, one, zero. That places the effect one unit above the model while still following it.

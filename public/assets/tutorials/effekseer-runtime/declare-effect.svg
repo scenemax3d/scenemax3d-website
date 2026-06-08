@@ -1,0 +1,11 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Declare an Effekseer effect object">
+  <rect width="960" height="540" fill="#0f172a"/>
+  <rect x="36" y="40" width="888" height="460" rx="8" fill="#172033" stroke="#38bdf8" stroke-opacity=".35"/>
+  <text x="70" y="105" font-family="Segoe UI, Arial" font-size="34" font-weight="700" fill="#f8fafc">Declare the effect first</text>
+  <text x="70" y="172" font-family="Consolas, monospace" font-size="30" fill="#67e8f9">fire_fx =&gt; effects.effekseer.A_Salamander1</text>
+  <text x="70" y="248" font-family="Segoe UI, Arial" font-size="24" fill="#cbd5e1">fire_fx becomes the name you use later.</text>
+  <text x="70" y="292" font-family="Segoe UI, Arial" font-size="24" fill="#cbd5e1">A_Salamander1 is the imported Effekseer asset.</text>
+  <circle cx="740" cy="300" r="78" fill="#fb923c" opacity=".22"/>
+  <circle cx="740" cy="300" r="48" fill="#67e8f9" opacity=".32"/>
+  <text x="683" y="310" font-family="Segoe UI, Arial" font-size="22" font-weight="700" fill="#f8fafc">effect object</text>
+</svg>

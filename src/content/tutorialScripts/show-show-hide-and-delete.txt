@@ -1,5 +1,4 @@
-Show, Show, Hide, And Delete explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with portal_fx.show. In plain language, it shows the command or data shape used by this lesson.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/show-hide-delete-loop.mp4]
+Show makes a hidden effect visible again.
+The full beginner pattern is: create and play the effect, hide it when it should disappear, then show it when it should return.
+This is useful when an effect object is already created and you want to reuse it without declaring it again. For example, a shield aura can be hidden when the shield is off, then shown again when the player activates the shield.

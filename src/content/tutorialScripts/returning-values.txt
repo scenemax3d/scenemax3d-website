@@ -1,5 +1,6 @@
-Returning Values explains how to package repeated behavior into one reusable command.
-Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with get_bonus = {. In plain language, it shows the command or data shape used by this lesson.
-The key idea is reuse: one named behavior can be called from many places.
+[img: /assets/tutorials/language-fundamentals/returning-values.svg]
+A returning-value pattern lets one block calculate a result and give that result back to the caller.
+The documented return command is meant for that job, but this runtime-safe sample uses an output variable because the current runtime has trouble with return blocks.
+Here, get_bonus calculates the bonus by setting score_bonus to 25.
+The caller runs get_bonus, then adds score_bonus to the score.
+Use this pattern for scoring, rewards, calculations, and other small results that one reusable block should produce.

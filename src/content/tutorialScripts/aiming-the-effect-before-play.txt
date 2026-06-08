@@ -1,5 +1,4 @@
-Aiming The Effect Before Play explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with beam_fx => effects.effekseer.energy_beam. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
+Some effects have a direction. A laser, cone blast, missile trail, or breath attack should face the target before it starts.
+Use look at before play. In the sample, beam_fx turns toward enemy, then plays from player.
+This separates aiming from starting the effect, which makes the code easier to read and easier to change later.

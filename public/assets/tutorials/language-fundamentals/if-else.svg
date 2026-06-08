@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#061522"/>
+      <stop offset="0.58" stop-color="#101827"/>
+      <stop offset="1" stop-color="#082f2c"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .eyebrow { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #67e8f9; letter-spacing: 3px; }
+    .title { font: 900 36px 'Segoe UI', Arial, sans-serif; fill: #f8fafc; }
+    .section { font: 800 22px 'Segoe UI', Arial, sans-serif; fill: #67e8f9; }
+    .body { font: 500 23px 'Segoe UI', Arial, sans-serif; fill: #dbeafe; }
+    .code { font: 700 24px Consolas, 'Courier New', monospace; fill: #f8fafc; }
+    .hint { font: 500 18px 'Segoe UI', Arial, sans-serif; fill: #a7b4c8; }
+    .codeBox { fill: rgba(15, 23, 42, 0.88); stroke: rgba(103, 232, 249, 0.34); stroke-width: 2; }
+    .resultBox { fill: rgba(10, 34, 43, 0.78); stroke: rgba(52, 211, 153, 0.32); stroke-width: 2; }
+  </style>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <circle cx="1160" cy="80" r="160" fill="#164e63" opacity="0.16"/>
+  <circle cx="170" cy="690" r="210" fill="#14b8a6" opacity="0.10"/>
+  <text x="48" y="60" class="eyebrow">SceneMax Language Fundamentals</text>
+  <text x="48" y="102" class="title">If / Else</text>
+  <rect x="48" y="132" width="560" height="432" rx="8" class="codeBox"/>
+  <text x="76" y="176" class="section">Sample code</text>
+  <text x="76" y="218" class="code">var score = 10</text>
+  <text x="76" y="248" class="code"> </text>
+  <text x="76" y="278" class="code">if score == 10 {</text>
+  <text x="76" y="308" class="code">  header.print &quot;bonus unlocked&quot;</text>
+  <text x="76" y="338" class="code">} else {</text>
+  <text x="76" y="368" class="code">  header.print &quot;keep collecting&quot;</text>
+  <text x="76" y="398" class="code">}</text>
+  <rect x="662" y="132" width="560" height="432" rx="8" class="resultBox"/>
+  <text x="694" y="176" class="section">Game use</text>
+  <text x="694" y="218" class="body">A reward should unlock only when the player</text>
+  <text x="694" y="248" class="body">reaches the target score.</text>
+  <text x="694" y="302" class="section">What the code does</text>
+  <text x="694" y="344" class="body">The if branch runs when the condition is</text>
+  <text x="694" y="374" class="body">true. Otherwise, the else branch runs.</text>
+  <text x="48" y="626" class="hint">The left side is the lesson code. The right side explains the runtime meaning in a real game.</text>
+</svg>

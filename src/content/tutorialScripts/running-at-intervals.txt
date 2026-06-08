@@ -1,5 +1,6 @@
-Running at Intervals explains how to package repeated behavior into one reusable command.
-Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with run my_proc every 1.5 seconds. In plain language, it shows the command or data shape used by this lesson.
-The key idea is reuse: one named behavior can be called from many places.
+[img: /assets/tutorials/language-fundamentals/running-at-intervals.svg]
+Running at intervals repeats a procedure on a timer.
+The phrase every 1.5 seconds tells SceneMax how often to run it.
+In this example, tick can be used as a repeated spawn check.
+Intervals are useful when a rule should happen over time but not every frame.
+Use them for spawning enemies, updating status text, checking objectives, or creating timed effects.

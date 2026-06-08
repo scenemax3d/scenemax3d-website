@@ -1,5 +1,6 @@
-Groups & Ray Checks explains how the game reacts to player input or scene events.
-Use this when the timing depends on the player or the scene. The command runs because something happened.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with D belongs to the enemies group. In plain language, it shows the command or data shape used by this lesson.
-The key idea is timing: the command belongs to a moment, not just to a line number.
+[img: /assets/tutorials/language-fundamentals/groups-and-ray-checks.svg]
+Groups let you label several objects with the same role.
+A ray check asks whether an imaginary line hits an object in that group.
+In this example, enemy1 belongs to the enemies group. The ray check tests that group from the player position.
+This is useful for aiming, selecting, line-of-sight checks, and mouse picking.
+Groups keep the rule clean because the script checks enemies as a group instead of checking every enemy name separately.

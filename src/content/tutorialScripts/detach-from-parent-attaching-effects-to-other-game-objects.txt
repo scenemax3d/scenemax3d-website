@@ -1,5 +1,4 @@
-Detach From Parent, Attaching Effects To Other Game Objects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with smoke_fx.detach from parent. In plain language, it shows the command or data shape used by this lesson.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
+Detach from parent breaks the attachment. After detaching, the effect no longer follows the model.
+This is useful when an effect starts on a character but should stay behind, such as a dropped magical field or a smoke cloud.
+In the sample, the aura starts attached to player. After one second, detach from parent makes it independent again.

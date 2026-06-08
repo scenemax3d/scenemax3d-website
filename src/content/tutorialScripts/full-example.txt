@@ -1,5 +1,7 @@
-Full Example explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with player => sinbad. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/looping-aura-loop.mp4]
+This full example uses effects the way a real combat scene uses them. The player gets a shield aura, and a beam effect fires toward the enemy.
+[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
+First, declare the player, enemy, shield effect, and beam effect. Attach the shield to the player and play it with loop, because a shield should stay active.
+Then aim the beam at the enemy with look at, and play it from the player with a faster playback speed.
+[video: /assets/tutorials/effekseer-runtime/show-hide-delete-loop.mp4]
+At the end, hide and show the shield to demonstrate visibility control, then delete both effects to clean up.

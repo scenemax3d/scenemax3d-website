@@ -1,5 +1,10 @@
-Quick Start explains one first working SceneMax building block.
-Use this when the project needs this exact behavior, not as a general rule for every script.
-For a first SceneMax project, the goal is a small result that works before the beginner adds more features.
-The sample begins with Screen.mode full. In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[video: /assets/tutorials/getting-started/03-create-folder-flow.mp4]
+Inside the new project, create a folder for the first playable scene. In this tutorial the folder is named dragon_scene.
+SceneMax creates starter files such as main and tests inside that folder.
+[video: /assets/tutorials/getting-started/04-add-script-and-edit-hello-world.mp4]
+Add a new script file inside the folder and name it hello_world.
+Use it for the first readable version of the scene: load the bundled dragon model, show a skybox, attach the camera, play the dragon fly animation, and rotate the dragon left.
+[video: /assets/tutorials/getting-started/05-edit-main-entry-point.mp4]
+The saved game entry point is the folder main file, so copy the working dragon scene into main and save it.
+[video: /assets/tutorials/getting-started/05-dragon-hello-world-runtime.mp4]
+Run the scene to check the behavior: the default dragon model loads, plays fly, and turns left through repeated 360 degree rotations.

@@ -1,5 +1,4 @@
-Example, Multiple Runtime Inputs, Looping An Effect explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with orb_fx => effects.effekseer.magic_orb. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/runtime-speed-loop.mp4]
+A looped effect can also receive runtime attributes. This lets one effect asset behave differently in different gameplay situations.
+In the sample, play_back_speed slows the loop slightly, and input0 and input1 pass extra values to the Effekseer asset.
+The important beginner rule is simple: speed always controls timing, but input values only matter if the effect designer connected them inside the asset.

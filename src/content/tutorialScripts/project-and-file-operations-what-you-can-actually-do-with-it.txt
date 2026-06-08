@@ -1,6 +1,13 @@
+[img: /assets/tutorials/project-workflow/ide-project-open.png]
 A project is the main folder for one SceneMax game or demo. It keeps scripts, scenes, models, images, sounds, UI files, and generated files together.
 Projects are needed because a game has many files. If every file is loose on the computer, it becomes hard to know what belongs to the game, what should be packaged, and what can be safely edited.
-To create a project, use File, Projects, New Project. To open an existing one, use File, Projects, and select it from the project list.
+[img: /assets/tutorials/project-workflow/ide-file-menu.png]
+To create a new project, start from the top menu and click File.
+[img: /assets/tutorials/project-workflow/ide-projects-submenu.png]
+Inside File, move to Projects, then choose New Project.
+[img: /assets/tutorials/project-workflow/ide-new-project-dialog.png]
+SceneMax opens the Project Name window. Type a short project name, then press OK. SceneMax creates a new project folder and switches the IDE to that project.
+To open an existing project later, use File, Projects, and select one of the project names in the list.
 Folders inside the project keep work organized. You might use folders for scripts, scenes, assets, UI, effects, and tests. Create a folder under the project when a group of files has the same job.
 To add a script file, choose the folder where it belongs and create the new script there. To edit an existing file, double-click it in the project browser; SceneMax opens an editor tab for that file.
 Files are saved when you press Control plus S, and the current script is also saved when you run it with F8.

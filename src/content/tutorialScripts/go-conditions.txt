@@ -1,5 +1,6 @@
-Go Conditions explains how a script decides what to do next.
-Use this when the game situation changes. A fixed script is fine for a demo, but a game needs branches, loops, and conditions.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with [game_status==0 && ko==1]. In plain language, it shows the command or data shape used by this lesson.
-The key idea is decision making: game logic reacts to state instead of running blindly.
+[img: /assets/tutorials/language-fundamentals/go-conditions.svg]
+A go condition is a gate placed before a procedure, event, or action.
+The command below the condition can run only when the condition is true.
+Here, game_over is allowed only when game_status equals 0 and ko equals 1.
+This protects gameplay actions from running at the wrong time.
+Use go conditions for attacks, game-over screens, level transitions, and input that should work only in a specific state.

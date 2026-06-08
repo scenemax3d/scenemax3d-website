@@ -1,5 +1,4 @@
-Play At A Fixed Position, Playing An Effect explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with impact_fx => effects.effekseer.impact_small. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/play-fixed-position-loop.mp4]
+Use a fixed position when the effect belongs to a point in the world.
+For example, a trap can flash at its location, a portal can glow in one place, and an explosion can appear where a projectile landed.
+The numbers in pos are x, y, and z. In this sample, the ring effect appears at x three, y one, z seven. It does not follow a model; it plays exactly there.

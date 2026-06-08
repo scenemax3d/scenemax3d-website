@@ -1,0 +1,18 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="Effekseer runtime overview">
+  <rect width="960" height="540" fill="#101827"/>
+  <text x="54" y="75" font-family="Segoe UI, Arial" font-size="34" font-weight="700" fill="#f8fafc">Effekseer runtime effects</text>
+  <text x="54" y="122" font-family="Segoe UI, Arial" font-size="22" fill="#cbd5e1">Use imported particle effects as normal SceneMax objects.</text>
+  <rect x="58" y="178" width="250" height="176" rx="8" fill="#1e293b"/>
+  <text x="88" y="236" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#67e8f9">1. Declare</text>
+  <text x="88" y="282" font-family="Segoe UI, Arial" font-size="18" fill="#e2e8f0">Give the effect a name</text>
+  <rect x="358" y="178" width="250" height="176" rx="8" fill="#1e293b"/>
+  <text x="388" y="236" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#86efac">2. Place or aim</text>
+  <text x="388" y="282" font-family="Segoe UI, Arial" font-size="18" fill="#e2e8f0">Choose where it appears</text>
+  <rect x="658" y="178" width="250" height="176" rx="8" fill="#1e293b"/>
+  <text x="688" y="236" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#fb923c">3. Play</text>
+  <text x="688" y="282" font-family="Segoe UI, Arial" font-size="18" fill="#e2e8f0">Trigger it during gameplay</text>
+  <path d="M308 266 H358" stroke="#94a3b8" stroke-width="5"/>
+  <path d="M608 266 H658" stroke="#94a3b8" stroke-width="5"/>
+  <circle cx="480" cy="430" r="44" fill="#67e8f9" opacity=".28"/>
+  <circle cx="480" cy="430" r="80" fill="none" stroke="#67e8f9" stroke-width="6" opacity=".55"/>
+</svg>

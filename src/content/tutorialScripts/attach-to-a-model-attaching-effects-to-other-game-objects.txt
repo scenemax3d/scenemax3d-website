@@ -1,5 +1,4 @@
-Attach To A Model, Attaching Effects To Other Game Objects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with player => sinbad. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
+Attach to a model when the effect belongs to the whole character or object.
+A shield around the player, a glow around a pickup, or a marker above an enemy should follow the model as one unit.
+In the sample, aura_fx attaches to player, then plays at player. The attachment keeps the aura connected while the model moves.

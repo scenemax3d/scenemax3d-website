@@ -1,5 +1,6 @@
-Procedures with Arguments explains how to package repeated behavior into one reusable command.
-Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with my_proc (m) = {. In plain language, it shows the command or data shape used by this lesson.
-The key idea is reuse: one named behavior can be called from many places.
+[img: /assets/tutorials/language-fundamentals/procedures-with-arguments.svg]
+An argument is a value passed into a procedure.
+Use arguments when the same behavior should work on different objects or values.
+In this example, spin_model accepts one argument named m.
+The procedure can spin Sinbad, then spin Ninja, without needing two separate procedure definitions.
+Arguments make procedures flexible and prevent repeated copies of almost identical code.

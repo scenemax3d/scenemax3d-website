@@ -1,5 +1,6 @@
-Defining a Procedure explains how to package repeated behavior into one reusable command.
-Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with my_proc = {. In plain language, it shows the command or data shape used by this lesson.
-The key idea is reuse: one named behavior can be called from many places.
+[img: /assets/tutorials/language-fundamentals/defining-a-procedure.svg]
+A procedure is a named block of commands.
+Define a procedure when you want to reuse the same behavior in several places.
+In this example, spin_box stores one turn command for the box.
+The procedure definition itself does not run the turn yet. It only creates the reusable command block.
+Use procedures for repeated effects, enemy actions, UI updates, level setup, and cleanup steps.

@@ -1,5 +1,4 @@
-Attach To A Joint, Attaching Effects To Other Game Objects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with player => ninja. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/attach-joint-loop.mp4]
+Attach to a joint when the effect must follow one body part, not the whole model.
+Hands, heads, feet, and weapons often have named skeleton joints. Put the joint name in quotes after the model name.
+Here, fighter1 is loaded with its RightHand joint, and hand_fx attaches to that joint. That is useful for a magic spell held in the hand or a sword trail connected to a weapon hand.

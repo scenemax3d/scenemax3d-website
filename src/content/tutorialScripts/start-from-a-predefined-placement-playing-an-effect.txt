@@ -1,5 +1,4 @@
-Start From A Predefined Placement, Playing An Effect explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with fire_fx => effects.effekseer.fire_column : pos (0,1,0) and rotate (0,45,0). In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
+You can give an effect a starting placement when you declare it. This is useful when the asset needs a small offset or rotation before it looks correct.
+In the sample, fire_fx is created with pos zero, one, zero, so it starts a little higher, and rotate zero, forty five, zero turns it.
+Later, play pos enemy starts the prepared effect at the enemy. This keeps the play line simple while the setup line handles the adjustment.

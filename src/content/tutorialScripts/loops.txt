@@ -1,5 +1,6 @@
-Loops explains how a script decides what to do next.
-Use this when the game situation changes. A fixed script is fine for a demo, but a game needs branches, loops, and conditions.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with do 10 times. In plain language, it shows the command or data shape used by this lesson.
-The key idea is decision making: game logic reacts to state instead of running blindly.
+[img: /assets/tutorials/language-fundamentals/loops.svg]
+A loop repeats the same commands.
+Use a loop when the game should do something several times, such as spinning a reward, spawning enemies, or counting down.
+The line do 4 times starts a block that repeats four times.
+Every command between do and end do is part of the loop.
+Loops keep scripts short and make repeated behavior easier to change later.

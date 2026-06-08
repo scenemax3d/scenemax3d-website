@@ -23,6 +23,13 @@ type TutorialPlayerSegment =
       start: number
       end: number
     }
+  | {
+      type: 'video'
+      url: string
+      duration: 0
+      start: number
+      end: number
+    }
 
 type TutorialPlayerSegmentDraft =
   | {
@@ -36,6 +43,11 @@ type TutorialPlayerSegmentDraft =
     }
   | {
       type: 'image'
+      url: string
+      duration: 0
+    }
+  | {
+      type: 'video'
       url: string
       duration: 0
     }
@@ -70,15 +82,25 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1)
 
   const currentTimeRef = useRef(0)
   const timerRef = useRef<number | undefined>(undefined)
   const animationRef = useRef<number | undefined>(undefined)
   const playbackTokenRef = useRef(0)
+  const speechBoundaryAtRef = useRef(0)
 
   const activeSegment = parsedScript.segments[activeIndex]
-  const activeImage = useMemo(
-    () => getImageForTime(parsedScript.segments, currentTime, activeIndex),
+  const activeSpeechTokens = useMemo(
+    () => (activeSegment?.type === 'speech' ? getSpeechWordTokens(activeSegment.text) : []),
+    [activeSegment],
+  )
+  const activeWordCount = useMemo(
+    () => activeSpeechTokens.filter((token) => token.wordIndex !== undefined).length,
+    [activeSpeechTokens],
+  )
+  const activeMedia = useMemo(
+    () => getMediaForTime(parsedScript.segments, currentTime, activeIndex),
     [activeIndex, currentTime, parsedScript.segments],
   )
   const progress = parsedScript.totalDuration > 0 ? currentTime / parsedScript.totalDuration : 0
@@ -143,8 +165,10 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
       }
 
       setActiveIndex(index)
+      setHighlightedWordIndex(segment.type === 'speech' ? 0 : -1)
+      speechBoundaryAtRef.current = 0
 
-      if (segment.type === 'image') {
+      if (segment.type === 'image' || segment.type === 'video') {
         setPlayerTime(segment.start)
         window.setTimeout(() => runSegment(index + 1, token), 0)
         return
@@ -179,6 +203,13 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
       const utterance = new SpeechSynthesisUtterance(segment.text)
       utterance.rate = 0.96
       utterance.pitch = 1
+      utterance.onboundary = (event) => {
+        if (token !== playbackTokenRef.current || segment.type !== 'speech') return
+        if (event.name && event.name !== 'word') return
+
+        speechBoundaryAtRef.current = performance.now()
+        setHighlightedWordIndex(getWordIndexAtChar(segment.text, event.charIndex))
+      }
       utterance.onend = finishSegment
       utterance.onerror = () => {
         if (token !== playbackTokenRef.current) return
@@ -217,6 +248,8 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
       window.speechSynthesis?.cancel()
       setPlayerTime(clampedTime)
       setActiveIndex(nextIndex)
+      speechBoundaryAtRef.current = 0
+      setHighlightedWordIndex(getEstimatedWordIndex(parsedScript.segments[nextIndex], clampedTime))
 
       if (shouldResume && clampedTime < parsedScript.totalDuration) {
         const token = playbackTokenRef.current + 1
@@ -231,6 +264,23 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   )
 
   useEffect(() => {
+    if (activeSegment?.type !== 'speech') {
+      setHighlightedWordIndex(-1)
+      return
+    }
+
+    if (activeWordCount === 0) {
+      setHighlightedWordIndex(-1)
+      return
+    }
+
+    const hasFreshSpeechBoundary = performance.now() - speechBoundaryAtRef.current < 650
+    if (hasFreshSpeechBoundary) return
+
+    setHighlightedWordIndex(getEstimatedWordIndex(activeSegment, currentTime))
+  }, [activeSegment, activeWordCount, currentTime])
+
+  useEffect(() => {
     return () => {
       playbackTokenRef.current += 1
       stopProgress()
@@ -241,12 +291,22 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   return (
     <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950">
       <div className="relative grid aspect-video w-full place-items-center overflow-hidden bg-slate-950">
-        {activeImage ? (
+        {activeMedia?.type === 'image' ? (
           <img
             alt=""
             className="h-full w-full object-cover"
             draggable="false"
-            src={activeImage}
+            src={activeMedia.url}
+          />
+        ) : activeMedia?.type === 'video' ? (
+          <video
+            autoPlay
+            className="h-full w-full object-cover"
+            key={activeMedia.url}
+            loop
+            muted
+            playsInline
+            src={activeMedia.url}
           />
         ) : (
           <div className="grid h-full w-full place-items-center bg-[linear-gradient(135deg,rgba(34,211,238,0.18),rgba(15,23,42,0.94),rgba(16,185,129,0.16))]">
@@ -262,7 +322,18 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
         {activeSegment?.type === 'speech' ? (
           <div className="absolute inset-x-0 bottom-0 bg-slate-950/82 px-4 py-3 backdrop-blur">
             <p className="mx-auto max-w-3xl text-center text-sm font-semibold leading-6 text-white md:text-base">
-              {activeSegment.text}
+              {activeSpeechTokens.map((token, index) => (
+                <span
+                  className={
+                    token.wordIndex === highlightedWordIndex
+                      ? 'rounded bg-cyan-200 px-0.5 text-slate-950 shadow-[0_0_14px_rgba(103,232,249,0.38)] transition-colors'
+                      : undefined
+                  }
+                  key={`${index}-${token.text}`}
+                >
+                  {token.text}
+                </span>
+              ))}
             </p>
           </div>
         ) : null}
@@ -332,7 +403,7 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
 
 function parseTutorialScript(script: string): ParsedTutorialScript {
   const segments: TutorialPlayerSegmentDraft[] = []
-  const commandPattern = /\[(wait|img)\s*:\s*([^\]]+)\]/gi
+  const commandPattern = /\[(wait|img|video)\s*:\s*([^\]]+)\]/gi
   let lastIndex = 0
   let match: RegExpExecArray | null
 
@@ -347,7 +418,11 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
     } else {
       const url = match[2].trim()
       if (url) {
-        segments.push({ type: 'image', url, duration: 0 })
+        segments.push({
+          type: match[1].toLowerCase() === 'video' ? 'video' : 'image',
+          url,
+          duration: 0,
+        })
       }
     }
 
@@ -405,8 +480,56 @@ function estimateSpeechDuration(text: string) {
   return Math.max(1.8, (wordCount / wordsPerMinute) * 60 + 0.55)
 }
 
+function getSpeechWordTokens(text: string) {
+  let wordIndex = 0
+
+  return text.split(/(\s+)/).map((token) => {
+    if (/^\s+$/.test(token)) {
+      return { text: token }
+    }
+
+    const currentWordIndex = wordIndex
+    wordIndex += 1
+
+    return {
+      text: token,
+      wordIndex: currentWordIndex,
+    }
+  })
+}
+
+function getWordIndexAtChar(text: string, charIndex: number) {
+  const clampedCharIndex = clamp(charIndex, 0, text.length)
+  const textBeforeBoundary = text.slice(0, clampedCharIndex)
+  const precedingWords = textBeforeBoundary.match(/\S+/g)?.length ?? 0
+  const isInsideWord = /\S$/.test(textBeforeBoundary) && /\S/.test(text.charAt(clampedCharIndex))
+
+  return Math.max(precedingWords - (isInsideWord ? 1 : 0), 0)
+}
+
+function getEstimatedWordIndex(segment: TutorialPlayerSegment | undefined, time: number) {
+  if (segment?.type !== 'speech') {
+    return -1
+  }
+
+  const wordCount = segment.text.split(/\s+/).filter(Boolean).length
+  if (wordCount === 0) {
+    return -1
+  }
+
+  const progressWithinSegment = clamp(
+    (time - segment.start) / Math.max(segment.duration, 0.1),
+    0,
+    0.999,
+  )
+
+  return clamp(Math.floor(progressWithinSegment * wordCount), 0, wordCount - 1)
+}
+
 function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number) {
-  const index = segments.findIndex((segment) => segment.end > time && segment.type !== 'image')
+  const index = segments.findIndex(
+    (segment) => segment.end > time && segment.type !== 'image' && segment.type !== 'video',
+  )
 
   if (index >= 0) {
     return index
@@ -415,7 +538,7 @@ function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number
   return Math.max(segments.length - 1, 0)
 }
 
-function getImageForTime(segments: TutorialPlayerSegment[], time: number, activeIndex: number) {
+function getMediaForTime(segments: TutorialPlayerSegment[], time: number, activeIndex: number) {
   const indexLimit = Math.max(
     activeIndex,
     segments.findLastIndex((segment) => segment.start <= time),
@@ -423,12 +546,15 @@ function getImageForTime(segments: TutorialPlayerSegment[], time: number, active
 
   for (let index = indexLimit; index >= 0; index -= 1) {
     const segment = segments[index]
-    if (segment?.type === 'image') {
-      return segment.url
+    if (segment?.type === 'image' || segment?.type === 'video') {
+      return {
+        type: segment.type,
+        url: segment.url,
+      }
     }
   }
 
-  return ''
+  return undefined
 }
 
 function formatTime(value: number) {

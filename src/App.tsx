@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
+import { AdminTutorialEditorPage } from './pages/AdminTutorialEditorPage'
 import { DownloadPage } from './pages/DownloadPage'
 import { HomePage } from './pages/HomePage'
 import { SimplePage } from './pages/SimplePage'
@@ -13,6 +14,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="tutorials" element={<TutorialsPage />} />
         <Route path="tutorials/:slug" element={<TutorialDetailPage />} />
+        <Route path="admin/tutorials" element={<AdminTutorialEditorPage />} />
         <Route
           path="docs"
           element={

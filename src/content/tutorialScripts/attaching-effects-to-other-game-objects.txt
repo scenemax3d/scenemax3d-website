@@ -1,5 +1,4 @@
-Attaching Effects To Other Game Objects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with player => sinbad. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
+Playing at an object uses the object's current position. Attaching is stronger: the effect becomes a child of that object.
+That means if the player moves, the effect moves with the player.
+Use attachment for a shield aura, weapon trail, engine smoke, or any effect that should stay connected after it starts.

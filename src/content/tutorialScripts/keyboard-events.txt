@@ -1,5 +1,6 @@
-Keyboard Events explains how the game reacts to player input or scene events.
-Use this when the timing depends on the player or the scene. The command runs because something happened.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with when key left is pressed do. In plain language, it waits for a player input or event before running the commands inside.
-The key idea is timing: the command belongs to a moment, not just to a line number.
+[img: /assets/tutorials/language-fundamentals/keyboard-events.svg]
+A keyboard event runs code when the player presses a key.
+The event block starts with when key, the key name, and the phrase is pressed.
+Adding once means the action happens once per press instead of repeating every frame while the key is held.
+In this example, pressing the up key moves the player forward.
+Use keyboard events for movement, attacks, jumps, menu shortcuts, and testing gameplay quickly.

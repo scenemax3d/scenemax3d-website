@@ -37,6 +37,16 @@ export function Navbar() {
               {item.label}
             </NavLink>
           ))}
+          <NavLink
+            className={({ isActive }) =>
+              `rounded-md px-3 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+                isActive ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+              }`
+            }
+            to="/admin/tutorials"
+          >
+            Admin
+          </NavLink>
         </div>
 
         <a
@@ -76,6 +86,17 @@ export function Navbar() {
                 {item.label}
               </NavLink>
             ))}
+            <NavLink
+              className={({ isActive }) =>
+                `rounded-md px-3 py-3 text-base font-semibold transition ${
+                  isActive ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                }`
+              }
+              onClick={() => setIsOpen(false)}
+              to="/admin/tutorials"
+            >
+              Admin
+            </NavLink>
           </div>
         </div>
       ) : null}

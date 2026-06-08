@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { DifficultyBadge } from '../components/DifficultyBadge'
 import { SceneMaxCodeBlock } from '../components/SceneMaxCodeBlock'
@@ -29,6 +29,12 @@ export function TutorialDetailPage() {
       : 'SceneMax3D Tutorial Not Found',
     tutorial?.description ?? siteContent.site.description,
   )
+
+  useLayoutEffect(() => {
+    if (!tutorial) return
+
+    return scrollToAbsolutePageTop()
+  }, [tutorial])
 
   useEffect(() => {
     if (!tutorial) return
@@ -146,4 +152,26 @@ export function TutorialDetailPage() {
       </div>
     </section>
   )
+}
+
+function scrollToAbsolutePageTop() {
+  const root = document.documentElement
+  const previousScrollBehavior = root.style.scrollBehavior
+
+  root.style.scrollBehavior = 'auto'
+  window.scrollTo({ left: 0, top: 0, behavior: 'auto' })
+  root.scrollTop = 0
+  document.body.scrollTop = 0
+
+  const frame = window.requestAnimationFrame(() => {
+    window.scrollTo({ left: 0, top: 0, behavior: 'auto' })
+    root.scrollTop = 0
+    document.body.scrollTop = 0
+    root.style.scrollBehavior = previousScrollBehavior
+  })
+
+  return () => {
+    window.cancelAnimationFrame(frame)
+    root.style.scrollBehavior = previousScrollBehavior
+  }
 }

@@ -1,5 +1,6 @@
-Mouse Events explains how the game reacts to player input or scene events.
-Use this when the timing depends on the player or the scene. The command runs because something happened.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with when mouse left is pressed do. In plain language, it waits for a player input or event before running the commands inside.
-The key idea is timing: the command belongs to a moment, not just to a line number.
+[img: /assets/tutorials/language-fundamentals/mouse-events.svg]
+A mouse event runs code when the player clicks.
+You can listen for a click anywhere, or you can attach the event to a specific object.
+In this example, the command runs only when the player clicks on the Sinbad model.
+That makes the click meaningful instead of reacting to every place on the screen.
+Use mouse events for selecting units, clicking buttons in a 3D scene, opening chests, or inspecting objects.

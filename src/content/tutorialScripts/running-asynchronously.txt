@@ -1,5 +1,6 @@
-Running Asynchronously explains how to package repeated behavior into one reusable command.
-Use this when a behavior appears more than once. Reuse keeps the behavior consistent and makes later changes easier.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with run my_proc async. In plain language, it shows the command or data shape used by this lesson.
-The key idea is reuse: one named behavior can be called from many places.
+[img: /assets/tutorials/language-fundamentals/running-asynchronously.svg]
+Async means the procedure starts without blocking the next command.
+Without async, SceneMax waits for the procedure to finish before continuing.
+Here, spin_box starts turning the box, and the move command can run at the same time.
+This is useful when several actions should overlap.
+Use async for visual effects, background motion, delayed UI, and fire-and-forget gameplay actions.

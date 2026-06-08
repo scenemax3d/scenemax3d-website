@@ -1,5 +1,6 @@
-Shared Variables explains how one named value is stored, read, or updated.
-Use this when one value needs a meaningful name. It is better than repeating the same number or text in several commands.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with shared var score = 0. In plain language, it shows the command or data shape used by this lesson.
-The key idea is meaning: the name explains what the value represents in the game.
+[img: /assets/tutorials/language-fundamentals/shared-variables-2.svg]
+A shared variable is kept across levels.
+Use shared when the value belongs to the whole game, not only the current scene.
+In this example, score is shared, so it can continue from one level to the next.
+This is useful for total score, player lives, unlocked items, game settings, and campaign progress.
+Do not use shared for temporary values that should reset when a level reloads.

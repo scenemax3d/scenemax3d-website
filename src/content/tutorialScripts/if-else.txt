@@ -1,5 +1,6 @@
-If / Else explains how a script decides what to do next.
-Use this when the game situation changes. A fixed script is fine for a demo, but a game needs branches, loops, and conditions.
-In a fighting game, language fundamentals track health, score, current action, input state, and whether a hit is allowed.
-The sample begins with if score == 5 {. In plain language, it chooses an action only when a condition is true.
-The key idea is decision making: game logic reacts to state instead of running blindly.
+[img: /assets/tutorials/language-fundamentals/if-else.svg]
+If and else let the game choose between two paths.
+The condition after if is checked first. If it is true, the commands inside the if block run.
+If the condition is false, SceneMax skips that block and runs the else block instead.
+In this example, the player gets the bonus message only when score equals 10.
+Use if and else for doors, rewards, health checks, game-over rules, and any moment where the game must make a decision.
