@@ -1,10 +1,31 @@
-[video: /assets/tutorials/getting-started/03-create-folder-flow.mp4]
-Inside the new project, create a folder for the first playable scene. In this tutorial the folder is named dragon_scene.
-SceneMax creates starter files such as main and tests inside that folder.
-[video: /assets/tutorials/getting-started/04-add-script-and-edit-hello-world.mp4]
-Add a new script file inside the folder and name it hello_world.
-Use it for the first readable version of the scene: load the bundled dragon model, show a skybox, attach the camera, play the dragon fly animation, and rotate the dragon left.
-[video: /assets/tutorials/getting-started/05-edit-main-entry-point.mp4]
-The saved game entry point is the folder main file, so copy the working dragon scene into main and save it.
-[video: /assets/tutorials/getting-started/05-dragon-hello-world-runtime.mp4]
-Run the scene to check the behavior: the default dragon model loads, plays fly, and turns left through repeated 360 degree rotations.
+[img: /assets/tutorials/getting-started/pasted-2026-06-09T19-38-58-444Z.png]
+
+Your SceneMax3D Studio comes with a simple **"Hello World"** sample program. When you open SceneMax3D for the first time, you will see a folder named **"Hello World"** containing a single script called **"main"**.
+
+To open and edit the contents of the **"main"** script, simply double-click it.
+
+On the right side, in the editor panel, you will see the script's code. Let's take a closer look:
+
+```sys.print "Hello World!"```
+
+The first line displays the text **"Hello World!"** on the screen.
+
+```skybox.show solar system```
+
+The second line displays a live **Solar System** skybox in the scene.
+
+```d => dragon; d.fly loop```
+
+The last line consists of two commands. The first creates a dragon and places it in the scene. The second starts the dragon's flying animation and plays it continuously in a loop.
+
+Notice that the dragon object is named **"d"**. This name is used later in the script whenever we want to refer to that specific dragon.
+
+The symbol **"=>"** means **"is a"**. Therefore, in our sample code, **"d => dragon"** means that **d is a dragon**.
+
+[img: /assets/tutorials/getting-started/pasted-2026-06-09T19-45-46-827Z.png]
+
+Beginner programmers can also use the words **"is a"** instead of the **"=>"** symbol, and the result will be exactly the same.
+
+To run the program, click the **Play** button located on the vertical toolbar in the upper-left corner of the Studio.
+
+If the program runs successfully and you see a flying dragon on the screen, then SceneMax3D has been installed correctly and is ready to use.

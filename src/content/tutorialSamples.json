@@ -7,7 +7,7 @@
   "quick-start": {
     "language": "scenemax",
     "caption": "Dragon Hello World script used in the tutorial.",
-    "code": "Screen.mode window\nCanvas.size 960,540\nSkybox.show \"lagoon\"\n\nd => dragon : pos (0,0,0), scale 3\nCamera.chase d\n\nd.fly loop async\ndo 12 times async\n  d.turn left 360 in 4 seconds\nend do"
+    "code": "sys.print \"Hello World!\"\nskybox.show solar system\nd is a dragon; d.fly loop"
   },
   "language-basics": {
     "language": "scenemax",
@@ -1252,7 +1252,7 @@
   "collision-detection": {
     "language": "scenemax",
     "caption": "SceneMax example from collisions-and-physics.md.",
-    "code": "when s1 collides with s2 do\nend do"
+    "code": "b1=>box: pos (-4,0,0)\nb2=>box: pos (4,0,0)\nb1.move left 8 in 5 seconds async\nb2.move right 8 in 3 seconds async\nwhen b1 collides with b2 do\n  sys.print \"BOOM!\"\nend do"
   },
   "joint-mapping": {
     "language": "scenemax",

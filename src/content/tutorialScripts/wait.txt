@@ -1,6 +1,11 @@
-[img: /assets/tutorials/language-fundamentals/wait.svg]
-wait pauses the current command flow for a specific amount of time.
+```wait 10 seconds```
+wait pauses the current command flow for a specific amount of time. In this example the program will stop for 10 seconds before continue running.
 The commands after wait do not run until the wait time is finished.
+```
+header.print "Door opens in 2 seconds"
+wait 2 seconds
+header.print "Door opened"
+```
 In this example, the warning appears first, then SceneMax waits 2 seconds, then the opened message appears.
 Use wait for timing: delayed doors, delayed explosions, countdowns, stopping sounds, or letting an animation finish.
-Wait is simple, but it is important because it controls the order and timing of events.
+Wait is simple, but it is important because it controls the order and timing of events. It is important to mention that **wait** command doesn't stop the game loop - it doesn't freeze the game.

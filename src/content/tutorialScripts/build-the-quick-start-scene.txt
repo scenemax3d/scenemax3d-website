@@ -1,6 +1,10 @@
-[video: /assets/tutorials/getting-started/01-new-project-menu-flow.mp4]
-A SceneMax project is the saved workspace for one game. Start in File, open Projects, choose New Project, type a short project name, and confirm it.
-SceneMax creates the project folder, adds the default scripts area, and switches the IDE title to the new project.
-[video: /assets/tutorials/getting-started/02-open-existing-project-flow.mp4]
+[img: /assets/tutorials/getting-started/pasted-2026-06-09T19-58-02-261Z.png]
+A SceneMax project is the saved workspace for one game. Create a new project by selecting menu: File, Projects, New Project 
+[img: /assets/tutorials/getting-started/pasted-2026-06-09T20-02-46-763Z.png]
+then type a short project name, and confirm it.
+SceneMax creates the project folder, 
+[img: /assets/tutorials/getting-started/pasted-2026-06-09T20-04-01-989Z.png]
+adds the default scripts area, and switches the IDE title to the new project.
+
 To return to work later, open File, Projects, and select an existing project from the list.
 This is the project operation loop beginners need first: create a project, switch projects deliberately, and always check the title bar before adding files.

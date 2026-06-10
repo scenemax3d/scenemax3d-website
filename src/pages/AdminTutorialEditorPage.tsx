@@ -1,16 +1,19 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   Check,
   FileText,
   Image,
+  Play,
   RefreshCw,
   Save,
   Search,
   Tags,
   UploadCloud,
   Video,
+  X,
 } from 'lucide-react'
-import type { ReactNode } from 'react'
+import type { ClipboardEvent, ReactNode, RefObject } from 'react'
+import { TutorialScriptPlayer } from '../components/TutorialScriptPlayer'
 import type {
   Difficulty,
   Tutorial,
@@ -63,6 +66,8 @@ export function AdminTutorialEditorPage() {
     'idle',
   )
   const [message, setMessage] = useState('')
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const scriptTextareaRef = useRef<HTMLTextAreaElement>(null)
 
   usePageMeta(
     'Tutorial Admin | SceneMax3D',
@@ -182,20 +187,64 @@ export function AdminTutorialEditorPage() {
     setMessage('')
 
     try {
-      const uploaded = await requestJson<AssetUploadResponse>('/api/admin/assets', {
-        body: JSON.stringify({
-          base64: await readFileAsBase64(assetFile),
-          fileName: assetFile.name,
-          folder: assetFolder,
-        }),
-        headers: { 'content-type': 'application/json' },
-        method: 'POST',
-      })
+      const uploaded = await uploadAssetFile(assetFile, assetFolder)
 
       setDetail({ ...detail, assets: uploaded.assets })
       setAssetFile(undefined)
       setStatus('saved')
       setMessage(`Uploaded ${uploaded.url}`)
+    } catch (error) {
+      setStatus('error')
+      setMessage(getErrorMessage(error))
+    }
+  }
+
+  async function pasteScriptImages(event: ClipboardEvent<HTMLTextAreaElement>) {
+    if (!detail) return
+
+    const imageFiles = Array.from(event.clipboardData.items)
+      .filter((item) => item.kind === 'file' && item.type.startsWith('image/'))
+      .map((item) => item.getAsFile())
+      .filter((file): file is File => Boolean(file))
+
+    if (imageFiles.length === 0) return
+
+    event.preventDefault()
+
+    const textarea = event.currentTarget
+    const insertAt = textarea.selectionStart
+    const replaceUntil = textarea.selectionEnd
+    const folder = assetFolder
+
+    setStatus('uploading')
+    setMessage(`Uploading pasted image${imageFiles.length > 1 ? 's' : ''}...`)
+
+    try {
+      const uploadedImages = await Promise.all(
+        imageFiles.map((file, index) =>
+          uploadAssetFile(file, folder, createPastedImageFileName(file, index)),
+        ),
+      )
+      const imageTags = uploadedImages.map((image) => `[img: ${image.url}]`).join('\n')
+      const insertion = withLineBreakPadding(detail.script, insertAt, replaceUntil, imageTags)
+      const nextCursorPosition = insertAt + insertion.length
+      const latestAssets = uploadedImages[uploadedImages.length - 1].assets
+
+      setDetail((current) =>
+        current
+          ? {
+              ...current,
+              script: insertTextAtSelection(current.script, insertAt, replaceUntil, insertion),
+              assets: latestAssets,
+            }
+          : current,
+      )
+      setStatus('saved')
+      setMessage(`Inserted ${uploadedImages.length} pasted image${uploadedImages.length > 1 ? 's' : ''}.`)
+      window.requestAnimationFrame(() => {
+        scriptTextareaRef.current?.focus()
+        scriptTextareaRef.current?.setSelectionRange(nextCursorPosition, nextCursorPosition)
+      })
     } catch (error) {
       setStatus('error')
       setMessage(getErrorMessage(error))
@@ -248,6 +297,15 @@ export function AdminTutorialEditorPage() {
             <h1 className="mt-2 text-3xl font-black text-white md:text-4xl">Tutorial Editor</h1>
           </div>
           <div className="flex items-center gap-2">
+            <button
+              className="inline-flex min-h-11 items-center gap-2 rounded-md border border-emerald-300/50 bg-emerald-300/15 px-4 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/25 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={!detail}
+              onClick={() => setIsPreviewOpen(true)}
+              type="button"
+            >
+              <Play aria-hidden="true" size={17} />
+              Preview
+            </button>
             <button
               className="inline-flex min-h-11 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
               onClick={() => selectedId && loadDetail(selectedId)}
@@ -423,10 +481,31 @@ export function AdminTutorialEditorPage() {
                 <div className="mt-4 grid gap-4">
                   <TextAreaField
                     label="Tutorial script"
+                    onPaste={pasteScriptImages}
                     rows={12}
+                    textareaRef={scriptTextareaRef}
                     value={detail.script}
                     onChange={(value) => setDetail({ ...detail, script: value })}
                   />
+                  <div className="-mt-2 flex justify-end gap-2">
+                    <button
+                      className="inline-flex min-h-10 items-center gap-2 rounded-md border border-emerald-300/50 bg-emerald-300/15 px-4 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/25 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => setIsPreviewOpen(true)}
+                      type="button"
+                    >
+                      <Play aria-hidden="true" size={16} />
+                      Preview
+                    </button>
+                    <button
+                      className="inline-flex min-h-10 items-center gap-2 rounded-md border border-cyan-300/50 bg-cyan-300/15 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={status === 'saving'}
+                      onClick={saveDetail}
+                      type="button"
+                    >
+                      <Save aria-hidden="true" size={16} />
+                      Save
+                    </button>
+                  </div>
                   <TextField
                     label="Sample caption"
                     value={detail.sample.caption}
@@ -515,6 +594,46 @@ export function AdminTutorialEditorPage() {
           )}
         </div>
       </div>
+
+      {detail && isPreviewOpen ? (
+        <div
+          aria-labelledby="tutorial-preview-title"
+          aria-modal="true"
+          className="fixed inset-0 z-50 grid place-items-center bg-slate-950/80 p-4 backdrop-blur-sm"
+          role="dialog"
+        >
+          <div className="max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-lg border border-white/10 bg-slate-950 shadow-[0_24px_90px_rgba(0,0,0,0.45)]">
+            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 md:px-5">
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">Clip preview</p>
+                <h2 className="truncate text-xl font-black text-white" id="tutorial-preview-title">
+                  {detail.tutorial.title}
+                </h2>
+              </div>
+              <button
+                aria-label="Close preview"
+                className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                onClick={() => setIsPreviewOpen(false)}
+                title="Close preview"
+                type="button"
+              >
+                <X aria-hidden="true" size={18} />
+              </button>
+            </div>
+            <div className="p-4 md:p-5">
+              <TutorialScriptPlayer
+                key={`admin-preview-${detail.tutorial.id}`}
+                scriptText={detail.script}
+                tutorial={{
+                  ...detail.tutorial,
+                  relatedTutorialIds: splitList(relatedText),
+                  tags: splitList(tagsText),
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }
@@ -611,12 +730,16 @@ function SelectField({
 function TextAreaField({
   label,
   onChange,
+  onPaste,
   rows,
+  textareaRef,
   value,
 }: {
   label: string
   onChange: (value: string) => void
+  onPaste?: (event: ClipboardEvent<HTMLTextAreaElement>) => void
   rows: number
+  textareaRef?: RefObject<HTMLTextAreaElement | null>
   value: string
 }) {
   return (
@@ -627,6 +750,8 @@ function TextAreaField({
       <textarea
         className="w-full resize-y rounded-md border border-white/10 bg-slate-950/80 px-3 py-3 font-mono text-sm leading-6 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/30"
         onChange={(event) => onChange(event.target.value)}
+        onPaste={onPaste}
+        ref={textareaRef}
         rows={rows}
         value={value}
       />
@@ -668,6 +793,18 @@ async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
   return body as T
 }
 
+async function uploadAssetFile(file: File, folder: string, fileName = file.name) {
+  return requestJson<AssetUploadResponse>('/api/admin/assets', {
+    body: JSON.stringify({
+      base64: await readFileAsBase64(file),
+      fileName,
+      folder,
+    }),
+    headers: { 'content-type': 'application/json' },
+    method: 'POST',
+  })
+}
+
 function splitList(value: string) {
   return value
     .split(/[,\n]+/)
@@ -681,6 +818,42 @@ function formatDifficulty(value: Difficulty) {
 
 function getErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : 'Unexpected error'
+}
+
+function createPastedImageFileName(file: File, index: number) {
+  const extension = getImageExtension(file.type) || getFileExtension(file.name) || 'png'
+  const suffix = index > 0 ? `-${index + 1}` : ''
+  return `pasted-${new Date().toISOString().replace(/[:.]/g, '-')}${suffix}.${extension}`
+}
+
+function getImageExtension(mimeType: string) {
+  if (mimeType === 'image/jpeg') return 'jpg'
+  if (mimeType === 'image/png') return 'png'
+  if (mimeType === 'image/webp') return 'webp'
+  if (mimeType === 'image/gif') return 'gif'
+  if (mimeType === 'image/svg+xml') return 'svg'
+  return ''
+}
+
+function getFileExtension(fileName: string) {
+  const extension = fileName.split('.').pop()?.toLowerCase() ?? ''
+  return extension && extension !== fileName.toLowerCase() ? extension : ''
+}
+
+function withLineBreakPadding(
+  text: string,
+  start: number,
+  end: number,
+  insertion: string,
+) {
+  const needsLeadingBreak = start > 0 && text.charAt(start - 1) !== '\n'
+  const needsTrailingBreak = end < text.length && text.charAt(end) !== '\n'
+
+  return `${needsLeadingBreak ? '\n' : ''}${insertion}${needsTrailingBreak ? '\n' : ''}`
+}
+
+function insertTextAtSelection(text: string, start: number, end: number, insertion: string) {
+  return text.slice(0, start) + insertion + text.slice(end)
 }
 
 function readFileAsBase64(file: File) {

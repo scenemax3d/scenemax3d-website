@@ -5,6 +5,7 @@ import type { Tutorial } from '../types/content'
 type TutorialPlayerSegment =
   | {
       type: 'speech'
+      boldRanges: TextRange[]
       text: string
       duration: number
       start: number
@@ -26,6 +27,14 @@ type TutorialPlayerSegment =
   | {
       type: 'video'
       url: string
+      duration: 0
+      start: number
+      end: number
+    }
+  | {
+      type: 'code'
+      appendToPrevious: boolean
+      code: string
       duration: 0
       start: number
       end: number
@@ -34,6 +43,7 @@ type TutorialPlayerSegment =
 type TutorialPlayerSegmentDraft =
   | {
       type: 'speech'
+      boldRanges: TextRange[]
       text: string
       duration: number
     }
@@ -51,10 +61,27 @@ type TutorialPlayerSegmentDraft =
       url: string
       duration: 0
     }
+  | {
+      type: 'code'
+      appendToPrevious: boolean
+      code: string
+      duration: 0
+    }
 
 interface ParsedTutorialScript {
   segments: TutorialPlayerSegment[]
   totalDuration: number
+}
+
+interface TextRange {
+  start: number
+  end: number
+}
+
+interface ImageLayer {
+  id: number
+  phase: 'enter' | 'exit'
+  url: string
 }
 
 interface TutorialScriptPlayerProps {
@@ -64,6 +91,8 @@ interface TutorialScriptPlayerProps {
 
 const defaultImage = '/assets/warrior1.png'
 const wordsPerMinute = 155
+const codeCharactersPerSecond = 12
+const imageFadeDurationMs = 420
 
 function buildDefaultTutorialScript(tutorial: Tutorial) {
   return [
@@ -83,25 +112,41 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   const [currentTime, setCurrentTime] = useState(0)
   const [activeIndex, setActiveIndex] = useState(0)
   const [highlightedWordIndex, setHighlightedWordIndex] = useState(-1)
+  const [imageLayers, setImageLayers] = useState<ImageLayer[]>([])
 
   const currentTimeRef = useRef(0)
   const timerRef = useRef<number | undefined>(undefined)
   const animationRef = useRef<number | undefined>(undefined)
   const playbackTokenRef = useRef(0)
   const speechBoundaryAtRef = useRef(0)
+  const imageLayerIdRef = useRef(0)
 
   const activeSegment = parsedScript.segments[activeIndex]
   const activeSpeechTokens = useMemo(
-    () => (activeSegment?.type === 'speech' ? getSpeechWordTokens(activeSegment.text) : []),
+    () =>
+      activeSegment?.type === 'speech'
+        ? getSpeechWordTokens(activeSegment.text, activeSegment.boldRanges)
+        : [],
     [activeSegment],
   )
   const activeWordCount = useMemo(
     () => activeSpeechTokens.filter((token) => token.wordIndex !== undefined).length,
     [activeSpeechTokens],
   )
-  const activeMedia = useMemo(
-    () => getMediaForTime(parsedScript.segments, currentTime, activeIndex),
+  const activeVisual = useMemo(
+    () => getVisualForTime(parsedScript.segments, currentTime, activeIndex),
     [activeIndex, currentTime, parsedScript.segments],
+  )
+  const visibleCode = useMemo(
+    () =>
+      activeVisual?.type === 'code'
+        ? getTypewriterCode(
+            activeVisual.code,
+            currentTime - activeVisual.start,
+            activeVisual.revealedPrefixLength,
+          )
+        : '',
+    [activeVisual, currentTime],
   )
   const progress = parsedScript.totalDuration > 0 ? currentTime / parsedScript.totalDuration : 0
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window
@@ -168,7 +213,7 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
       setHighlightedWordIndex(segment.type === 'speech' ? 0 : -1)
       speechBoundaryAtRef.current = 0
 
-      if (segment.type === 'image' || segment.type === 'video') {
+      if (segment.type === 'image' || segment.type === 'video' || segment.type === 'code') {
         setPlayerTime(segment.start)
         window.setTimeout(() => runSegment(index + 1, token), 0)
         return
@@ -281,6 +326,41 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   }, [activeSegment, activeWordCount, currentTime])
 
   useEffect(() => {
+    const activeImageUrl = activeVisual?.type === 'image' ? activeVisual.url : undefined
+
+    setImageLayers((currentLayers) => {
+      const currentImageLayer = currentLayers.find((layer) => layer.phase === 'enter')
+
+      if (currentImageLayer?.url === activeImageUrl) {
+        return currentLayers
+      }
+
+      const exitingLayers = currentLayers.map((layer) => ({ ...layer, phase: 'exit' as const }))
+
+      if (!activeImageUrl) {
+        return exitingLayers
+      }
+
+      imageLayerIdRef.current += 1
+
+      return [
+        ...exitingLayers,
+        {
+          id: imageLayerIdRef.current,
+          phase: 'enter',
+          url: activeImageUrl,
+        },
+      ]
+    })
+
+    const cleanupTimer = window.setTimeout(() => {
+      setImageLayers((currentLayers) => currentLayers.filter((layer) => layer.phase !== 'exit'))
+    }, imageFadeDurationMs)
+
+    return () => window.clearTimeout(cleanupTimer)
+  }, [activeVisual])
+
+  useEffect(() => {
     return () => {
       playbackTokenRef.current += 1
       stopProgress()
@@ -291,23 +371,45 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   return (
     <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950">
       <div className="relative grid aspect-video w-full place-items-center overflow-hidden bg-slate-950">
-        {activeMedia?.type === 'image' ? (
-          <img
-            alt=""
-            className="h-full w-full object-cover"
-            draggable="false"
-            src={activeMedia.url}
-          />
-        ) : activeMedia?.type === 'video' ? (
+        {activeVisual?.type === 'video' ? (
           <video
             autoPlay
             className="h-full w-full object-cover"
-            key={activeMedia.url}
+            key={activeVisual.url}
             loop
             muted
             playsInline
-            src={activeMedia.url}
+            src={activeVisual.url}
           />
+        ) : activeVisual?.type === 'code' ? (
+          <div className="grid h-full w-full place-items-center bg-slate-950 px-4 py-5 sm:px-6">
+            <pre className="max-h-full w-full max-w-3xl overflow-auto rounded-md border border-cyan-300/25 bg-slate-900/95 p-4 text-left text-sm leading-6 text-cyan-50 shadow-[0_18px_70px_rgba(8,47,73,0.42)] sm:text-base">
+              <code>
+                {activeVisual.revealedPrefixLength > 0 ? (
+                  <>
+                    {visibleCode.slice(0, activeVisual.revealedPrefixLength)}
+                    <span className="mt-2 block whitespace-pre-wrap rounded-md border border-cyan-300/55 bg-cyan-300/5 p-2 shadow-[0_0_24px_rgba(34,211,238,0.22)]">
+                      {visibleCode.slice(activeVisual.revealedPrefixLength)}
+                      {visibleCode.length < activeVisual.code.length ? (
+                        <span className="ml-0.5 animate-pulse text-cyan-200" aria-hidden="true">
+                          |
+                        </span>
+                      ) : null}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {visibleCode}
+                    {visibleCode.length < activeVisual.code.length ? (
+                      <span className="ml-0.5 animate-pulse text-cyan-200" aria-hidden="true">
+                        |
+                      </span>
+                    ) : null}
+                  </>
+                )}
+              </code>
+            </pre>
+          </div>
         ) : (
           <div className="grid h-full w-full place-items-center bg-[linear-gradient(135deg,rgba(34,211,238,0.18),rgba(15,23,42,0.94),rgba(16,185,129,0.16))]">
             <div className="px-6 text-center">
@@ -319,15 +421,33 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
           </div>
         )}
 
+        {imageLayers.map((layer) => (
+          <div
+            className={`absolute inset-0 z-10 grid place-items-center bg-slate-950 transition-opacity duration-500 ${
+              layer.phase === 'enter' ? 'opacity-100' : 'opacity-0'
+            }`}
+            key={layer.id}
+          >
+            <img
+              alt=""
+              className="max-h-full max-w-full object-contain"
+              draggable="false"
+              src={layer.url}
+            />
+          </div>
+        ))}
+
         {activeSegment?.type === 'speech' ? (
-          <div className="absolute inset-x-0 bottom-0 bg-slate-950/82 px-4 py-3 backdrop-blur">
+          <div className="absolute inset-x-0 bottom-0 z-20 bg-slate-950/82 px-4 py-3 backdrop-blur">
             <p className="mx-auto max-w-3xl text-center text-sm font-semibold leading-6 text-white md:text-base">
               {activeSpeechTokens.map((token, index) => (
                 <span
                   className={
                     token.wordIndex === highlightedWordIndex
-                      ? 'rounded bg-cyan-200 px-0.5 text-slate-950 shadow-[0_0_14px_rgba(103,232,249,0.38)] transition-colors'
-                      : undefined
+                      ? `${token.isBold ? 'font-black' : ''} rounded bg-cyan-200 px-0.5 text-slate-950 shadow-[0_0_14px_rgba(103,232,249,0.38)] transition-colors`
+                      : token.isBold
+                        ? 'font-black'
+                        : undefined
                   }
                   key={`${index}-${token.text}`}
                 >
@@ -403,23 +523,39 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
 
 function parseTutorialScript(script: string): ParsedTutorialScript {
   const segments: TutorialPlayerSegmentDraft[] = []
-  const commandPattern = /\[(wait|img|video)\s*:\s*([^\]]+)\]/gi
+  const commandPattern = /```(\+?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img|video)\s*:\s*([^\]]+)\]/gi
   let lastIndex = 0
   let match: RegExpExecArray | null
 
   while ((match = commandPattern.exec(script))) {
     addSpeechSegments(script.slice(lastIndex, match.index), segments)
 
-    if (match[1].toLowerCase() === 'wait') {
-      const duration = Number.parseFloat(match[2])
+    const fencedAppendMarker = match[1]
+    const fencedCode = match[2]
+    const legacyCode = match[3]
+    const command = match[4]?.toLowerCase()
+    const value = match[5]
+
+    if (fencedCode !== undefined || legacyCode !== undefined) {
+      const trimmedCode = normalizeCodeContent(fencedCode ?? legacyCode)
+      if (trimmedCode) {
+        segments.push({
+          type: 'code',
+          appendToPrevious: fencedAppendMarker === '+',
+          code: trimmedCode,
+          duration: 0,
+        })
+      }
+    } else if (command === 'wait') {
+      const duration = Number.parseFloat(value)
       if (Number.isFinite(duration) && duration > 0) {
         segments.push({ type: 'wait', duration })
       }
     } else {
-      const url = match[2].trim()
+      const url = value.trim()
       if (url) {
         segments.push({
-          type: match[1].toLowerCase() === 'video' ? 'video' : 'image',
+          type: command === 'video' ? 'video' : 'image',
           url,
           duration: 0,
         })
@@ -454,6 +590,13 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
   }
 }
 
+function normalizeCodeContent(code: string) {
+  return code
+    .replace(/^\s*\r?\n/, '')
+    .replace(/\r?\n\s*$/, '')
+    .trim()
+}
+
 function addSpeechSegments(
   rawText: string,
   segments: TutorialPlayerSegmentDraft[],
@@ -461,18 +604,43 @@ function addSpeechSegments(
   const normalizedText = rawText.replace(/\s+/g, ' ').trim()
   if (!normalizedText) return
 
-  const sentences = normalizedText.match(/[^.!?]+[.!?]+|[^.!?]+$/g) ?? [normalizedText]
+  const formattedText = parseBoldMarkup(normalizedText)
+  const sentenceMatches = [...formattedText.text.matchAll(/[^.!?]+[.!?]+|[^.!?]+$/g)]
+  const sentences =
+    sentenceMatches.length > 0
+      ? sentenceMatches.map((match) => getFormattedSentence(match, formattedText.boldRanges))
+      : [{ boldRanges: formattedText.boldRanges, text: formattedText.text }]
 
   sentences.forEach((sentence) => {
-    const text = sentence.trim()
+    const text = sentence.text
     if (!text) return
 
     segments.push({
       type: 'speech',
+      boldRanges: sentence.boldRanges,
       text,
       duration: estimateSpeechDuration(text),
     })
   })
+}
+
+function getFormattedSentence(match: RegExpMatchArray, boldRanges: TextRange[]) {
+  const rawText = match[0]
+  const rawStart = match.index ?? 0
+  const leadingWhitespaceLength = rawText.match(/^\s*/)?.[0].length ?? 0
+  const trailingWhitespaceLength = rawText.match(/\s*$/)?.[0].length ?? 0
+  const start = rawStart + leadingWhitespaceLength
+  const end = rawStart + rawText.length - trailingWhitespaceLength
+
+  return {
+    boldRanges: boldRanges
+      .filter((range) => rangesOverlap(start, end, range.start, range.end))
+      .map((range) => ({
+        start: clamp(range.start, start, end) - start,
+        end: clamp(range.end, start, end) - start,
+      })),
+    text: rawText.trim(),
+  }
 }
 
 function estimateSpeechDuration(text: string) {
@@ -480,10 +648,14 @@ function estimateSpeechDuration(text: string) {
   return Math.max(1.8, (wordCount / wordsPerMinute) * 60 + 0.55)
 }
 
-function getSpeechWordTokens(text: string) {
+function getSpeechWordTokens(text: string, boldRanges: TextRange[]) {
   let wordIndex = 0
 
-  return text.split(/(\s+)/).map((token) => {
+  return [...text.matchAll(/\s+|\S+/g)].map((match) => {
+    const token = match[0]
+    const start = match.index
+    const end = start + token.length
+
     if (/^\s+$/.test(token)) {
       return { text: token }
     }
@@ -493,9 +665,39 @@ function getSpeechWordTokens(text: string) {
 
     return {
       text: token,
+      isBold: boldRanges.some((range) => rangesOverlap(start, end, range.start, range.end)),
       wordIndex: currentWordIndex,
     }
   })
+}
+
+function parseBoldMarkup(text: string) {
+  let output = ''
+  let cursor = 0
+  const boldRanges: TextRange[] = []
+  const boldPattern = /\*\*([\s\S]+?)\*\*/g
+  let match: RegExpExecArray | null
+
+  while ((match = boldPattern.exec(text))) {
+    output += text.slice(cursor, match.index)
+
+    const boldText = match[1]
+    const start = output.length
+    output += boldText
+    boldRanges.push({ start, end: output.length })
+    cursor = boldPattern.lastIndex
+  }
+
+  output += text.slice(cursor)
+
+  return {
+    boldRanges,
+    text: output,
+  }
+}
+
+function rangesOverlap(startA: number, endA: number, startB: number, endB: number) {
+  return startA < endB && endA > startB
 }
 
 function getWordIndexAtChar(text: string, charIndex: number) {
@@ -528,7 +730,11 @@ function getEstimatedWordIndex(segment: TutorialPlayerSegment | undefined, time:
 
 function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number) {
   const index = segments.findIndex(
-    (segment) => segment.end > time && segment.type !== 'image' && segment.type !== 'video',
+    (segment) =>
+      segment.end > time &&
+      segment.type !== 'image' &&
+      segment.type !== 'video' &&
+      segment.type !== 'code',
   )
 
   if (index >= 0) {
@@ -538,7 +744,7 @@ function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number
   return Math.max(segments.length - 1, 0)
 }
 
-function getMediaForTime(segments: TutorialPlayerSegment[], time: number, activeIndex: number) {
+function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activeIndex: number) {
   const indexLimit = Math.max(
     activeIndex,
     segments.findLastIndex((segment) => segment.start <= time),
@@ -549,12 +755,62 @@ function getMediaForTime(segments: TutorialPlayerSegment[], time: number, active
     if (segment?.type === 'image' || segment?.type === 'video') {
       return {
         type: segment.type,
+        start: segment.start,
         url: segment.url,
       }
+    }
+    if (segment?.type === 'code') {
+      return getCodeVisualForSegment(segments, index)
     }
   }
 
   return undefined
+}
+
+function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentIndex: number) {
+  const blocks = []
+  let index = codeSegmentIndex
+
+  while (index >= 0) {
+    const segment = segments[index]
+    if (segment?.type !== 'code') {
+      index -= 1
+      continue
+    }
+
+    blocks.unshift(segment.code)
+
+    if (!segment.appendToPrevious) {
+      break
+    }
+
+    index -= 1
+  }
+
+  const segment = segments[codeSegmentIndex]
+  const previousCode = joinCodeBlocks(blocks.slice(0, -1))
+  const code = joinCodeBlocks(blocks)
+
+  return {
+    type: 'code' as const,
+    start: segment.start,
+    code,
+    revealedPrefixLength: previousCode ? previousCode.length + 1 : 0,
+  }
+}
+
+function joinCodeBlocks(blocks: string[]) {
+  return blocks.filter(Boolean).join('\n')
+}
+
+function getTypewriterCode(code: string, elapsedSeconds: number, revealedPrefixLength = 0) {
+  const visibleCharacterCount = clamp(
+    revealedPrefixLength + Math.floor(Math.max(elapsedSeconds, 0) * codeCharactersPerSecond),
+    0,
+    code.length,
+  )
+
+  return code.slice(0, visibleCharacterCount)
 }
 
 function formatTime(value: number) {

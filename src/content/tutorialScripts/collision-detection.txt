@@ -1,5 +1,19 @@
-Collision Detection explains a gameplay rule or feedback system.
-Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
-In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
-The sample begins with when s1 collides with s2 do. In plain language, it waits for a player input or event before running the commands inside.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-10T19-47-05-964Z.png]
+Use collision detection event handler for responding to collision between two moving objects.
+```
+b1=>box: pos (-4,0,0)
+b2=>box: pos (4,0,0)
+```
+Let's take for example two boxes
+```+
+b1.move left 8 in 5 seconds async
+b2.move right 8 in 3 seconds async
+```
+Moving one against the other.
+```+
+when b1 collides with b2 do
+  sys.print "BOOM!"
+end do
+```
+we will add a collision detection event handler to do something when they collide with each other while moving. In this case we simply print the word "Boom!".
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-10T19-17-23-957Z.png]

@@ -201,46 +201,6 @@ export function TutorialsPage() {
           </div>
         </div>
 
-        <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {siteContent.tutorialCategories.map((category) => (
-            <button
-              className={`rounded-lg border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
-                categoryId === category.id
-                  ? 'border-cyan-300/60 bg-cyan-300/10'
-                  : 'border-white/10 bg-white/[0.035] hover:border-cyan-300/30'
-              }`}
-              key={category.id}
-              onClick={() => selectCategory(categoryId === category.id ? allCategories : category.id)}
-              type="button"
-            >
-              <h3 className="font-black text-white">{category.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-400">{category.description}</p>
-            </button>
-          ))}
-        </div>
-
-        <div className="mb-8 flex flex-wrap gap-2">
-          {visibleSubcategories.map((subcategory) => (
-            <button
-              className={`rounded-md border px-3 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
-                subcategoryId === subcategory.id
-                  ? 'border-emerald-300/60 bg-emerald-300/10 text-emerald-100'
-                  : 'border-white/10 bg-white/[0.035] text-slate-300 hover:border-emerald-300/35'
-              }`}
-              key={subcategory.id}
-              onClick={() => {
-                setSubcategoryId(
-                  subcategoryId === subcategory.id ? allSubcategories : subcategory.id,
-                )
-                setVisibleCount(pageSize)
-              }}
-              type="button"
-            >
-              {subcategory.title}
-            </button>
-          ))}
-        </div>
-
         {results.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visibleResults.map((tutorial) => (
