@@ -1,7 +1,4 @@
+[img: /assets/tutorials/getting-started/pasted-2026-06-12T13-09-17-419Z.png]
+In order to pack your game and prepare it for deployment to the marketplace, you need to be focused on the "main" script file and then click on the "Package program" button. This will open the package and deployment dialog. 
 [video: /assets/tutorials/getting-started/07-package-saved-game-executable.mp4]
-When the main file is saved and the scene runs, package the folder as a desktop executable.
-Select the scene folder, use Package Program, keep Windows selected, and click Package.
-SceneMax reports the generated output path when the package is finished.
-[video: /assets/tutorials/getting-started/08-run-saved-game-executable.mp4]
-Open the output folder, go into windows, and run the generated executable.
-This is the final beginner loop: save the project, package the scene, then launch the saved game outside the IDE.
+It should take less than a minute for the package process to finish creating the game executable. Alongside the game file, SceneMax creates a report about all the assets being used in the packed game so you can try and fine-tune it and reduce its size if needed.

@@ -1,5 +1,18 @@
-Protected Animations explains how a 3D character or model plays animation clips.
-Use this when a model needs a named action, a controlled speed, a chain of actions, or a protected animation.
-In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
-The sample begins with fighter.jump_high : protected. In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+```
+player => Ninja
+player.Kick async
+```
+at any given time a model animation can be played for example **player.Kick**.
+```+
+wait 0.1 seconds
+player.BackFlip
+```
+while the animation is played, there is a chance that it will be cancelled in case a different animation is triggered. This is what we call - **animation cancelling** and it allows a more fast, fluent game where actions (animations) can be switched before ending.
+```
+player=>Ninja 
+player.Death1 : protected Async
+wait 0.2 second 
+player.Kick 
+```
+However, there are times when we would like to **protect** the animation from being cancelled by another animation. In that case we put the **protected** keyword in the end of the animation command. 
+In this example, the **Kick** animation will not cancel the previous **Death1** animation.

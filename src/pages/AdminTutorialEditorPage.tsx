@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import {
   Check,
   FileText,
@@ -8,6 +9,7 @@ import {
   Save,
   Search,
   Tags,
+  Trash2,
   UploadCloud,
   Video,
   X,
@@ -50,6 +52,7 @@ interface AssetUploadResponse {
 const difficulties: Difficulty[] = ['beginner', 'intermediate', 'advanced']
 
 export function AdminTutorialEditorPage() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [catalog, setCatalog] = useState<TutorialIndexResponse>({
     tutorials: [],
     categories: [],
@@ -62,12 +65,13 @@ export function AdminTutorialEditorPage() {
   const [assetFile, setAssetFile] = useState<File>()
   const [tagsText, setTagsText] = useState('')
   const [relatedText, setRelatedText] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'saving' | 'uploading' | 'saved' | 'error'>(
-    'idle',
-  )
+  const [status, setStatus] = useState<
+    'idle' | 'loading' | 'saving' | 'uploading' | 'deleting' | 'saved' | 'error'
+  >('idle')
   const [message, setMessage] = useState('')
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
   const scriptTextareaRef = useRef<HTMLTextAreaElement>(null)
+  const initialRequestedTutorialIdRef = useRef(searchParams.get('tutorial') ?? '')
 
   usePageMeta(
     'Tutorial Admin | SceneMax3D',
@@ -119,8 +123,18 @@ export function AdminTutorialEditorPage() {
 
     try {
       const nextCatalog = await requestJson<TutorialIndexResponse>('/api/admin/tutorials')
+      const initialRequestedTutorialId = initialRequestedTutorialIdRef.current
       setCatalog(nextCatalog)
-      setSelectedId((currentId) => currentId || nextCatalog.tutorials[0]?.id || '')
+      setSelectedId((currentId) => {
+        const hasRequestedTutorial = nextCatalog.tutorials.some(
+          (tutorial) => tutorial.id === initialRequestedTutorialId,
+        )
+        const hasCurrentTutorial = nextCatalog.tutorials.some((tutorial) => tutorial.id === currentId)
+
+        if (hasRequestedTutorial) return initialRequestedTutorialId
+        if (hasCurrentTutorial) return currentId
+        return nextCatalog.tutorials[0]?.id || ''
+      })
       setStatus('idle')
     } catch (error) {
       setStatus('error')
@@ -174,6 +188,43 @@ export function AdminTutorialEditorPage() {
       }))
       setStatus('saved')
       setMessage('Saved to JSON and text files.')
+    } catch (error) {
+      setStatus('error')
+      setMessage(getErrorMessage(error))
+    }
+  }
+
+  async function deleteDetail() {
+    if (!detail) return
+
+    const tutorial = detail.tutorial
+    const confirmed = window.confirm(`Delete "${tutorial.title}"? This removes the tutorial, sample, and script.`)
+    if (!confirmed) return
+
+    setStatus('deleting')
+    setMessage('')
+
+    try {
+      const nextCatalog = await requestJson<TutorialIndexResponse>(`/api/admin/tutorials/${tutorial.id}`, {
+        method: 'DELETE',
+      })
+      const orderedBeforeDelete = [...catalog.tutorials].sort((a, b) => a.order - b.order)
+      const deletedIndex = orderedBeforeDelete.findIndex((item) => item.id === tutorial.id)
+      const fallbackId =
+        orderedBeforeDelete[deletedIndex + 1]?.id ??
+        orderedBeforeDelete[deletedIndex - 1]?.id ??
+        nextCatalog.tutorials[0]?.id ??
+        ''
+
+      setCatalog(nextCatalog)
+      setDetail(undefined)
+      setTagsText('')
+      setRelatedText('')
+      setIsPreviewOpen(false)
+      setSelectedId(fallbackId)
+      setSearchParams(fallbackId ? { tutorial: fallbackId } : {})
+      setStatus('saved')
+      setMessage(`Deleted "${tutorial.title}".`)
     } catch (error) {
       setStatus('error')
       setMessage(getErrorMessage(error))
@@ -279,6 +330,11 @@ export function AdminTutorialEditorPage() {
     )
   }
 
+  function selectTutorial(tutorialId: string) {
+    setSelectedId(tutorialId)
+    setSearchParams({ tutorial: tutorialId })
+  }
+
   function insertScriptMedia(asset: TutorialAsset) {
     if (!detail) return
     const command = asset.type === 'video' ? `[video: ${asset.url}]` : `[img: ${asset.url}]`
@@ -315,8 +371,17 @@ export function AdminTutorialEditorPage() {
               Reload
             </button>
             <button
+              className="inline-flex min-h-11 items-center gap-2 rounded-md border border-rose-300/50 bg-rose-400/10 px-4 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/20 focus:outline-none focus:ring-2 focus:ring-rose-300 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={!detail || status === 'deleting'}
+              onClick={deleteDetail}
+              type="button"
+            >
+              <Trash2 aria-hidden="true" size={17} />
+              Delete
+            </button>
+            <button
               className="inline-flex min-h-11 items-center gap-2 rounded-md border border-cyan-300/50 bg-cyan-300/15 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!detail || status === 'saving'}
+              disabled={!detail || status === 'saving' || status === 'deleting'}
               onClick={saveDetail}
               type="button"
             >
@@ -366,7 +431,7 @@ export function AdminTutorialEditorPage() {
                       : 'border-transparent hover:border-white/10 hover:bg-white/[0.045]'
                   }`}
                   key={tutorial.id}
-                  onClick={() => setSelectedId(tutorial.id)}
+                  onClick={() => selectTutorial(tutorial.id)}
                   type="button"
                 >
                   <span className="block text-sm font-black text-white">{tutorial.title}</span>

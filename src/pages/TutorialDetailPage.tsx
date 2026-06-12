@@ -73,7 +73,13 @@ export function TutorialDetailPage() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <article>
-            <TutorialScriptPlayer key={tutorial.id} scriptText={tutorialScript} tutorial={tutorial} />
+            <TutorialScriptPlayer
+              autoPlay
+              editUrl={`/admin/tutorials?tutorial=${encodeURIComponent(tutorial.id)}`}
+              key={tutorial.id}
+              scriptText={tutorialScript}
+              tutorial={tutorial}
+            />
             <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
                 {getCategoryTitle(tutorial.categoryId)}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Pause, Play, SkipBack, SkipForward, Volume2 } from 'lucide-react'
+import { Pause, Pencil, Play, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import type { Tutorial } from '../types/content'
 
 type TutorialPlayerSegment =
@@ -85,6 +85,8 @@ interface ImageLayer {
 }
 
 interface TutorialScriptPlayerProps {
+  autoPlay?: boolean
+  editUrl?: string
   scriptText?: string
   tutorial: Tutorial
 }
@@ -105,7 +107,12 @@ function buildDefaultTutorialScript(tutorial: Tutorial) {
   ].join('\n')
 }
 
-export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPlayerProps) {
+export function TutorialScriptPlayer({
+  autoPlay = false,
+  editUrl,
+  scriptText,
+  tutorial,
+}: TutorialScriptPlayerProps) {
   const script = scriptText?.trim() || tutorial.tutorialScript?.trim() || buildDefaultTutorialScript(tutorial)
   const parsedScript = useMemo(() => parseTutorialScript(script), [script])
   const [isPlaying, setIsPlaying] = useState(false)
@@ -118,6 +125,7 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
   const timerRef = useRef<number | undefined>(undefined)
   const animationRef = useRef<number | undefined>(undefined)
   const playbackTokenRef = useRef(0)
+  const didAutoPlayRef = useRef(false)
   const speechBoundaryAtRef = useRef(0)
   const imageLayerIdRef = useRef(0)
 
@@ -282,6 +290,20 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
     setPlayerTime(nextTime)
     playFromIndex(index, token)
   }, [parsedScript.segments, parsedScript.totalDuration, playFromIndex, setPlayerTime])
+
+  useEffect(() => {
+    if (!autoPlay || didAutoPlayRef.current || parsedScript.segments.length === 0) return
+
+    const frame = window.requestAnimationFrame(() => {
+      didAutoPlayRef.current = true
+      play()
+    })
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      didAutoPlayRef.current = false
+    }
+  }, [autoPlay, parsedScript.segments.length, play])
 
   const seekTo = useCallback(
     (nextTime: number, shouldResume = isPlaying) => {
@@ -460,7 +482,7 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
       </div>
 
       <div className="border-t border-white/10 bg-slate-950/95 p-3">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             aria-label="Start"
             className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
@@ -491,7 +513,18 @@ export function TutorialScriptPlayer({ scriptText, tutorial }: TutorialScriptPla
             <SkipForward aria-hidden="true" size={18} />
           </button>
 
-          <label className="min-w-0 flex-1">
+          {editUrl ? (
+            <a
+              className="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+              href={editUrl}
+              title="Edit tutorial"
+            >
+              <Pencil aria-hidden="true" size={16} />
+              Edit
+            </a>
+          ) : null}
+
+          <label className="min-w-36 flex-1">
             <span className="sr-only">Tutorial progress</span>
             <input
               aria-label="Tutorial progress"

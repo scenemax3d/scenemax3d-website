@@ -12,7 +12,12 @@
   "language-basics": {
     "language": "scenemax",
     "caption": "Saved game packaging flow.",
-    "code": "// Save the dragon_scene/main script first.\n// Tools > Package Program\n// Target: Windows\n// Output: build_games/dragon_scene/windows/dragon_scene.exe\n\n// Run dragon_scene.exe to launch the packaged game."
+    "code": ""
+  },
+  "printing-text": {
+    "language": "scenemax",
+    "caption": "Print, style, update, and clear text through a named channel.",
+    "code": "sys.print \"Hello World\": pos (100,200,0), color yellow, size 3, font \"yoshi\"\nwait 3 seconds\nsys.print \"\""
   },
   "playing-3d-animations": {
     "language": "scenemax",
@@ -22,12 +27,7 @@
   "chaining-animations": {
     "language": "scenemax",
     "caption": "SceneMax example from animation.md.",
-    "code": "s.Dance then SliceVertical then JumpLoop"
-  },
-  "animation-speed": {
-    "language": "scenemax",
-    "caption": "SceneMax example from animation.md.",
-    "code": "s.Dance at speed of 0.5"
+    "code": "player=>Ninja\nplayer.Kick at speed of 0.5 \n  then Backflip \n  then \"Spin\" at speed of 2 \n  then Block \n  then SideKick at speed of 0.1"
   },
   "protected-animations": {
     "language": "scenemax",
@@ -2742,7 +2742,7 @@
   "running-at-intervals": {
     "language": "scenemax",
     "caption": "SceneMax example for Running at Intervals.",
-    "code": "tick = {\n  header.print \"spawn check\"\n}\n\nrun tick every 1.5 seconds"
+    "code": "var time = 3 [0..60]\ngame_timer = {\n  time = time - 1\n  sys.print \"TIME: \" + time\n}\n\nrun game_timer every 1 second"
   },
   "running-asynchronously": {
     "language": "scenemax",

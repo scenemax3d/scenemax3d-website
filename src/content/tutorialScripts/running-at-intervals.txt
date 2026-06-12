@@ -1,6 +1,21 @@
 [img: /assets/tutorials/language-fundamentals/running-at-intervals.svg]
 Running at intervals repeats a procedure on a timer.
-The phrase every 1.5 seconds tells SceneMax how often to run it.
-In this example, tick can be used as a repeated spawn check.
-Intervals are useful when a rule should happen over time but not every frame.
-Use them for spawning enemies, updating status text, checking objectives, or creating timed effects.
+look at the following code:
+```
+var time = 60 [0..60]
+```
+first, we define a variable for counting the time
+```+
+game_timer = {
+  time = time - 1
+  sys.print "TIME: " + time
+}
+```
+then, we define a procedure for reducing by one the **time** variable and printing it on the screen.
+```+
+run game_timer every 1 second
+```
+finally, we execute that procedure every 1 second. So in that case we expect to reach zero after exactly 60 seconds.
+
+So, Intervals are useful when something should happen over time but not every frame.
+Use them for spawning enemies, updating status text, checking objectives, continues game logic etc.

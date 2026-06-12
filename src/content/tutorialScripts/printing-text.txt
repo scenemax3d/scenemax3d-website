@@ -1,0 +1,34 @@
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-10T20-07-15-849Z.png]
+Printing text is the simplest way to put a message on the screen while your scene is running.
+
+Start with the print channel name, then call `.print`, then put the text inside quotes.
+
+```sys.print "Hello World"```
+
+Here, **sys** is the name of the printing channel. The channel name matters because you can come back to the same channel later and change the text that it is showing.
+
+For example, if you print again through `sys`, SceneMax treats it as the same screen text channel.
+
+```+sys.print "Get ready!"```
+
+Now the `sys` channel shows a different message. That is useful for score text, status text, instructions, or any text you want to update while the scene keeps running.
+
+You can also place and style the text in the same line. Add `pos` for screen position, `color` for the text color, `size` for the text size, and `font` for the font name.
+
+```sys.print "Hello World": pos (100,200,0), color yellow, size 3, font "yoshi"```
+
+In this example, the text is printed at position `(100,200,0)`, it is yellow, it uses size `3`, and it uses the `"yoshi"` font.
+
+Because the text belongs to the `sys` channel, you do not need to search for it later. Just print through the same channel again.
+
+```sys.print "Level 1"```
+
+Then update it whenever the message changes.
+
+```+sys.print "Level 2"```
+
+To delete the text from that channel, print an empty string.
+
+```+sys.print ""```
+
+That clears the `sys` text channel, so the message disappears from the screen.

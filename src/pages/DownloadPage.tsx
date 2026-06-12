@@ -15,17 +15,34 @@ const repositoryUrl = 'https://github.com/scenemax3d/scenemax3d-desktop'
 const releasesUrl = `${repositoryUrl}/releases`
 
 const latestRelease = {
-  version: 'v2.0.1',
-  date: 'April 22, 2026',
-  installerName: 'scenemax3d-2.0.1-setup.exe',
-  installerSize: '343 MB',
+  version: 'v2.1.0',
+  date: 'June 10, 2026',
+  installerName: 'scenemax3d-2.1.0-setup.exe',
+  installerSize: '442 MB',
   installerUrl:
-    'https://github.com/scenemax3d/scenemax3d-desktop/releases/download/v2.0.1/scenemax3d-2.0.1-setup.exe',
-  releaseUrl: `${releasesUrl}/tag/v2.0.1`,
-  sourceZipUrl: `${repositoryUrl}/archive/refs/tags/v2.0.1.zip`,
+    'https://github.com/scenemax3d/scenemax3d-desktop/releases/download/v2.1.0/scenemax3d-2.1.0-setup.exe',
+  releaseUrl: `${releasesUrl}/tag/v2.1.0`,
+  sourceZipUrl: `${repositoryUrl}/archive/refs/tags/v2.1.0.zip`,
 }
 
 const releases = [
+  {
+    version: 'v2.1.0',
+    date: 'June 10, 2026',
+    url: `${releasesUrl}/tag/v2.1.0`,
+    summary:
+      'Major creation release focused on animation, physics, packaging, rendering, and production workflow depth.',
+    changes: [
+      'Out-of-the-box video rendering and improved package/deployment flow with OS-specific projectors.',
+      'Comprehensive weapons system, full inverse kinematics, animation event hooks, and reverse playback options.',
+      'Enhanced lighting and plugin systems, including plugin manager work and project inventory reporting.',
+      'Physics simulation, built-in object pooling, movement easing, and Effekseer loop playback improvements.',
+      'Fbx2Gltf-based animation import fixes, runtime polish, asset reporting, and bug fixes.',
+    ],
+    installerUrl:
+      'https://github.com/scenemax3d/scenemax3d-desktop/releases/download/v2.1.0/scenemax3d-2.1.0-setup.exe',
+    compareUrl: `${repositoryUrl}/compare/v2.0.1...v2.1.0`,
+  },
   {
     version: 'v2.0.1',
     date: 'April 22, 2026',
@@ -41,6 +58,7 @@ const releases = [
     ],
     installerUrl:
       'https://github.com/scenemax3d/scenemax3d-desktop/releases/download/v2.0.1/scenemax3d-2.0.1-setup.exe',
+    compareUrl: `${repositoryUrl}/compare/v2.0.0...v2.0.1`,
   },
   {
     version: 'v2.0.0',
@@ -57,6 +75,7 @@ const releases = [
     ],
     installerUrl:
       'https://github.com/scenemax3d/scenemax3d-desktop/releases/download/v2.0.0/scenemax3d-2.0-setup.exe',
+    compareUrl: `${repositoryUrl}/commits/v2.0.0`,
   },
 ]
 
@@ -156,7 +175,7 @@ export function DownloadPage() {
               <div>
                 <h2 className="text-2xl font-black text-white">Windows installer</h2>
                 <p className="mt-2 text-sm leading-6 text-slate-300">
-                  {latestRelease.installerName} · {latestRelease.installerSize} · published {latestRelease.date}
+                  {latestRelease.installerName} - {latestRelease.installerSize} - published {latestRelease.date}
                 </p>
               </div>
             </div>
@@ -224,16 +243,23 @@ export function DownloadPage() {
           <SectionHeader
             eyebrow="Release history"
             title="What changed in each release"
-            description="The release notes below mirror the public GitHub releases and link back to the original entries."
+            description="The release notes below track the public GitHub releases and link back to the original entries, installers, and changelogs."
           />
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-            {releases.map((release) => (
+          <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+            {releases.map((release, index) => (
               <article className="rounded-lg border border-white/10 bg-slate-950/70 p-5" key={release.version}>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200">
-                      {release.date}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-200">
+                        {release.date}
+                      </p>
+                      {index === 0 ? (
+                        <span className="rounded-md border border-emerald-300/40 bg-emerald-300/10 px-2 py-1 text-xs font-bold text-emerald-100">
+                          Latest
+                        </span>
+                      ) : null}
+                    </div>
                     <h2 className="mt-2 text-2xl font-black text-white">{release.version}</h2>
                   </div>
                   <a
@@ -255,15 +281,26 @@ export function DownloadPage() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 transition hover:text-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-                  href={release.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View full GitHub release
-                  <ExternalLink aria-hidden="true" size={16} />
-                </a>
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
+                  <a
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-100 transition hover:text-cyan-50 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                    href={release.url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View full GitHub release
+                    <ExternalLink aria-hidden="true" size={16} />
+                  </a>
+                  <a
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-slate-300 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                    href={release.compareUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Changelog
+                    <ExternalLink aria-hidden="true" size={16} />
+                  </a>
+                </div>
               </article>
             ))}
           </div>

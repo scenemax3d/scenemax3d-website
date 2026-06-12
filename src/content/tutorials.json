@@ -88,6 +88,36 @@
     ]
   },
   {
+    "id": "printing-text",
+    "slug": "printing-text",
+    "title": "Printing Text",
+    "description": "Print simple text on the screen, style it, position it, update it through a named channel, and clear it when it is no longer needed.",
+    "categoryId": "language-fundamentals",
+    "subcategoryId": "variables",
+    "subject": "Printing Text",
+    "clipFocus": "Use sys.print to show text, place it with pos, style it with color, size, and font, then reuse the sys channel to update or delete the text.",
+    "sourceDoc": "variables-and-data-types.md",
+    "difficulty": "beginner",
+    "duration": "3:00",
+    "youtubeId": "",
+    "thumbnail": "",
+    "tags": [
+      "language-fundamentals",
+      "variables",
+      "printing",
+      "text",
+      "sys.print",
+      "font"
+    ],
+    "featured": true,
+    "order": 4,
+    "relatedTutorialIds": [
+      "quick-start",
+      "string-variables",
+      "updating-variables"
+    ]
+  },
+  {
     "id": "playing-3d-animations",
     "slug": "playing-3d-animations",
     "title": "Playing 3D Animations",
@@ -113,8 +143,7 @@
     "featured": true,
     "order": 6,
     "relatedTutorialIds": [
-      "chaining-animations",
-      "animation-speed"
+      "chaining-animations"
     ]
   },
   {
@@ -143,37 +172,7 @@
     "order": 7,
     "relatedTutorialIds": [
       "playing-3d-animations",
-      "animation-speed",
       "protected-animations"
-    ]
-  },
-  {
-    "id": "animation-speed",
-    "slug": "animation-speed",
-    "title": "Animation Speed",
-    "description": "A short focused SceneMax3D lesson about Animation Speed.",
-    "categoryId": "movement-animation",
-    "subcategoryId": "animation-basics",
-    "subject": "Animation Speed",
-    "clipFocus": "Explain Animation Speed from Animation, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "animation.md",
-    "sourceLine": 19,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "movement-animation",
-      "animation-basics",
-      "animation",
-      "speed"
-    ],
-    "featured": false,
-    "order": 8,
-    "relatedTutorialIds": [
-      "chaining-animations",
-      "protected-animations",
-      "animations-with-spaces-in-names"
     ]
   },
   {
@@ -201,7 +200,6 @@
     "featured": false,
     "order": 9,
     "relatedTutorialIds": [
-      "animation-speed",
       "animations-with-spaces-in-names",
       "animation-speed-control-mid-animation"
     ]

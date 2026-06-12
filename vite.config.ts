@@ -61,6 +61,16 @@ function tutorialAdminApi() {
             return
           }
 
+          if (req.method === 'DELETE' && tutorialMatch) {
+            await deleteTutorialDetail(tutorialMatch[1])
+            await sendJson(res, {
+              tutorials: await readJson(tutorialsPath),
+              categories: await readJson(categoriesPath),
+              subcategories: await readJson(subcategoriesPath),
+            })
+            return
+          }
+
           if (req.method === 'POST' && url.pathname === '/api/admin/assets') {
             const body = await readRequestJson(req)
             await sendJson(res, await writeTutorialAsset(body))
@@ -127,6 +137,30 @@ async function writeTutorialDetail(rawId: string, body: unknown) {
 
   await fs.mkdir(scriptsRoot, { recursive: true })
   await fs.writeFile(path.join(scriptsRoot, `${id}.txt`), String(payload.script ?? '').trimEnd() + '\n')
+}
+
+async function deleteTutorialDetail(rawId: string) {
+  const id = sanitizePathPart(rawId)
+  const tutorials = await readJson(tutorialsPath)
+  const tutorialIndex = tutorials.findIndex((item: { id: string }) => item.id === id)
+
+  if (tutorialIndex < 0) {
+    throw new Error(`Tutorial '${id}' was not found`)
+  }
+
+  tutorials.splice(tutorialIndex, 1)
+  tutorials.forEach((tutorial: { relatedTutorialIds?: string[] }) => {
+    if (Array.isArray(tutorial.relatedTutorialIds)) {
+      tutorial.relatedTutorialIds = tutorial.relatedTutorialIds.filter((relatedId) => relatedId !== id)
+    }
+  })
+  await writeJson(tutorialsPath, tutorials)
+
+  const samples = await readJson(samplesPath)
+  delete samples[id]
+  await writeJson(samplesPath, samples)
+
+  await fs.rm(path.join(scriptsRoot, `${id}.txt`), { force: true })
 }
 
 function validateTutorialPayload(tutorial: Record<string, unknown>, id: string) {
