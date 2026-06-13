@@ -15,17 +15,6 @@ function App() {
         <Route path="tutorials" element={<TutorialsPage />} />
         <Route path="tutorials/:slug" element={<TutorialDetailPage />} />
         <Route path="admin/tutorials" element={<AdminTutorialEditorPage />} />
-        <Route
-          path="docs"
-          element={
-            <SimplePage
-              description="Documentation pages will be driven by the same JSON structure as the tutorials."
-              eyebrow="Docs"
-              items={['SceneMax language reference', 'Studio workflow notes', 'Component guides', 'Publishing checklist']}
-              title="Documentation"
-            />
-          }
-        />
         <Route path="download" element={<DownloadPage />} />
         <Route
           path="showcase"
@@ -46,17 +35,6 @@ function App() {
               eyebrow="Community"
               items={['GitHub', 'Discussions', 'Contribution guide', 'Learning support']}
               title="Community"
-            />
-          }
-        />
-        <Route
-          path="roadmap"
-          element={
-            <SimplePage
-              description="A public roadmap for upcoming SceneMax3D website, academy, and engine milestones."
-              eyebrow="Roadmap"
-              items={['Phase 2 polish', 'Phase 3 content', 'Docs expansion', 'Learning paths']}
-              title="Roadmap"
             />
           }
         />

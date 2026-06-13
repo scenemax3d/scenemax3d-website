@@ -16,26 +16,18 @@
       "path": "/tutorials"
     },
     {
-      "label": "Docs",
-      "path": "/docs"
-    },
-    {
       "label": "Showcase",
       "path": "/showcase"
     },
     {
       "label": "Download",
       "path": "/download"
-    },
-    {
-      "label": "Roadmap",
-      "path": "/roadmap"
     }
   ],
   "hero": {
     "eyebrow": "Watch. Learn. Build 3D games.",
     "title": "Build 3D games faster with SceneMax3D",
-    "subtitle": "A visual game creation studio with a readable programming language, animation tools, physics, effects, AI-assisted workflows, and publishing support.",
+    "subtitle": "A visual game creation studio with a choreographic programming language, animation tools, physics, effects, AI-assisted workflows, and publishing support.",
     "buttons": [
       {
         "label": "Download",

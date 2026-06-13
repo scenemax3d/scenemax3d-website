@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import type { Tutorial } from '../types/content'
 import { getTutorialPreviewImage } from '../utils/content'
@@ -5,16 +6,34 @@ import { DifficultyBadge } from './DifficultyBadge'
 import { icons } from './icons'
 
 interface TutorialCardProps {
+  onOpen?: (snapshotAnchor: TutorialCardSnapshotAnchor) => void
   tutorial: Tutorial
 }
 
-export function TutorialCard({ tutorial }: TutorialCardProps) {
+export interface TutorialCardSnapshotAnchor {
+  slug: string
+  top: number
+}
+
+export function TutorialCard({ onOpen, tutorial }: TutorialCardProps) {
   const PlayIcon = icons.play
   const previewImage = getTutorialPreviewImage(tutorial)
 
+  function handleOpen(event: MouseEvent<HTMLAnchorElement>) {
+    onOpen?.({
+      slug: tutorial.slug,
+      top: event.currentTarget.getBoundingClientRect().top,
+    })
+  }
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-white/10 bg-white/[0.045] transition hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.07]">
-      <Link className="block focus:outline-none focus:ring-2 focus:ring-cyan-300" to={`/tutorials/${tutorial.slug}`}>
+      <Link
+        className="block focus:outline-none focus:ring-2 focus:ring-cyan-300"
+        onAuxClick={handleOpen}
+        onClick={handleOpen}
+        to={`/tutorials/${tutorial.slug}`}
+      >
         <div className="relative aspect-video overflow-hidden bg-[linear-gradient(135deg,rgba(34,211,238,0.26),rgba(168,85,247,0.2)_48%,rgba(52,211,153,0.22))]">
           {previewImage ? (
             <img

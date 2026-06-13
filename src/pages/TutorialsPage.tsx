@@ -1,8 +1,9 @@
 import Fuse from 'fuse.js'
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { DifficultyBadge } from '../components/DifficultyBadge'
 import { SectionHeader } from '../components/SectionHeader'
-import { TutorialCard } from '../components/TutorialCard'
+import { TutorialCard, type TutorialCardSnapshotAnchor } from '../components/TutorialCard'
 import { icons } from '../components/icons'
 import type { Difficulty } from '../types/content'
 import {
@@ -15,18 +16,44 @@ import {
   siteContent,
 } from '../utils/content'
 import { usePageMeta } from '../utils/meta'
+import {
+  markTutorialListSnapshotRestored,
+  readTutorialListSnapshot,
+  saveTutorialListSnapshot,
+  type TutorialListSnapshot,
+} from '../utils/tutorialListState'
 
 const allCategories = 'all'
 const allSubcategories = 'all'
 const allDifficulties = 'all'
 const pageSize = 24
 
+interface TutorialListLocationState {
+  restoreTutorialList?: boolean
+}
+
 export function TutorialsPage() {
-  const [query, setQuery] = useState('')
-  const [categoryId, setCategoryId] = useState(allCategories)
-  const [subcategoryId, setSubcategoryId] = useState(allSubcategories)
-  const [difficulty, setDifficulty] = useState<Difficulty | typeof allDifficulties>(allDifficulties)
-  const [visibleCount, setVisibleCount] = useState(pageSize)
+  const location = useLocation()
+  const initialSnapshotRef = useRef<{ snapshot: TutorialListSnapshot | undefined } | undefined>(undefined)
+
+  if (!initialSnapshotRef.current) {
+    const savedSnapshot = readTutorialListSnapshot()
+    const locationState = location.state as TutorialListLocationState | null
+    const shouldRestore = Boolean(locationState?.restoreTutorialList || savedSnapshot?.restorePending)
+
+    initialSnapshotRef.current = {
+      snapshot: shouldRestore ? savedSnapshot : undefined,
+    }
+  }
+
+  const initialSnapshot = initialSnapshotRef.current.snapshot
+  const [query, setQuery] = useState(() => initialSnapshot?.query ?? '')
+  const [categoryId, setCategoryId] = useState(() => initialSnapshot?.categoryId ?? allCategories)
+  const [subcategoryId, setSubcategoryId] = useState(() => initialSnapshot?.subcategoryId ?? allSubcategories)
+  const [difficulty, setDifficulty] = useState<Difficulty | typeof allDifficulties>(() =>
+    normalizeDifficulty(initialSnapshot?.difficulty),
+  )
+  const [visibleCount, setVisibleCount] = useState(() => Math.max(pageSize, initialSnapshot?.visibleCount ?? pageSize))
   const SearchIcon = icons.search
 
   usePageMeta(
@@ -95,6 +122,34 @@ export function TutorialsPage() {
     setSubcategoryId(allSubcategories)
     setVisibleCount(pageSize)
   }
+
+  const saveCurrentListSnapshot = useCallback(
+    (restorePending: boolean, snapshotAnchor?: TutorialCardSnapshotAnchor) => {
+      saveTutorialListSnapshot({
+        anchorSlug: snapshotAnchor?.slug,
+        anchorTop: snapshotAnchor?.top,
+        categoryId,
+        difficulty,
+        query,
+        restorePending,
+        savedAt: Date.now(),
+        scrollY: window.scrollY,
+        subcategoryId,
+        visibleCount,
+      })
+    },
+    [categoryId, difficulty, query, subcategoryId, visibleCount],
+  )
+
+  useEffect(() => {
+    saveCurrentListSnapshot(false)
+  }, [saveCurrentListSnapshot])
+
+  useLayoutEffect(() => {
+    if (!initialSnapshot) return
+
+    return restoreTutorialListScroll(initialSnapshot)
+  }, [initialSnapshot])
 
   return (
     <section className="py-12 md:py-20">
@@ -204,7 +259,11 @@ export function TutorialsPage() {
         {results.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {visibleResults.map((tutorial) => (
-              <TutorialCard key={tutorial.id} tutorial={tutorial} />
+              <TutorialCard
+                key={tutorial.id}
+                onOpen={(snapshotAnchor) => saveCurrentListSnapshot(true, snapshotAnchor)}
+                tutorial={tutorial}
+              />
             ))}
           </div>
         ) : (
@@ -228,4 +287,58 @@ export function TutorialsPage() {
       </div>
     </section>
   )
+}
+
+function normalizeDifficulty(value: string | undefined): Difficulty | typeof allDifficulties {
+  if (value === allDifficulties) return allDifficulties
+  if (difficulties.includes(value as Difficulty)) return value as Difficulty
+
+  return allDifficulties
+}
+
+function restoreTutorialListScroll(snapshot: TutorialListSnapshot) {
+  const root = document.documentElement
+  const previousScrollBehavior = root.style.scrollBehavior
+  const targetScrollY = Math.max(0, snapshot.scrollY)
+  let secondFrame = 0
+
+  function restore() {
+    root.style.scrollBehavior = 'auto'
+    window.scrollTo({ left: 0, top: targetScrollY, behavior: 'auto' })
+    root.scrollTop = targetScrollY
+    document.body.scrollTop = targetScrollY
+    alignSnapshotAnchor(snapshot)
+  }
+
+  restore()
+  const firstFrame = window.requestAnimationFrame(() => {
+    restore()
+    secondFrame = window.requestAnimationFrame(() => {
+      restore()
+      root.style.scrollBehavior = previousScrollBehavior
+      markTutorialListSnapshotRestored()
+    })
+  })
+
+  return () => {
+    window.cancelAnimationFrame(firstFrame)
+    window.cancelAnimationFrame(secondFrame)
+    root.style.scrollBehavior = previousScrollBehavior
+  }
+}
+
+function alignSnapshotAnchor(snapshot: TutorialListSnapshot) {
+  if (!snapshot.anchorSlug || typeof snapshot.anchorTop !== 'number') return
+
+  const targetHref = `/tutorials/${snapshot.anchorSlug}`
+  const anchor = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[href^="/tutorials/"]')).find(
+    (item) => item.getAttribute('href') === targetHref,
+  )
+
+  if (!anchor) return
+
+  const topDelta = anchor.getBoundingClientRect().top - snapshot.anchorTop
+  if (Math.abs(topDelta) < 0.5) return
+
+  window.scrollBy({ left: 0, top: topDelta, behavior: 'auto' })
 }

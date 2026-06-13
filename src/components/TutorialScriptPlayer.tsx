@@ -19,6 +19,7 @@ type TutorialPlayerSegment =
     }
   | {
       type: 'image'
+      pane: ImagePane
       url: string
       duration: 0
       start: number
@@ -53,6 +54,7 @@ type TutorialPlayerSegmentDraft =
     }
   | {
       type: 'image'
+      pane: ImagePane
       url: string
       duration: 0
     }
@@ -78,10 +80,38 @@ interface TextRange {
   end: number
 }
 
+type ImagePane = 'full' | 'left' | 'right'
+
+interface ImageVisual {
+  type: 'image'
+  layout: 'full' | 'split'
+  panes: {
+    full?: PaneVisual
+    left?: PaneVisual
+    right?: PaneVisual
+  }
+  signature: string
+  start: number
+}
+
+type PaneVisual =
+  | {
+      type: 'image'
+      url: string
+    }
+  | {
+      type: 'video'
+      url: string
+    }
+  | {
+      type: 'code'
+      code: string
+    }
+
 interface ImageLayer {
   id: number
   phase: 'enter' | 'exit'
-  url: string
+  visual: ImageVisual
 }
 
 interface TutorialScriptPlayerProps {
@@ -348,18 +378,18 @@ export function TutorialScriptPlayer({
   }, [activeSegment, activeWordCount, currentTime])
 
   useEffect(() => {
-    const activeImageUrl = activeVisual?.type === 'image' ? activeVisual.url : undefined
+    const activeImageVisual = activeVisual?.type === 'image' ? activeVisual : undefined
 
     setImageLayers((currentLayers) => {
       const currentImageLayer = currentLayers.find((layer) => layer.phase === 'enter')
 
-      if (currentImageLayer?.url === activeImageUrl) {
+      if (currentImageLayer?.visual.signature === activeImageVisual?.signature) {
         return currentLayers
       }
 
       const exitingLayers = currentLayers.map((layer) => ({ ...layer, phase: 'exit' as const }))
 
-      if (!activeImageUrl) {
+      if (!activeImageVisual) {
         return exitingLayers
       }
 
@@ -370,7 +400,7 @@ export function TutorialScriptPlayer({
         {
           id: imageLayerIdRef.current,
           phase: 'enter',
-          url: activeImageUrl,
+          visual: activeImageVisual,
         },
       ]
     })
@@ -445,17 +475,14 @@ export function TutorialScriptPlayer({
 
         {imageLayers.map((layer) => (
           <div
-            className={`absolute inset-0 z-10 grid place-items-center bg-slate-950 transition-opacity duration-500 ${
-              layer.phase === 'enter' ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 z-10 grid place-items-center bg-slate-950 transition-opacity duration-700 ease-out ${
+              layer.phase === 'enter'
+                ? 'tutorial-visual-layer-enter opacity-100'
+                : 'opacity-0'
             }`}
             key={layer.id}
           >
-            <img
-              alt=""
-              className="max-h-full max-w-full object-contain"
-              draggable="false"
-              src={layer.url}
-            />
+            <ImageVisualFrame visual={layer.visual} />
           </div>
         ))}
 
@@ -556,7 +583,7 @@ export function TutorialScriptPlayer({
 
 function parseTutorialScript(script: string): ParsedTutorialScript {
   const segments: TutorialPlayerSegmentDraft[] = []
-  const commandPattern = /```(\+?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img|video)\s*:\s*([^\]]+)\]/gi
+  const commandPattern = /```(\+?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img[12]?|video)\s*:\s*([^\]]+)\]/gi
   let lastIndex = 0
   let match: RegExpExecArray | null
 
@@ -587,11 +614,20 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
     } else {
       const url = value.trim()
       if (url) {
-        segments.push({
-          type: command === 'video' ? 'video' : 'image',
-          url,
-          duration: 0,
-        })
+        if (command === 'video') {
+          segments.push({
+            type: 'video',
+            url,
+            duration: 0,
+          })
+        } else {
+          segments.push({
+            type: 'image',
+            pane: getImagePaneForCommand(command ?? 'img'),
+            url,
+            duration: 0,
+          })
+        }
       }
     }
 
@@ -621,6 +657,49 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
     segments: timeline,
     totalDuration: Math.max(cursor, 0.1),
   }
+}
+
+function ImageVisualFrame({ visual }: { visual: ImageVisual }) {
+  if (visual.layout === 'full') {
+    return <PaneVisualFrame visual={visual.panes.full} />
+  }
+
+  return (
+    <div className="grid h-full w-full grid-cols-2 bg-slate-950">
+      <PaneVisualFrame className="border-r border-white/10" visual={visual.panes.left} />
+      <PaneVisualFrame visual={visual.panes.right} />
+    </div>
+  )
+}
+
+function PaneVisualFrame({ className = '', visual }: { className?: string; visual?: PaneVisual }) {
+  return (
+    <div className={`grid min-w-0 place-items-center overflow-hidden bg-slate-950 ${className}`}>
+      {visual?.type === 'image' ? (
+        <img
+          alt=""
+          className="tutorial-pane-visual max-h-full max-w-full object-contain"
+          draggable="false"
+          src={visual.url}
+        />
+      ) : visual?.type === 'video' ? (
+        <video
+          autoPlay
+          className="tutorial-pane-visual h-full w-full object-cover"
+          loop
+          muted
+          playsInline
+          src={visual.url}
+        />
+      ) : visual?.type === 'code' ? (
+        <div className="tutorial-pane-visual grid h-full w-full place-items-center px-3 py-4">
+          <pre className="max-h-full w-full overflow-auto rounded-md border border-cyan-300/25 bg-slate-900/95 p-3 text-left text-xs leading-5 text-cyan-50 shadow-[0_18px_70px_rgba(8,47,73,0.32)] sm:text-sm">
+            <code>{visual.code}</code>
+          </pre>
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 function normalizeCodeContent(code: string) {
@@ -785,7 +864,10 @@ function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activ
 
   for (let index = indexLimit; index >= 0; index -= 1) {
     const segment = segments[index]
-    if (segment?.type === 'image' || segment?.type === 'video') {
+    if (segment?.type === 'image') {
+      return getImageVisualForSegment(segments, index)
+    }
+    if (segment?.type === 'video') {
       return {
         type: segment.type,
         start: segment.start,
@@ -798,6 +880,77 @@ function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activ
   }
 
   return undefined
+}
+
+function getImagePaneForCommand(command: string): ImagePane {
+  if (command === 'img1') return 'left'
+  if (command === 'img2') return 'right'
+  return 'full'
+}
+
+function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmentIndex: number): ImageVisual {
+  let leftVisual: PaneVisual | undefined
+  let rightVisual: PaneVisual | undefined
+  let lastFullVisual: PaneVisual | undefined
+
+  for (let index = 0; index <= imageSegmentIndex; index += 1) {
+    const segment = segments[index]
+    if (!segment) continue
+
+    if (segment.type === 'image') {
+      if (segment.pane === 'full') {
+        lastFullVisual = { type: 'image', url: segment.url }
+        leftVisual = undefined
+        rightVisual = undefined
+      } else if (segment.pane === 'left') {
+        leftVisual = { type: 'image', url: segment.url }
+      } else {
+        leftVisual ??= lastFullVisual
+        rightVisual = { type: 'image', url: segment.url }
+      }
+    }
+
+    if (segment.type === 'video') {
+      lastFullVisual = { type: 'video', url: segment.url }
+      leftVisual = undefined
+      rightVisual = undefined
+    }
+
+    if (segment.type === 'code') {
+      lastFullVisual = { type: 'code', code: getCodeVisualForSegment(segments, index).code }
+      leftVisual = undefined
+      rightVisual = undefined
+    }
+  }
+
+  const segment = segments[imageSegmentIndex]
+
+  if (segment?.type === 'image' && segment.pane === 'full') {
+    return {
+      type: 'image',
+      layout: 'full',
+      panes: { full: { type: 'image', url: segment.url } },
+      signature: `full:${segment.url}`,
+      start: segment.start,
+    }
+  }
+
+  return {
+    type: 'image',
+    layout: 'split',
+    panes: {
+      left: leftVisual,
+      right: rightVisual,
+    },
+    signature: `split:${getPaneVisualSignature(leftVisual)}:${getPaneVisualSignature(rightVisual)}`,
+    start: segment?.start ?? 0,
+  }
+}
+
+function getPaneVisualSignature(visual: PaneVisual | undefined) {
+  if (!visual) return ''
+  if (visual.type === 'code') return `code:${visual.code}`
+  return `${visual.type}:${visual.url}`
 }
 
 function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentIndex: number) {

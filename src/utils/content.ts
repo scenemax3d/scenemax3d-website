@@ -82,7 +82,7 @@ export function getTutorialScript(tutorial: Tutorial) {
 }
 
 export function getFirstTutorialScriptImage(script: string) {
-  return script.match(/\[img\s*:\s*([^\]]+)\]/i)?.[1]?.trim() ?? ''
+  return script.match(/\[img[12]?\s*:\s*([^\]]+)\]/i)?.[1]?.trim() ?? ''
 }
 
 export function getTutorialPreviewImage(tutorial: Tutorial) {
