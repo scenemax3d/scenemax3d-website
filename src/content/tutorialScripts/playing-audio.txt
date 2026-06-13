@@ -1,5 +1,5 @@
-Playing Audio explains how sound becomes gameplay feedback.
-Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
-In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
-The sample begins with audio.play "walking1". In plain language, it controls feedback the player can see or hear.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+```
+audio.play "punch1"
+```
+at any given time you can play any of the project's sound files by their name. for example in this case we play the "punch1" sound whenever the fighter player performs a punch animation.
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-13T18-21-18-964Z.png]

@@ -1,5 +1,8 @@
-Animation Percentage explains how a 3D character or model plays animation clips.
-Use this when a model needs a named action, a controlled speed, a chain of actions, or a protected animation.
-In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
-The sample begins with player1.anim_percent. In plain language, it controls feedback the player can see or hear.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/movement-animation/pasted-2026-06-13T18-15-16-470Z.png]
+SceneMax provides us with a special model property named "anim_percent", which can be read whenever we like to examine the current animation render percent.
+```
+if (player.anim_percent > 35 && player.anim_percent < 45) {
+  // allow the punch to take effect
+}
+```
+Sometimes, it is useful to examine the current animation percent of a given model in order to control the flow of the game. For example, when a fighter player kicks, the effective part of the kick might be in the range of 35 to 45 percent. only in that range we allow the opponent to actually get hit in case the player kicks him. The code above demonstrates a typical animation percent check.

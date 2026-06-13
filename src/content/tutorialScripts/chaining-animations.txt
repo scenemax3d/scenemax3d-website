@@ -24,3 +24,4 @@ the **Spin** animation is played two times faster
   then SideKick at speed of 0.1
 ```
 and the **SideKick** is played 10 times slower than the original speed.
+[img: /assets/tutorials/movement-animation/pasted-2026-06-13T18-10-24-139Z.png]

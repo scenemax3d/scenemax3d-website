@@ -1,5 +1,0 @@
-UI designer authoring is about building and changing interface widgets, such as buttons, labels, panels, images, and heads-up display elements.
-It is needed because UI files have structure. A button is not only text; it also has a name, position, size, style, and behavior. If those fields are edited loosely, the interface can break or become hard to update.
-The useful workflow is to get the UI schema, list available sprites and fonts, add one widget, update widget properties, delete widgets that are no longer needed, and validate the UI document.
-A concrete game task is a fighting-game HUD. The health labels, score text, round message, and start button should each be named widgets. Then the assistant can update one widget without damaging the rest of the screen.
-The benefit is controlled UI editing: every widget has a clear name, valid fields, and a reason to exist.

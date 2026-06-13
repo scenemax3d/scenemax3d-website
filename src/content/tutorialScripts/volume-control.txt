@@ -1,5 +1,4 @@
-Volume Control explains how sound becomes gameplay feedback.
-Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
-In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
-The sample begins with audio.play "walking1" : volume 10 loop. In plain language, it controls feedback the player can see or hear.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+```
+audio.play "walking1" : volume 10 loop
+```
+control the played sound audio by setting the **volume** attribute to a value from 0 to 100. In this sample, we play the "walking1" sound-track in the volume of 10 out of 100 which is quite low. we also set that track to be played in a loop

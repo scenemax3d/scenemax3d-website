@@ -1,5 +1,4 @@
-Animations with Spaces in Names explains how a 3D character or model plays animation clips.
-Use this when a model needs a named action, a controlled speed, a chain of actions, or a protected animation.
-In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
-The sample begins with s."Take 001". In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+```
+player."Take 001"
+```
+Sometimes, a models is downloaded from a market-place such as SketchFab has animation names which contains spaces, for example "Take 001" or "High Jump". In that case, you will need to surround the animation name with a double-quotes in order for it to work as expected.

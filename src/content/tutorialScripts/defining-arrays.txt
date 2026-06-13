@@ -4,3 +4,15 @@ Use an array when one value is not enough, such as a list of enemies, pickups, s
 In this example, objects contains five possible model types. rnd(5) chooses one number from 0 to 4, and objects[rnd(5)] reads that item from the array.
 The game can now create one random object with one line instead of writing a separate command for every possible model.
 This is useful in games when you want variety, such as random enemies, random houses, random rewards, or random obstacles.
+```
+var numbers = [1,2,3,4,5,6,7]
+```
+array can also contain a list of numbers
+```+
+var items = [1,2,"David",5,6,"Mike"]
+```
+a list of mixed numbers and strings
+```+
+var objects = [ninja, dragon,1,2,"David"]
+```
+or even mixing numbers, strings and game objects. All can be stored in the same array and accessed at run-time.

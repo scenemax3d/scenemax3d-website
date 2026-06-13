@@ -81,6 +81,14 @@ export function getTutorialScript(tutorial: Tutorial) {
   return tutorialScriptsById.get(tutorial.id) ?? tutorial.tutorialScript?.trim() ?? ''
 }
 
+export function getFirstTutorialScriptImage(script: string) {
+  return script.match(/\[img\s*:\s*([^\]]+)\]/i)?.[1]?.trim() ?? ''
+}
+
+export function getTutorialPreviewImage(tutorial: Tutorial) {
+  return getFirstTutorialScriptImage(getTutorialScript(tutorial))
+}
+
 export function formatDifficulty(difficulty: Difficulty) {
   return difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
 }

@@ -49,11 +49,6 @@
     "caption": "SceneMax example from animation.md.",
     "code": "player1.anim_percent"
   },
-  "character-mode-animations": {
-    "language": "scenemax",
-    "caption": "SceneMax example from animation.md.",
-    "code": "n => ninja\nn.switch to character mode\nn.character.jump"
-  },
   "defining-arrays": {
     "language": "scenemax",
     "caption": "SceneMax example for Defining Arrays.",
@@ -92,17 +87,7 @@
   "scene-designer-operations-what-you-can-actually-do-with-it": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Scene Designer Operations.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "ui-designer-authoring-what-you-can-actually-do-with-it": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for UI Designer Authoring.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "asset-and-preview-operations-what-you-can-actually-do-with-it": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Asset and Preview Operations.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
+    "code": ""
   },
   "productivity-boosts": {
     "language": "scenemax",

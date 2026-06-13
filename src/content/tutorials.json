@@ -263,8 +263,7 @@
     "order": 11,
     "relatedTutorialIds": [
       "animations-with-spaces-in-names",
-      "animation-percentage",
-      "character-mode-animations"
+      "animation-percentage"
     ]
   },
   {
@@ -291,37 +290,7 @@
     "featured": false,
     "order": 12,
     "relatedTutorialIds": [
-      "animation-speed-control-mid-animation",
-      "character-mode-animations"
-    ]
-  },
-  {
-    "id": "character-mode-animations",
-    "slug": "character-mode-animations",
-    "title": "Character Mode Animations",
-    "description": "A short focused SceneMax3D lesson about Character Mode Animations.",
-    "categoryId": "movement-animation",
-    "subcategoryId": "animation-basics",
-    "subject": "Character Mode Animations",
-    "clipFocus": "Explain Character Mode Animations from Animation, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "animation.md",
-    "sourceLine": 71,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "movement-animation",
-      "animation-basics",
-      "animation",
-      "character",
-      "mode",
-      "animations"
-    ],
-    "featured": false,
-    "order": 13,
-    "relatedTutorialIds": [
-      "animation-percentage"
+      "animation-speed-control-mid-animation"
     ]
   },
   {
@@ -490,7 +459,7 @@
     "slug": "project-and-file-operations-what-you-can-actually-do-with-it",
     "title": "Project and File Operations: What You Can Actually Do With It",
     "description": "A short focused SceneMax3D lesson about Project and File Operations.",
-    "categoryId": "ai-automation",
+    "categoryId": "getting-started",
     "subcategoryId": "mcp-server",
     "subject": "Project and File Operations",
     "clipFocus": "Walk through Project and File Operations from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
@@ -513,8 +482,7 @@
     "featured": false,
     "order": 24,
     "relatedTutorialIds": [
-      "scene-designer-operations-what-you-can-actually-do-with-it",
-      "ui-designer-authoring-what-you-can-actually-do-with-it"
+      "scene-designer-operations-what-you-can-actually-do-with-it"
     ]
   },
   {
@@ -545,75 +513,7 @@
     "featured": false,
     "order": 25,
     "relatedTutorialIds": [
-      "project-and-file-operations-what-you-can-actually-do-with-it",
-      "ui-designer-authoring-what-you-can-actually-do-with-it",
-      "asset-and-preview-operations-what-you-can-actually-do-with-it"
-    ]
-  },
-  {
-    "id": "ui-designer-authoring-what-you-can-actually-do-with-it",
-    "slug": "ui-designer-authoring-what-you-can-actually-do-with-it",
-    "title": "UI Designer Authoring: What You Can Actually Do With It",
-    "description": "A short focused SceneMax3D lesson about UI Designer Authoring.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "mcp-server",
-    "subject": "UI Designer Authoring",
-    "clipFocus": "Walk through UI Designer Authoring from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "built-in-mcp-server.md",
-    "sourceLine": 100,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "mcp-server",
-      "built-in-mcp-server",
-      "built",
-      "in",
-      "mcp",
-      "server",
-      "and"
-    ],
-    "featured": false,
-    "order": 26,
-    "relatedTutorialIds": [
-      "scene-designer-operations-what-you-can-actually-do-with-it",
-      "asset-and-preview-operations-what-you-can-actually-do-with-it",
-      "productivity-boosts"
-    ]
-  },
-  {
-    "id": "asset-and-preview-operations-what-you-can-actually-do-with-it",
-    "slug": "asset-and-preview-operations-what-you-can-actually-do-with-it",
-    "title": "Asset and Preview Operations: What You Can Actually Do With It",
-    "description": "A short focused SceneMax3D lesson about Asset and Preview Operations.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "mcp-server",
-    "subject": "Asset and Preview Operations",
-    "clipFocus": "Walk through Asset and Preview Operations from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "built-in-mcp-server.md",
-    "sourceLine": 111,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "mcp-server",
-      "built-in-mcp-server",
-      "built",
-      "in",
-      "mcp",
-      "server",
-      "and"
-    ],
-    "featured": false,
-    "order": 27,
-    "relatedTutorialIds": [
-      "ui-designer-authoring-what-you-can-actually-do-with-it",
-      "productivity-boosts",
-      "faster-debugging-productivity-boosts"
+      "project-and-file-operations-what-you-can-actually-do-with-it"
     ]
   },
   {
@@ -644,7 +544,6 @@
     "featured": false,
     "order": 28,
     "relatedTutorialIds": [
-      "asset-and-preview-operations-what-you-can-actually-do-with-it",
       "faster-debugging-productivity-boosts",
       "faster-content-creation-productivity-boosts"
     ]
