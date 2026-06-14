@@ -60,6 +60,43 @@
       }
     ]
   },
+  "heroCarousel": [
+    {
+      "eyebrow": "Visual scene design",
+      "title": "Build scenes directly in the studio",
+      "description": "Place characters, props, cameras, and gameplay objects while the live 3D view keeps every change concrete.",
+      "image": "/assets/tutorials/ai-automation/pasted-2026-06-13T17-40-19-113Z.png",
+      "imageAlt": "SceneMax3D visual scene editor showing a fighting game level and object hierarchy"
+    },
+    {
+      "eyebrow": "Readable scripting",
+      "title": "Turn ideas into game logic",
+      "description": "Write compact SceneMax code beside the preview, then see movement, cameras, and character behavior respond.",
+      "image": "/assets/tutorials/language-fundamentals/pasted-2026-06-13T19-21-04-750Z.png",
+      "imageAlt": "SceneMax3D code editor with a character preview running next to readable script"
+    },
+    {
+      "eyebrow": "Animation workflow",
+      "title": "Shape character-driven action",
+      "description": "Import models, chain animations, preview poses, and build fighting, platforming, or adventure moments faster.",
+      "image": "/assets/tutorials/movement-animation/pasted-2026-06-13T18-15-16-470Z.png",
+      "imageAlt": "SceneMax3D fighting game preview with two animated characters in combat"
+    },
+    {
+      "eyebrow": "Physics and feedback",
+      "title": "Make gameplay feel responsive",
+      "description": "Tune collisions, hit reactions, UI feedback, audio cues, and scene effects until the game loop feels playable.",
+      "image": "/assets/tutorials/physics-gameplay/pasted-2026-06-10T19-47-05-964Z.png",
+      "imageAlt": "SceneMax3D gameplay preview with fighting UI, health bars, and combat action"
+    },
+    {
+      "eyebrow": "Packaging",
+      "title": "Prepare builds for players",
+      "description": "Package complete projects for desktop targets and keep the path from prototype to playable build straightforward.",
+      "image": "/assets/tutorials/getting-started/pasted-2026-06-12T13-09-17-419Z.png",
+      "imageAlt": "SceneMax3D package and deploy dialog for desktop build targets"
+    }
+  ],
   "creatorAudiences": [
     {
       "title": "Beginners",

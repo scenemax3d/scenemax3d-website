@@ -9,6 +9,7 @@ import type { ViteDevServer } from 'vite'
 
 const contentRoot = path.resolve(__dirname, 'src/content')
 const publicRoot = path.resolve(__dirname, 'public')
+const siteBasePath = path.join(contentRoot, 'siteBase.json')
 const tutorialsPath = path.join(contentRoot, 'tutorials.json')
 const samplesPath = path.join(contentRoot, 'tutorialSamples.json')
 const categoriesPath = path.join(contentRoot, 'tutorialCategories.json')
@@ -48,6 +49,11 @@ function tutorialAdminApi() {
             return
           }
 
+          if (req.method === 'GET' && url.pathname === '/api/admin/site') {
+            await sendJson(res, await readSiteEditor())
+            return
+          }
+
           const tutorialMatch = url.pathname.match(/^\/api\/admin\/tutorials\/([^/]+)$/)
           if (req.method === 'GET' && tutorialMatch) {
             await sendJson(res, await readTutorialDetail(tutorialMatch[1]))
@@ -77,6 +83,12 @@ function tutorialAdminApi() {
             return
           }
 
+          if (req.method === 'PUT' && url.pathname === '/api/admin/site/hero-carousel') {
+            const body = await readRequestJson(req)
+            await sendJson(res, await writeHeroCarousel(body))
+            return
+          }
+
           sendError(res, 404, 'Admin API route not found')
         } catch (error) {
           sendError(res, 500, error instanceof Error ? error.message : 'Unexpected admin API error')
@@ -84,6 +96,45 @@ function tutorialAdminApi() {
       })
     },
   }
+}
+
+async function readSiteEditor() {
+  const siteBase = await readJson(siteBasePath)
+
+  return {
+    heroCarousel: Array.isArray(siteBase.heroCarousel) ? siteBase.heroCarousel : [],
+    assets: await listTutorialAssets(),
+  }
+}
+
+async function writeHeroCarousel(body: unknown) {
+  const payload = body as { heroCarousel?: unknown }
+  validateHeroCarouselPayload(payload.heroCarousel)
+
+  const siteBase = await readJson(siteBasePath)
+  siteBase.heroCarousel = payload.heroCarousel
+  await writeJson(siteBasePath, siteBase)
+
+  return readSiteEditor()
+}
+
+function validateHeroCarouselPayload(value: unknown) {
+  if (!Array.isArray(value)) {
+    throw new Error('Hero carousel payload must be an array')
+  }
+
+  value.forEach((slide, index) => {
+    if (!slide || typeof slide !== 'object') {
+      throw new Error(`Hero carousel slide ${index + 1} is invalid`)
+    }
+
+    const fields = ['eyebrow', 'title', 'description', 'image', 'imageAlt']
+    fields.forEach((field) => {
+      if (typeof (slide as Record<string, unknown>)[field] !== 'string') {
+        throw new Error(`Hero carousel slide ${index + 1} is missing string field '${field}'`)
+      }
+    })
+  })
 }
 
 async function readTutorialDetail(rawId: string) {

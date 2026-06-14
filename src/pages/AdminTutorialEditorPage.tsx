@@ -4,7 +4,9 @@ import {
   Check,
   FileText,
   Image,
+  MonitorPlay,
   Play,
+  Plus,
   RefreshCw,
   Save,
   Search,
@@ -18,6 +20,7 @@ import type { ClipboardEvent, ReactNode, RefObject } from 'react'
 import { TutorialScriptPlayer } from '../components/TutorialScriptPlayer'
 import type {
   Difficulty,
+  HeroCarouselSlide,
   Tutorial,
   TutorialCategory,
   TutorialCodeSample,
@@ -49,17 +52,32 @@ interface AssetUploadResponse {
   assets: TutorialAsset[]
 }
 
+interface SiteEditorResponse {
+  heroCarousel: HeroCarouselSlide[]
+  assets: TutorialAsset[]
+}
+
+type AdminMode = 'tutorials' | 'carousel'
+
 const difficulties: Difficulty[] = ['beginner', 'intermediate', 'advanced']
 
 export function AdminTutorialEditorPage() {
   const [searchParams, setSearchParams] = useSearchParams()
+  const [adminMode, setAdminMode] = useState<AdminMode>(
+    searchParams.get('panel') === 'carousel' ? 'carousel' : 'tutorials',
+  )
   const [catalog, setCatalog] = useState<TutorialIndexResponse>({
     tutorials: [],
     categories: [],
     subcategories: [],
   })
+  const [siteEditor, setSiteEditor] = useState<SiteEditorResponse>({
+    heroCarousel: [],
+    assets: [],
+  })
   const [detail, setDetail] = useState<TutorialDetailResponse>()
   const [selectedId, setSelectedId] = useState('')
+  const [selectedCarouselIndex, setSelectedCarouselIndex] = useState(0)
   const [query, setQuery] = useState('')
   const [assetFolder, setAssetFolder] = useState('getting-started')
   const [assetFile, setAssetFile] = useState<File>()
@@ -74,12 +92,13 @@ export function AdminTutorialEditorPage() {
   const initialRequestedTutorialIdRef = useRef(searchParams.get('tutorial') ?? '')
 
   usePageMeta(
-    'Tutorial Admin | SceneMax3D',
-    'Edit SceneMax3D tutorial content, scripts, samples, and media assets.',
+    'Content Admin | SceneMax3D',
+    'Edit SceneMax3D tutorial content, homepage feature carousel, and media assets.',
   )
 
   useEffect(() => {
     loadCatalog()
+    loadSiteEditor()
   }, [])
 
   useEffect(() => {
@@ -117,6 +136,13 @@ export function AdminTutorialEditorPage() {
     [catalog.tutorials],
   )
 
+  const imageAssets = useMemo(
+    () => siteEditor.assets.filter((asset) => asset.type === 'image'),
+    [siteEditor.assets],
+  )
+
+  const selectedCarouselSlide = siteEditor.heroCarousel[selectedCarouselIndex]
+
   async function loadCatalog() {
     setStatus('loading')
     setMessage('')
@@ -135,6 +161,23 @@ export function AdminTutorialEditorPage() {
         if (hasCurrentTutorial) return currentId
         return nextCatalog.tutorials[0]?.id || ''
       })
+      setStatus('idle')
+    } catch (error) {
+      setStatus('error')
+      setMessage(getErrorMessage(error))
+    }
+  }
+
+  async function loadSiteEditor() {
+    setStatus('loading')
+    setMessage('')
+
+    try {
+      const nextSiteEditor = await requestJson<SiteEditorResponse>('/api/admin/site')
+      setSiteEditor(nextSiteEditor)
+      setSelectedCarouselIndex((currentIndex) =>
+        Math.min(currentIndex, Math.max(nextSiteEditor.heroCarousel.length - 1, 0)),
+      )
       setStatus('idle')
     } catch (error) {
       setStatus('error')
@@ -232,7 +275,7 @@ export function AdminTutorialEditorPage() {
   }
 
   async function uploadAsset() {
-    if (!assetFile || !detail) return
+    if (!assetFile) return
 
     setStatus('uploading')
     setMessage('')
@@ -240,7 +283,10 @@ export function AdminTutorialEditorPage() {
     try {
       const uploaded = await uploadAssetFile(assetFile, assetFolder)
 
-      setDetail({ ...detail, assets: uploaded.assets })
+      if (detail) {
+        setDetail({ ...detail, assets: uploaded.assets })
+      }
+      setSiteEditor((current) => ({ ...current, assets: uploaded.assets }))
       setAssetFile(undefined)
       setStatus('saved')
       setMessage(`Uploaded ${uploaded.url}`)
@@ -330,6 +376,69 @@ export function AdminTutorialEditorPage() {
     )
   }
 
+  async function saveCarousel() {
+    setStatus('saving')
+    setMessage('')
+
+    try {
+      const savedSiteEditor = await requestJson<SiteEditorResponse>('/api/admin/site/hero-carousel', {
+        body: JSON.stringify({ heroCarousel: siteEditor.heroCarousel }),
+        headers: { 'content-type': 'application/json' },
+        method: 'PUT',
+      })
+      setSiteEditor(savedSiteEditor)
+      setSelectedCarouselIndex((currentIndex) =>
+        Math.min(currentIndex, Math.max(savedSiteEditor.heroCarousel.length - 1, 0)),
+      )
+      setStatus('saved')
+      setMessage('Saved homepage feature carousel.')
+    } catch (error) {
+      setStatus('error')
+      setMessage(getErrorMessage(error))
+    }
+  }
+
+  function addCarouselSlide() {
+    const image = imageAssets[0]?.url ?? '/assets/warrior1.png'
+    const nextSlide: HeroCarouselSlide = {
+      eyebrow: 'New feature',
+      title: 'Describe the feature',
+      description: 'Explain what this part of SceneMax3D helps creators do.',
+      image,
+      imageAlt: 'SceneMax3D product feature preview',
+    }
+
+    setSiteEditor((current) => ({
+      ...current,
+      heroCarousel: [...current.heroCarousel, nextSlide],
+    }))
+    setSelectedCarouselIndex(siteEditor.heroCarousel.length)
+  }
+
+  function deleteCarouselSlide() {
+    if (!selectedCarouselSlide) return
+
+    const confirmed = window.confirm(`Delete "${selectedCarouselSlide.title}" from the homepage carousel?`)
+    if (!confirmed) return
+
+    setSiteEditor((current) => ({
+      ...current,
+      heroCarousel: current.heroCarousel.filter((_, index) => index !== selectedCarouselIndex),
+    }))
+    setSelectedCarouselIndex((currentIndex) => Math.max(0, currentIndex - 1))
+    setMessage('Carousel feature removed. Save to persist this change.')
+    setStatus('saved')
+  }
+
+  function updateCarouselSlide<K extends keyof HeroCarouselSlide>(key: K, value: HeroCarouselSlide[K]) {
+    setSiteEditor((current) => ({
+      ...current,
+      heroCarousel: current.heroCarousel.map((slide, index) =>
+        index === selectedCarouselIndex ? { ...slide, [key]: value } : slide,
+      ),
+    }))
+  }
+
   function selectTutorial(tutorialId: string) {
     setSelectedId(tutorialId)
     setSearchParams({ tutorial: tutorialId })
@@ -344,27 +453,31 @@ export function AdminTutorialEditorPage() {
     })
   }
 
+  const isTutorialMode = adminMode === 'tutorials'
+
   return (
     <section className="py-8 md:py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Admin</p>
-            <h1 className="mt-2 text-3xl font-black text-white md:text-4xl">Tutorial Editor</h1>
+            <h1 className="mt-2 text-3xl font-black text-white md:text-4xl">Content Editor</h1>
           </div>
           <div className="flex items-center gap-2">
-            <button
-              className="inline-flex min-h-11 items-center gap-2 rounded-md border border-emerald-300/50 bg-emerald-300/15 px-4 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/25 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!detail}
-              onClick={() => setIsPreviewOpen(true)}
-              type="button"
-            >
-              <Play aria-hidden="true" size={17} />
-              Preview
-            </button>
+            {isTutorialMode ? (
+              <button
+                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-emerald-300/50 bg-emerald-300/15 px-4 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/25 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={!detail}
+                onClick={() => setIsPreviewOpen(true)}
+                type="button"
+              >
+                <Play aria-hidden="true" size={17} />
+                Preview
+              </button>
+            ) : null}
             <button
               className="inline-flex min-h-11 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 text-sm font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-              onClick={() => selectedId && loadDetail(selectedId)}
+              onClick={() => (isTutorialMode ? selectedId && loadDetail(selectedId) : loadSiteEditor())}
               type="button"
             >
               <RefreshCw aria-hidden="true" size={17} />
@@ -372,8 +485,12 @@ export function AdminTutorialEditorPage() {
             </button>
             <button
               className="inline-flex min-h-11 items-center gap-2 rounded-md border border-rose-300/50 bg-rose-400/10 px-4 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/20 focus:outline-none focus:ring-2 focus:ring-rose-300 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!detail || status === 'deleting'}
-              onClick={deleteDetail}
+              disabled={
+                isTutorialMode
+                  ? !detail || status === 'deleting'
+                  : !selectedCarouselSlide || status === 'deleting'
+              }
+              onClick={isTutorialMode ? deleteDetail : deleteCarouselSlide}
               type="button"
             >
               <Trash2 aria-hidden="true" size={17} />
@@ -381,14 +498,45 @@ export function AdminTutorialEditorPage() {
             </button>
             <button
               className="inline-flex min-h-11 items-center gap-2 rounded-md border border-cyan-300/50 bg-cyan-300/15 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={!detail || status === 'saving' || status === 'deleting'}
-              onClick={saveDetail}
+              disabled={
+                isTutorialMode
+                  ? !detail || status === 'saving' || status === 'deleting'
+                  : status === 'saving' || status === 'deleting'
+              }
+              onClick={isTutorialMode ? saveDetail : saveCarousel}
               type="button"
             >
               <Save aria-hidden="true" size={17} />
               Save
             </button>
           </div>
+        </div>
+
+        <div className="mb-5 flex flex-wrap gap-2">
+          <button
+            className={`inline-flex min-h-10 items-center gap-2 rounded-md border px-4 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+              isTutorialMode
+                ? 'border-cyan-300/50 bg-cyan-300/15 text-cyan-100'
+                : 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/10'
+            }`}
+            onClick={() => setAdminMode('tutorials')}
+            type="button"
+          >
+            <FileText aria-hidden="true" size={16} />
+            Tutorials
+          </button>
+          <button
+            className={`inline-flex min-h-10 items-center gap-2 rounded-md border px-4 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+              !isTutorialMode
+                ? 'border-cyan-300/50 bg-cyan-300/15 text-cyan-100'
+                : 'border-white/10 bg-white/5 text-slate-200 hover:bg-white/10'
+            }`}
+            onClick={() => setAdminMode('carousel')}
+            type="button"
+          >
+            <MonitorPlay aria-hidden="true" size={16} />
+            Feature Carousel
+          </button>
         </div>
 
         {message ? (
@@ -403,6 +551,7 @@ export function AdminTutorialEditorPage() {
           </div>
         ) : null}
 
+        {isTutorialMode ? (
         <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
           <aside className="h-fit overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]">
             <div className="border-b border-white/10 p-4">
@@ -658,6 +807,25 @@ export function AdminTutorialEditorPage() {
             </div>
           )}
         </div>
+        ) : (
+          <CarouselEditor
+            assetFile={assetFile}
+            assetFolder={assetFolder}
+            imageAssets={imageAssets}
+            onAdd={addCarouselSlide}
+            onDelete={deleteCarouselSlide}
+            onSave={saveCarousel}
+            onSelect={setSelectedCarouselIndex}
+            onUpdate={updateCarouselSlide}
+            onUpload={uploadAsset}
+            selectedIndex={selectedCarouselIndex}
+            selectedSlide={selectedCarouselSlide}
+            setAssetFile={setAssetFile}
+            setAssetFolder={setAssetFolder}
+            slides={siteEditor.heroCarousel}
+            status={status}
+          />
+        )}
       </div>
 
       {detail && isPreviewOpen ? (
@@ -700,6 +868,208 @@ export function AdminTutorialEditorPage() {
         </div>
       ) : null}
     </section>
+  )
+}
+
+function CarouselEditor({
+  assetFile,
+  assetFolder,
+  imageAssets,
+  onAdd,
+  onDelete,
+  onSave,
+  onSelect,
+  onUpdate,
+  onUpload,
+  selectedIndex,
+  selectedSlide,
+  setAssetFile,
+  setAssetFolder,
+  slides,
+  status,
+}: {
+  assetFile: File | undefined
+  assetFolder: string
+  imageAssets: TutorialAsset[]
+  onAdd: () => void
+  onDelete: () => void
+  onSave: () => void
+  onSelect: (index: number) => void
+  onUpdate: <K extends keyof HeroCarouselSlide>(key: K, value: HeroCarouselSlide[K]) => void
+  onUpload: () => void
+  selectedIndex: number
+  selectedSlide: HeroCarouselSlide | undefined
+  setAssetFile: (file: File | undefined) => void
+  setAssetFolder: (folder: string) => void
+  slides: HeroCarouselSlide[]
+  status: 'idle' | 'loading' | 'saving' | 'uploading' | 'deleting' | 'saved' | 'error'
+}) {
+  return (
+    <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+      <aside className="h-fit overflow-hidden rounded-lg border border-white/10 bg-white/[0.045]">
+        <div className="border-b border-white/10 p-4">
+          <button
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-md border border-cyan-300/50 bg-cyan-300/15 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+            onClick={onAdd}
+            type="button"
+          >
+            <Plus aria-hidden="true" size={17} />
+            Add Feature
+          </button>
+        </div>
+        <div className="max-h-[72vh] overflow-y-auto p-2">
+          {slides.length > 0 ? (
+            slides.map((slide, index) => (
+              <button
+                className={`mb-1 w-full rounded-md border px-3 py-2 text-left transition focus:outline-none focus:ring-2 focus:ring-cyan-300 ${
+                  selectedIndex === index
+                    ? 'border-cyan-300/50 bg-cyan-300/10'
+                    : 'border-transparent hover:border-white/10 hover:bg-white/[0.045]'
+                }`}
+                key={`${slide.title}-${index}`}
+                onClick={() => onSelect(index)}
+                type="button"
+              >
+                <span className="block text-sm font-black text-white">{slide.title || 'Untitled feature'}</span>
+                <span className="mt-1 block text-xs text-slate-500">
+                  {index + 1} - {slide.eyebrow || 'No eyebrow'}
+                </span>
+              </button>
+            ))
+          ) : (
+            <p className="p-3 text-sm text-slate-400">No carousel features yet.</p>
+          )}
+        </div>
+      </aside>
+
+      {selectedSlide ? (
+        <div className="grid gap-6">
+          <section className="rounded-lg border border-white/10 bg-white/[0.045] p-4 md:p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <SectionTitle icon={<MonitorPlay aria-hidden="true" size={18} />} title="Feature Details" />
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="inline-flex min-h-10 items-center gap-2 rounded-md border border-rose-300/50 bg-rose-400/10 px-4 text-sm font-semibold text-rose-100 transition hover:bg-rose-400/20 focus:outline-none focus:ring-2 focus:ring-rose-300"
+                  onClick={onDelete}
+                  type="button"
+                >
+                  <Trash2 aria-hidden="true" size={16} />
+                  Delete
+                </button>
+                <button
+                  className="inline-flex min-h-10 items-center gap-2 rounded-md border border-cyan-300/50 bg-cyan-300/15 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/25 focus:outline-none focus:ring-2 focus:ring-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
+                  disabled={status === 'saving'}
+                  onClick={onSave}
+                  type="button"
+                >
+                  <Save aria-hidden="true" size={16} />
+                  Save
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <TextField
+                label="Eyebrow"
+                value={selectedSlide.eyebrow}
+                onChange={(value) => onUpdate('eyebrow', value)}
+              />
+              <TextField
+                label="Title"
+                value={selectedSlide.title}
+                onChange={(value) => onUpdate('title', value)}
+              />
+              <TextField
+                label="Image"
+                value={selectedSlide.image}
+                onChange={(value) => onUpdate('image', value)}
+              />
+              <TextField
+                label="Image alt"
+                value={selectedSlide.imageAlt}
+                onChange={(value) => onUpdate('imageAlt', value)}
+              />
+            </div>
+            <div className="mt-4">
+              <TextAreaField
+                label="Description"
+                rows={4}
+                value={selectedSlide.description}
+                onChange={(value) => onUpdate('description', value)}
+              />
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-white/10 bg-white/[0.045] p-4 md:p-5">
+            <SectionTitle icon={<Image aria-hidden="true" size={18} />} title="Preview Image" />
+            <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+              <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950">
+                <img
+                  alt={selectedSlide.imageAlt}
+                  className="aspect-video w-full object-cover"
+                  src={selectedSlide.image}
+                />
+              </div>
+              <div className="grid gap-3">
+                <TextField label="Asset folder" value={assetFolder} onChange={setAssetFolder} />
+                <label>
+                  <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                    File
+                  </span>
+                  <input
+                    accept="image/*"
+                    className="block min-h-11 w-full rounded-md border border-white/10 bg-slate-950/80 px-3 py-2 text-sm text-slate-200 file:mr-3 file:rounded-md file:border-0 file:bg-cyan-300/15 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                    onChange={(event) => setAssetFile(event.target.files?.[0])}
+                    type="file"
+                  />
+                </label>
+                <button
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-emerald-300/50 bg-emerald-300/15 px-4 text-sm font-semibold text-emerald-100 transition hover:bg-emerald-300/25 focus:outline-none focus:ring-2 focus:ring-emerald-300 disabled:cursor-not-allowed disabled:opacity-50"
+                  disabled={!assetFile || status === 'uploading'}
+                  onClick={onUpload}
+                  type="button"
+                >
+                  <UploadCloud aria-hidden="true" size={17} />
+                  Upload
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-white/10 bg-white/[0.045] p-4 md:p-5">
+            <SectionTitle icon={<Image aria-hidden="true" size={18} />} title="Image Assets" />
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {imageAssets.map((asset) => (
+                <div
+                  className="grid gap-3 rounded-lg border border-white/10 bg-slate-950/70 p-3 sm:grid-cols-[86px_1fr]"
+                  key={asset.url}
+                >
+                  <AssetPreview asset={asset} />
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-white">{asset.name}</p>
+                    <p className="mt-1 truncate text-xs text-slate-500">{asset.url}</p>
+                    <div className="mt-3">
+                      <button
+                        className="inline-flex min-h-9 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
+                        onClick={() => onUpdate('image', asset.url)}
+                        type="button"
+                      >
+                        <Check aria-hidden="true" size={15} />
+                        Use Image
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      ) : (
+        <div className="rounded-lg border border-white/10 bg-white/[0.045] p-8 text-slate-300">
+          Add a carousel feature to start editing.
+        </div>
+      )}
+    </div>
   )
 }
 

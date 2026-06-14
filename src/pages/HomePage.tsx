@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { CtaButton } from '../components/CtaButton'
-import { EngineMockup } from '../components/EngineMockup'
+import { HeroFeatureCarousel } from '../components/HeroFeatureCarousel'
 import { SectionHeader } from '../components/SectionHeader'
 import { TutorialCard } from '../components/TutorialCard'
 import { icons, type IconName } from '../components/icons'
@@ -42,16 +42,16 @@ export function HomePage() {
                 <CtaButton key={button.label} link={button} />
               ))}
             </div>
-            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {siteContent.hero.stats.map((stat) => (
-                <div className="rounded-lg border border-white/10 bg-white/[0.045] p-4" key={stat.label}>
-                  <p className="text-2xl font-black text-white">{stat.value}</p>
-                  <p className="mt-1 text-sm text-slate-400">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </div>
-          <EngineMockup />
+          <HeroFeatureCarousel className="lg:row-span-2 lg:self-center" slides={siteContent.heroCarousel} />
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:col-start-1 lg:row-start-2">
+            {siteContent.hero.stats.map((stat) => (
+              <div className="rounded-lg border border-white/10 bg-white/[0.045] p-4" key={stat.label}>
+                <p className="text-2xl font-black text-white">{stat.value}</p>
+                <p className="mt-1 text-sm text-slate-400">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

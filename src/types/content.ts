@@ -32,6 +32,7 @@ export interface SiteContent {
       label: string
     }>
   }
+  heroCarousel: HeroCarouselSlide[]
   creatorAudiences: Array<{
     title: string
     description: string
@@ -55,6 +56,14 @@ export interface SiteContent {
   tutorialCategories: TutorialCategory[]
   tutorialSubcategories: TutorialSubcategory[]
   tutorials: Tutorial[]
+}
+
+export interface HeroCarouselSlide {
+  eyebrow: string
+  title: string
+  description: string
+  image: string
+  imageAlt: string
 }
 
 export interface TutorialCategory {
