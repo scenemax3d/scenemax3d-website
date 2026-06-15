@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { CtaButton } from '../components/CtaButton'
 import { HeroFeatureCarousel } from '../components/HeroFeatureCarousel'
+import { HeroVideoBackground } from '../components/HeroVideoBackground'
 import { SectionHeader } from '../components/SectionHeader'
 import { TutorialCard } from '../components/TutorialCard'
 import { icons, type IconName } from '../components/icons'
@@ -25,9 +26,10 @@ export function HomePage() {
 
   return (
     <>
-      <section className="overflow-hidden">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-24">
-          <div>
+      <section className="relative isolate overflow-hidden">
+        <HeroVideoBackground />
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:px-8 lg:py-24">
+          <div className="drop-shadow-[0_2px_18px_rgba(2,6,23,0.75)]">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.26em] text-cyan-200">
               {siteContent.hero.eyebrow}
             </p>
@@ -60,7 +62,7 @@ export function HomePage() {
           <SectionHeader
             eyebrow="Built for creators"
             title="A studio that makes 3D game ideas feel reachable"
-            description="SceneMax3D is designed for learning, prototyping, teaching, and shipping small complete games."
+            description="SceneMax3D is designed for learning, prototyping, teaching, and fast-shipping complete games."
           />
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             {siteContent.creatorAudiences.map((audience) => (

@@ -100,17 +100,17 @@
   "creatorAudiences": [
     {
       "title": "Beginners",
-      "description": "Start with visual scene building, friendly examples, and a scripting style that reads clearly.",
+      "description": "Start with visual scene building, friendly examples, and a choreographic scripting.",
       "icon": "graduation"
     },
     {
       "title": "Indie developers",
-      "description": "Prototype character controllers, cameras, collisions, UI, effects, and game loops quickly.",
+      "description": "Prototype character controllers, cameras, collisions, UI, effects, and game events quickly.",
       "icon": "gamepad"
     },
     {
       "title": "Teachers",
-      "description": "Use a concrete 3D studio to teach programming concepts through visible cause and effect.",
+      "description": "The only studio with built-in virtual classrooms for teaching from remote.",
       "icon": "book"
     },
     {
@@ -163,8 +163,8 @@
   ],
   "languagePreview": {
     "title": "Readable scripting for visible game logic",
-    "description": "SceneMax language lessons will teach game programming through clear, concrete examples that connect directly to the studio.",
-    "code": "when player starts:\n  set speed to 6\n  play animation \"idle\"\n\nwhen key \"W\" is down:\n  move player forward by speed\n  play animation \"run\"\n\nwhen player touches coin:\n  add 1 to score\n  destroy coin"
+    "description": "SceneMax3D is a textual, choreography-first programming language for 3D games, combining actor actions, timed motion, async orchestration, reactive state events, and collision handlers in a syntax designed to read like scene direction.",
+    "code": "var score = 0\nplayer => ninja; coin => coin\nwhen key W is pressed do\n  player.move forward 0.1 in 0.1 seconds async\n  player.walk\nend do \n\nwhen player collides with coin do\n  score = score + 1\n  coin.delete\nend do"
   },
   "showcase": [
     {

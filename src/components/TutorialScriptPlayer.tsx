@@ -82,6 +82,13 @@ interface TextRange {
 
 type ImagePane = 'full' | 'left' | 'right'
 
+interface CodeTextRun {
+  color?: string
+  href?: string
+  isBold: boolean
+  text: string
+}
+
 interface ImageVisual {
   type: 'image'
   layout: 'full' | 'split'
@@ -106,6 +113,7 @@ type PaneVisual =
   | {
       type: 'code'
       code: string
+      codeRuns: CodeTextRun[]
     }
 
 interface ImageLayer {
@@ -175,15 +183,17 @@ export function TutorialScriptPlayer({
     () => getVisualForTime(parsedScript.segments, currentTime, activeIndex),
     [activeIndex, currentTime, parsedScript.segments],
   )
-  const visibleCode = useMemo(
+  const visibleCodeLength = useMemo(
     () =>
       activeVisual?.type === 'code'
-        ? getTypewriterCode(
-            activeVisual.code,
-            currentTime - activeVisual.start,
-            activeVisual.revealedPrefixLength,
-          )
-        : '',
+        ? activeVisual.revealImmediately
+          ? activeVisual.code.length
+          : getTypewriterCodeLength(
+              activeVisual.code.length,
+              currentTime - activeVisual.start,
+              activeVisual.revealedPrefixLength,
+            )
+        : 0,
     [activeVisual, currentTime],
   )
   const progress = parsedScript.totalDuration > 0 ? currentTime / parsedScript.totalDuration : 0
@@ -439,10 +449,18 @@ export function TutorialScriptPlayer({
               <code>
                 {activeVisual.revealedPrefixLength > 0 ? (
                   <>
-                    {visibleCode.slice(0, activeVisual.revealedPrefixLength)}
+                    {renderCodeRuns(
+                      activeVisual.codeRuns,
+                      0,
+                      Math.min(visibleCodeLength, activeVisual.revealedPrefixLength),
+                    )}
                     <span className="mt-2 block whitespace-pre-wrap rounded-md border border-cyan-300/55 bg-cyan-300/5 p-2 shadow-[0_0_24px_rgba(34,211,238,0.22)]">
-                      {visibleCode.slice(activeVisual.revealedPrefixLength)}
-                      {visibleCode.length < activeVisual.code.length ? (
+                      {renderCodeRuns(
+                        activeVisual.codeRuns,
+                        activeVisual.revealedPrefixLength,
+                        visibleCodeLength,
+                      )}
+                      {visibleCodeLength < activeVisual.code.length ? (
                         <span className="ml-0.5 animate-pulse text-cyan-200" aria-hidden="true">
                           |
                         </span>
@@ -451,8 +469,8 @@ export function TutorialScriptPlayer({
                   </>
                 ) : (
                   <>
-                    {visibleCode}
-                    {visibleCode.length < activeVisual.code.length ? (
+                    {renderCodeRuns(activeVisual.codeRuns, 0, visibleCodeLength)}
+                    {visibleCodeLength < activeVisual.code.length ? (
                       <span className="ml-0.5 animate-pulse text-cyan-200" aria-hidden="true">
                         |
                       </span>
@@ -694,7 +712,7 @@ function PaneVisualFrame({ className = '', visual }: { className?: string; visua
       ) : visual?.type === 'code' ? (
         <div className="tutorial-pane-visual grid h-full w-full place-items-center px-3 py-4">
           <pre className="max-h-full w-full overflow-auto rounded-md border border-cyan-300/25 bg-slate-900/95 p-3 text-left text-xs leading-5 text-cyan-50 shadow-[0_18px_70px_rgba(8,47,73,0.32)] sm:text-sm">
-            <code>{visual.code}</code>
+            <code>{renderCodeRuns(visual.codeRuns, 0, visual.code.length)}</code>
           </pre>
         </div>
       ) : null}
@@ -917,7 +935,8 @@ function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmen
     }
 
     if (segment.type === 'code') {
-      lastFullVisual = { type: 'code', code: getCodeVisualForSegment(segments, index).code }
+      const codeVisual = getCodeVisualForSegment(segments, index)
+      lastFullVisual = { type: 'code', code: codeVisual.code, codeRuns: codeVisual.codeRuns }
       leftVisual = undefined
       rightVisual = undefined
     }
@@ -974,29 +993,161 @@ function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentI
   }
 
   const segment = segments[codeSegmentIndex]
-  const previousCode = joinCodeBlocks(blocks.slice(0, -1))
-  const code = joinCodeBlocks(blocks)
+  const previousCode = formatCodeBlocks(blocks.slice(0, -1)).text
+  const formattedCode = formatCodeBlocks(blocks)
 
   return {
     type: 'code' as const,
     start: segment.start,
-    code,
+    code: formattedCode.text,
+    codeRuns: formattedCode.runs,
+    revealImmediately: !hasLaterPlayableSegment(segments, codeSegmentIndex),
     revealedPrefixLength: previousCode ? previousCode.length + 1 : 0,
   }
 }
 
-function joinCodeBlocks(blocks: string[]) {
-  return blocks.filter(Boolean).join('\n')
+function hasLaterPlayableSegment(segments: TutorialPlayerSegment[], fromIndex: number) {
+  return segments
+    .slice(fromIndex + 1)
+    .some((segment) => segment.type !== 'image' && segment.type !== 'video' && segment.type !== 'code')
 }
 
-function getTypewriterCode(code: string, elapsedSeconds: number, revealedPrefixLength = 0) {
-  const visibleCharacterCount = clamp(
+function formatCodeBlocks(blocks: string[]) {
+  const runs: CodeTextRun[] = []
+
+  blocks.filter(Boolean).forEach((block, index, filteredBlocks) => {
+    parseCodeMarkup(block).forEach((run) => addCodeRun(runs, run.text, run.isBold, run.color, run.href))
+
+    if (index < filteredBlocks.length - 1) {
+      addCodeRun(runs, '\n', false)
+    }
+  })
+
+  return {
+    runs,
+    text: runs.map((run) => run.text).join(''),
+  }
+}
+
+function parseCodeMarkup(code: string) {
+  const runs: CodeTextRun[] = []
+  let buffer = ''
+  let index = 0
+  let isBold = false
+  let color: string | undefined
+
+  while (index < code.length) {
+    if (code.startsWith('**', index) && (isBold || code.indexOf('**', index + 2) >= 0)) {
+      addCodeRun(runs, buffer, isBold, color)
+      buffer = ''
+      isBold = !isBold
+      index += 2
+      continue
+    }
+
+    const colorTagMatch = code.slice(index).match(/^\[color\s*:\s*(default|#?[0-9a-f]{6})\]/i)
+    if (colorTagMatch) {
+      addCodeRun(runs, buffer, isBold, color)
+      buffer = ''
+      color = normalizeCodeColor(colorTagMatch[1])
+      index += colorTagMatch[0].length
+      continue
+    }
+
+    const refTagMatch = code.slice(index).match(/^\[ref\s*:\s*([^\]]*?)\s*\((https?:\/\/[^)\s]+)\)\]/i)
+    if (refTagMatch) {
+      addCodeRun(runs, buffer, isBold, color)
+      buffer = ''
+      addCodeRun(runs, refTagMatch[1].trim(), isBold, color, refTagMatch[2])
+      index += refTagMatch[0].length
+      continue
+    }
+
+    buffer += code[index]
+    index += 1
+  }
+
+  addCodeRun(runs, buffer, isBold, color)
+
+  return runs
+}
+
+function normalizeCodeColor(value: string) {
+  if (value.toLowerCase() === 'default') return undefined
+
+  const hex = value.replace(/^#/, '')
+  return `#${hex.toUpperCase()}`
+}
+
+function addCodeRun(
+  runs: CodeTextRun[],
+  text: string,
+  isBold: boolean,
+  color?: string,
+  href?: string,
+) {
+  if (!text) return
+
+  const lastRun = runs.at(-1)
+  if (lastRun?.isBold === isBold && lastRun.color === color && lastRun.href === href) {
+    lastRun.text += text
+    return
+  }
+
+  runs.push({ color, href, isBold, text })
+}
+
+function renderCodeRuns(runs: CodeTextRun[], start = 0, end = Number.POSITIVE_INFINITY) {
+  const nodes = []
+  let cursor = 0
+
+  for (const run of runs) {
+    const runStart = cursor
+    const runEnd = cursor + run.text.length
+    cursor = runEnd
+
+    if (!rangesOverlap(start, end, runStart, runEnd)) {
+      continue
+    }
+
+    const text = run.text.slice(Math.max(start, runStart) - runStart, Math.min(end, runEnd) - runStart)
+
+    if (run.href) {
+      nodes.push(
+        <a
+          className={`${run.isBold ? 'font-black ' : ''}underline decoration-cyan-300/70 underline-offset-4 transition hover:text-cyan-200`}
+          href={run.href}
+          key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.href}-${run.isBold}`}
+          rel="noreferrer"
+          style={run.color ? { color: run.color } : undefined}
+          target="_blank"
+        >
+          {text}
+        </a>,
+      )
+      continue
+    }
+
+    nodes.push(
+      <span
+        className={run.isBold ? 'font-black' : undefined}
+        key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.isBold}`}
+        style={run.color ? { color: run.color } : undefined}
+      >
+        {text}
+      </span>,
+    )
+  }
+
+  return nodes
+}
+
+function getTypewriterCodeLength(codeLength: number, elapsedSeconds: number, revealedPrefixLength = 0) {
+  return clamp(
     revealedPrefixLength + Math.floor(Math.max(elapsedSeconds, 0) * codeCharactersPerSecond),
     0,
-    code.length,
+    codeLength,
   )
-
-  return code.slice(0, visibleCharacterCount)
 }
 
 function formatTime(value: number) {

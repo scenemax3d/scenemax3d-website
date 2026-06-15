@@ -1,5 +1,26 @@
-Functions, Motion Easing explains how motion becomes smoother and more intentional.
+```
+player => ninja
+```
+```+
+player.move to (1,2,3) in 3 seconds **[color:00FF00]ease in out[color:default] "Cubic" (0.25)**
+```
+Motion Easing functions explains how motion becomes smoother and more intentional.
 Use this when straight constant-speed motion feels too robotic. Easing gives motion a beginning, middle, and ending feel.
 In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
-The sample begins with player.move to (1,2,3) in 3 seconds ease in out "Cubic" (0.25). In plain language, it moves something through the world using distance and time.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[wait: 2]
+```
+player => sinbad
+when key space is pressed once do 
+  player.move left 4 in 1.5 seconds [color:00FF00]ease in[color:default]
+  player.move right 4 in 1.5 seconds [color:00FF00]ease out[color:default]
+end do
+```
+In this sample, Sinbad movement feels realistic due to the ease-in movement to the left followed by ease-out movement to the right. It is possible to combine easing in and out in the same movement.
+```
+player.rotate(y 90) in 0.6 seconds ease in out
+```
+affecting both start and end.
+For comprehensive explanation about movement easing functions refer to the link above.
+```
+[ref: READ MORE ABOUT MOVEMENT AND ROTATION (https://github.com/scenemax3d/scenemax3d-desktop/blob/main/docs/movement-and-rotation.md)]
+```

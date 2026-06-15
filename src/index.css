@@ -40,6 +40,11 @@ code {
   animation: hero-carousel-progress 5200ms linear both;
 }
 
+.hero-video-background-frame {
+  animation: hero-video-background-frame 900ms ease-out both;
+  transform: translate(-50%, -50%);
+}
+
 @keyframes tutorial-visual-layer-enter {
   from {
     opacity: 0;
@@ -74,10 +79,23 @@ code {
   }
 }
 
+@keyframes hero-video-background-frame {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.035);
+  }
+
+  to {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tutorial-visual-layer-enter,
   .tutorial-visual-layer-enter .tutorial-pane-visual,
-  .hero-carousel-progress {
+  .hero-carousel-progress,
+  .hero-video-background-frame {
     animation: none;
   }
 }
