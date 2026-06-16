@@ -89,6 +89,16 @@
     "caption": "Fighting-game-style example for Scene Designer Operations.",
     "code": ""
   },
+  "codex-installation": {
+    "language": "scenemax",
+    "caption": "Codex installation workflow.",
+    "code": ""
+  },
+  "local-gemma4-setup": {
+    "language": "scenemax",
+    "caption": "Local Gemma4 setup workflow.",
+    "code": ""
+  },
   "claude-code-setup": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Claude Code Setup.",

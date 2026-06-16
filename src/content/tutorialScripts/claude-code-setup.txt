@@ -1,5 +1,41 @@
-Claude Code Setup explains an AI-assisted SceneMax workflow.
-Assistant workflows are needed when the project is large enough that context matters: the active project, selected file, open scene, available assets, and current errors all affect the right answer.
-Use this when the assistant should inspect the project, suggest a targeted change, create content, compare results, or help debug a specific problem.
-A concrete game task is asking for help with Dragon Gate movement or camera logic. The assistant should first understand the relevant script or scene, then suggest the smallest useful change.
-The benefit is project-aware help instead of generic advice.
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-28-17-169Z.png]
+SceneMax has a built-in MCP server, allowing communication between AI agents and SceneMax IDE. To connect Claude desktop, follow those instructions:
+Open Claude desktop
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T16-44-08-437Z.png]
+Select File -> Settings...
+[img2: /assets/tutorials/ai-automation/pasted-2026-06-16T16-46-56-943Z.png]
+```
+click on [color:00FF00]Developer
+```
+now, click on **Developer**
+```+
+click on [color:00FF00]Edit Config
+```
+then, click on **Edit Config**
+[img2: /assets/tutorials/ai-automation/pasted-2026-06-16T17-21-24-091Z.png]
+```
+edit the file [color:00FF00]claude_desktop_config.json
+```
+select and edit the file **claude_desktop_config.json**
+```
+"mcpServers": {
+    "scenemax": {
+      "command": "C:\\Program Files\\Java\\jdk-11.0.12\\bin\\java.exe",
+      "args": [
+        "-jar",
+        "C:\\dev\\scenemax_desktop\\build\\libs\\scenemax_mcp_proxy.jar",
+        "http://127.0.0.1:8765/mcp"
+      ],
+      "env": {}
+    },
+```
+```#
+[mod: "mcpServers", color:00FF00]
+```
+Under the member "mcpServers", 
+```#
+[mod: "scenemax", color:00FF00]
+```
+add the "scenemax" configuration.
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T17-50-09-568Z.png]
+For the exact config code to put under the mcpServers, select File / Settings... menu in the IDE, then select the MCP tab, then click on the "See Config" button of the Claude CLI section. You will find detailed instructions and the exact MCP server config.

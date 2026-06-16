@@ -1,0 +1,14 @@
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-27-16-870Z.png]
+Connecting your Codex desktop application to SceneMax3D MCP server is straight forward. 
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-14-31-190Z.png]
+In your Codex application, click File / settings... menu, then click on "MCP servers".
+Next, click on "Add Server".
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-17-54-532Z.png]
+In the MCP server dialog, select "Streamable HTTP" mode, then fill the "Name" and the "URL" fields. 
+```
+http://127.0.0.1:8765/mcp
+```
+The "URL" field should contain this address above.
+if you want to make sure that this is the correct address, you can open SceneMax3D, select File / settings menu, select the MCP tab and check the "current endpoint" field.
+
+To finish, click "Save".

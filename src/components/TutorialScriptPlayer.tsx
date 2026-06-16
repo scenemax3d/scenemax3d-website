@@ -925,10 +925,10 @@ function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activ
       }
     }
     if (segment?.type === 'code') {
-      return getCodeVisualForSegment(segments, index)
+      return getSplitVisualForCodeSegment(segments, index) ?? getCodeVisualForSegment(segments, index)
     }
     if (segment?.type === 'codeLayer') {
-      return getCodeVisualForSegment(segments, index)
+      return getSplitVisualForCodeSegment(segments, index) ?? getCodeVisualForSegment(segments, index)
     }
   }
 
@@ -999,6 +999,51 @@ function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmen
     signature: `split:${getPaneVisualSignature(leftVisual)}:${getPaneVisualSignature(rightVisual)}`,
     start: segment?.start ?? 0,
   }
+}
+
+function getSplitVisualForCodeSegment(segments: TutorialPlayerSegment[], codeSegmentIndex: number): ImageVisual | undefined {
+  const imageSegmentIndex = getActiveSplitImageSegmentIndex(segments, codeSegmentIndex)
+  if (imageSegmentIndex < 0) return undefined
+
+  const imageSegment = segments[imageSegmentIndex]
+  if (imageSegment?.type !== 'image' || imageSegment.pane === 'full') return undefined
+
+  const codeVisual = getCodeVisualForSegment(segments, codeSegmentIndex)
+  const imageVisual = getImageVisualForSegment(segments, imageSegmentIndex)
+  const codePane = {
+    type: 'code' as const,
+    code: codeVisual.code,
+    codeRuns: codeVisual.codeRuns,
+  }
+
+  const panes =
+    imageSegment.pane === 'right'
+      ? { ...imageVisual.panes, left: codePane }
+      : { ...imageVisual.panes, right: codePane }
+
+  return {
+    type: 'image',
+    layout: 'split',
+    panes,
+    signature: `split:${getPaneVisualSignature(panes.left)}:${getPaneVisualSignature(panes.right)}`,
+    start: codeVisual.start,
+  }
+}
+
+function getActiveSplitImageSegmentIndex(segments: TutorialPlayerSegment[], beforeIndex: number) {
+  for (let index = beforeIndex - 1; index >= 0; index -= 1) {
+    const segment = segments[index]
+
+    if (segment?.type === 'image') {
+      return segment.pane === 'full' ? -1 : index
+    }
+
+    if (segment?.type === 'video') {
+      return -1
+    }
+  }
+
+  return -1
 }
 
 function getPaneVisualSignature(visual: PaneVisual | undefined) {

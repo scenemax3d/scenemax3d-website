@@ -513,7 +513,75 @@
     "featured": false,
     "order": 25,
     "relatedTutorialIds": [
-      "project-and-file-operations-what-you-can-actually-do-with-it"
+      "project-and-file-operations-what-you-can-actually-do-with-it",
+      "codex-installation"
+    ]
+  },
+  {
+    "id": "codex-installation",
+    "slug": "codex-installation",
+    "title": "Codex Installation",
+    "description": "A short focused SceneMax3D lesson about Codex Installation.",
+    "categoryId": "ai-automation",
+    "subcategoryId": "mcp-server",
+    "subject": "Codex Installation",
+    "clipFocus": "Walk through Codex Installation from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
+    "sourceDoc": "built-in-mcp-server.md",
+    "sourceLine": 181,
+    "difficulty": "advanced",
+    "duration": "6:00",
+    "youtubeId": "",
+    "thumbnail": "",
+    "tags": [
+      "ai-automation",
+      "mcp-server",
+      "built-in-mcp-server",
+      "built",
+      "in",
+      "mcp",
+      "server",
+      "codex",
+      "installation"
+    ],
+    "featured": false,
+    "order": 26,
+    "relatedTutorialIds": [
+      "claude-code-setup",
+      "local-gemma4-setup"
+    ]
+  },
+  {
+    "id": "local-gemma4-setup",
+    "slug": "local-gemma4-setup",
+    "title": "Local Gemma4 Setup",
+    "description": "A short focused SceneMax3D lesson about Local Gemma4 Setup.",
+    "categoryId": "ai-automation",
+    "subcategoryId": "mcp-server",
+    "subject": "Local Gemma4 Setup",
+    "clipFocus": "Walk through Local Gemma4 Setup from Built-in MCP Server and AI Assistants, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
+    "sourceDoc": "built-in-mcp-server.md",
+    "sourceLine": 181,
+    "difficulty": "advanced",
+    "duration": "6:00",
+    "youtubeId": "",
+    "thumbnail": "",
+    "tags": [
+      "ai-automation",
+      "mcp-server",
+      "built-in-mcp-server",
+      "built",
+      "in",
+      "mcp",
+      "server",
+      "local",
+      "gemma4",
+      "setup"
+    ],
+    "featured": false,
+    "order": 27,
+    "relatedTutorialIds": [
+      "codex-installation",
+      "claude-code-setup"
     ]
   },
   {
@@ -543,7 +611,10 @@
     ],
     "featured": false,
     "order": 34,
-    "relatedTutorialIds": []
+    "relatedTutorialIds": [
+      "codex-installation",
+      "local-gemma4-setup"
+    ]
   },
   {
     "id": "camera-modifiers",
@@ -575,11 +646,11 @@
   {
     "id": "general-usage",
     "slug": "general-usage",
-    "title": "General Usage",
+    "title": "Camera General Usage",
     "description": "A short focused SceneMax3D lesson about General Usage.",
     "categoryId": "cameras-cinematics",
     "subcategoryId": "camera-systems",
-    "subject": "General Usage",
+    "subject": "Camera General Usage",
     "clipFocus": "Explain General Usage from Camera Systems, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
     "sourceDoc": "camera-systems.md",
     "sourceLine": 740,

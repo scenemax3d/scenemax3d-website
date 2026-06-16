@@ -1,0 +1,14 @@
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-41-33-321Z.png]
+Gemma4 is a local LLM which can be installed via the SceneMax3D IDE.
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-44-41-023Z.png]
+Select File / Settings... menu, then select the "Local Gemma" tab.
+In the "Download variant" combo box, select the model variant that you would like to use, then click on "Download Gemma".
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-48-09-935Z.png]
+Enable the "Enable local Gemma bride" checkpoint, press "Start Local Gemma" then "test Bridge".
+on some computers, an installation of VC++ run-time will be needed. There is a dedicated button for doing so.
+When finished, click on "Apply settings" and "OK".
+In your SceneMax3D IDE you should see the "Gemma: Ready" status indicator turned into green.
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T18-55-31-281Z.png]
+This means that the IDE is connected to the model and ready to accept commands.
+[img: /assets/tutorials/ai-automation/pasted-2026-06-16T19-00-01-370Z.png]
+To start communicating with the IDE using Gemma, click on View / AI console. this will open the AI console where you can type commands to the IDE, search and manipulate files.
