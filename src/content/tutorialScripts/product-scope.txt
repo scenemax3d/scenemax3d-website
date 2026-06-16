@@ -1,5 +1,0 @@
-Product Scope explains one focused step in the Effekseer particle designer.
-This is needed because designer data often contains many small fields that must work together: names, positions, timing, resources, colliders, postures, or preview settings.
-Use this when the visual tool gives a clearer result than editing raw data by hand.
-A concrete game task is tuning a fighting-game weapon hit area or character reach pose. The designer lets you see the shape or pose, then adjust the exact fields that control it.
-The benefit is accuracy: the saved asset matches the intended gameplay behavior.

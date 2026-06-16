@@ -1,5 +1,0 @@
-Triggered In An Event, Cinematic Camera - Common Use Cases explains how the camera supports gameplay or cinematic presentation.
-Use this when the view has a job: following, framing, revealing, focusing, or adding emotion to the action.
-In Dragon Gate style combat, the camera must keep both fighters readable, show distance clearly, and avoid losing the action during jumps or attacks.
-The sample begins with when key space Is pressed once do. In plain language, it waits for a player input or event before running the commands inside.
-The key idea is framing: camera settings are gameplay settings because they decide what information the player can see.

@@ -1,5 +1,0 @@
-Deleting Objects explains how scene objects are created, reused, hidden, released, or removed.
-Use this when objects appear and disappear during play. Reusing or removing objects keeps the scene manageable.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with s => sinbad. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is to know what problem this feature solves before using it in a larger scene.

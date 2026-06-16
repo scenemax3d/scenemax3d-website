@@ -1,5 +1,0 @@
-File read, file create, and file modify are the three basic file actions an assistant can use in a SceneMax project.
-They are needed because changing files without first understanding them is risky. File read answers what is currently in this file. File create answers how do I add a new file. File modify answers how do I change a specific part of an existing file.
-Use file read before asking for changes, especially when the file controls gameplay, UI, camera, or publishing. Use file create when the project needs a new script, scene, UI file, or configuration file. Use file modify when the file exists and only one command, value, widget, or section should change.
-A concrete game task is changing a fighting game camera script. First read the file that sets the camera. Then modify only the camera distance or damping. Do not recreate the whole file just to change one number.
-The benefit is precision: the assistant can work on the right file and the right section instead of guessing.

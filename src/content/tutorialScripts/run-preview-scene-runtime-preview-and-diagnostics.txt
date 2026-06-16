@@ -1,5 +1,0 @@
-run_preview_scene, Runtime, Preview, And Diagnostics explains a runtime or diagnostics action.
-These tools are needed because the real test is what happens when the project runs, not what the script looks like in isolation.
-Use this when you need to start a preview, inspect recent errors, read the issue log, or recover from a stuck preview state.
-A concrete game task is debugging a fight scene where a camera or collision rule does not behave as expected. The issue log points to the first problem to fix.
-The benefit is evidence: you react to the actual preview result instead of guessing.

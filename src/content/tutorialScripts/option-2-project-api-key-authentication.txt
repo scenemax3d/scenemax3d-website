@@ -1,5 +1,0 @@
-A project API key is a permission key for uploading one specific SceneMax game to itch dot io.
-It is needed because publishing is not just copying files. Itch dot io must know which account and which game page are allowed to receive the build.
-The benefit of a project key is focus. A local Butler login can represent the whole account, but a project API key can be tied to the exact game you are publishing. That lowers confusion when one creator has several game pages.
-A concrete task is uploading Dragon Gate to its own itch dot io page. The build folder may be correct, but the upload still needs the correct user, project page, channel, and key. If any of those are wrong, the build may fail or go to the wrong target.
-Use a project API key when you want the publishing setup to clearly say this project uploads to this game page.

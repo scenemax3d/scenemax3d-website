@@ -1,5 +1,0 @@
-Billboard Sprites explains how images, billboards, animation, or materials are used visually.
-Use this when a flat image, billboard, animation, or material is the clearest way to show something.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with hit1 => good_jap1 sprite : scale 3 and billboard true. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is to know what problem this feature solves before using it in a larger scene.

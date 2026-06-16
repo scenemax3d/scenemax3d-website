@@ -1,5 +1,0 @@
-duration, Camera Modifiers - Available Override Attributes explains how the camera supports gameplay or cinematic presentation.
-Use this when the view has a job: following, framing, revealing, focusing, or adding emotion to the action.
-In Dragon Gate style combat, the camera must keep both fighters readable, show distance clearly, and avoid losing the action during jumps or attacks.
-The sample begins with hit_fx = camera.system.modifiers.hit_modifier. In plain language, it changes what the player sees and how the action is framed.
-The key idea is framing: camera settings are gameplay settings because they decide what information the player can see.

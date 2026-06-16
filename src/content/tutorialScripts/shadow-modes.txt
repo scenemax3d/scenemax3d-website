@@ -1,5 +1,0 @@
-Shadow Modes explains a helper for hits, attachments, resources, or debugging around objects.
-Use this when visual objects also need gameplay meaning, such as being hit, attached, detected, or debugged.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with n => ninja : shadow mode cast. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is to know what problem this feature solves before using it in a larger scene.

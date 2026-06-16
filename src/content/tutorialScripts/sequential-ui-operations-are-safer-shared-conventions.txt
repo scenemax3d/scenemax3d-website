@@ -1,5 +1,0 @@
-Sequential UI operations are safer, Shared Conventions explains a structured UI authoring action.
-UI tools are needed because interface widgets have required fields, names, positions, sizes, text, images, and validation rules.
-Use this action when a specific widget needs to be inspected, added, updated, deleted, listed, or validated.
-A concrete game task is updating a fighting-game HUD: change the health label text, move a start button, choose an existing sprite, or validate the UI before showing it to players.
-The benefit is that the assistant edits the intended widget instead of guessing from loose text.

@@ -1,5 +1,0 @@
-designer.add_primitive_advanced, Scene Designer Workflow explains an assistant action for the scene designer.
-Designer tools are needed because scene entities have names, transforms, materials, and resources that should be inspected before they are changed.
-Use this when the assistant must add a primitive, update an entity, list entities, capture the canvas, overlay a reference, compare a view, or validate a document.
-A concrete game task is adjusting an arena object in Dragon Gate: inspect the entity, change one material or position, capture the view, and compare the result.
-The benefit is visual control over the scene instead of editing blindly.

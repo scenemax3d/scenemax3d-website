@@ -1,5 +1,0 @@
-Asset Workflow explains an asset search, preview, or import action.
-Asset tools are needed because a model is more than a download link. The project needs a usable file, metadata, a clear name, and a preview before it becomes part of a scene.
-Use this when you need to find an asset, check what it is, import it, and confirm where it landed in the project.
-A concrete game task is adding a statue, weapon, or environment prop to an arena. The asset should match the style and be easy to find later.
-The benefit is organized asset work instead of a project full of unknown files.
