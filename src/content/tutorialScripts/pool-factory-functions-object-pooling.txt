@@ -1,5 +1,23 @@
-Pool Factory Functions, Object Pooling explains how scene objects are created, reused, hidden, released, or removed.
-Use this when objects appear and disappear during play. Reusing or removing objects keeps the scene manageable.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with create_rock = {. In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+```
+create_rock = {
+  rock1 => meshy_rock1
+  return rock1
+}
+rocks => Object.Pool(create_rock, size 5)
+```
+Use object pooling in your game whenever there is a need for creating, using and deleting the same game objects again and again. in this example, there are many rocks 
+[img2: /assets/tutorials/objects-assets/pasted-2026-06-15T19-23-36-245Z.png]
+thrown towards the player every few seconds. When the rock hits the ground it explodes and deleted. In such case it is a classic opportunity to use object pooling and save precious creation and deletion time.
+```#
+[mod: "Object.Pool", color: 00FF00, bold]
+```
+Notice how we create an object pool 
+```#
+[mod: "size 5", color: 00FF00, bold]
+```
+in the size of 5 objects. Each object in the pool 
+```#
+[clear]
+[mod: "create_rock", color: 00FF00, bold]
+```
+is created by the function "create_rock".

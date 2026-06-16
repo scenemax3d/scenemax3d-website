@@ -14,6 +14,11 @@ player.Death1 at speed of 0.2 : protected Async
 wait 0.2 second 
 player.Kick 
 ```
-However, there are times when we would like to **protect** the animation from being cancelled by another animation. In that case we put the **protected** keyword in the end of the animation command. 
+However, there are times when we would like to **protect** the animation from being cancelled by another animation. 
+```#
+[mod: "protected", color:00FF00]
+```
+In that case we put the **protected** keyword in the end of the animation command. 
 In this example, the **Kick** animation will not cancel the previous **Death1** animation.
+[wait: 3]
 [img: /assets/tutorials/movement-animation/pasted-2026-06-13T18-11-41-036Z.png]

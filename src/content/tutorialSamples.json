@@ -89,49 +89,9 @@
     "caption": "Fighting-game-style example for Scene Designer Operations.",
     "code": ""
   },
-  "productivity-boosts": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Productivity Boosts.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "faster-debugging-productivity-boosts": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Faster debugging.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "faster-content-creation-productivity-boosts": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Faster content creation.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "faster-exploration-productivity-boosts": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Faster exploration.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "less-friction-inside-the-ide-productivity-boosts": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Less friction inside the IDE.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "installation-overview": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Installation Overview.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
   "claude-code-setup": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Claude Code Setup.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "recommended-setup-inside-scenemax-claude-code-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Recommended setup inside SceneMax.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "manual-install-claude-code-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Manual install.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
   "optional-register-scenemax-in-claude-code-globally-claude-code-setup": {
@@ -149,99 +109,9 @@
     "caption": "Fighting-game-style example for Codex Setup.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
-  "recommended-setup-inside-scenemax-codex-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Recommended setup inside SceneMax.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "manual-install-codex-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Manual install.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "register-scenemax-in-codex-codex-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Register SceneMax in Codex.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "testing-the-connection-codex-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Testing the connection.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "claude-desktop-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Claude Desktop Setup.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "easiest-path-claude-desktop-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Easiest path.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "important-note-claude-desktop-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Important note.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
   "local-gemma-setup": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Local Gemma Setup.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "recommended-setup-local-gemma-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Recommended setup.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "which-model-should-you-choose-local-gemma-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Which model should you choose?.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "vc-runtime-requirement-local-gemma-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for VC++ runtime requirement.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "local-gemma-fields-local-gemma-setup": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Local Gemma fields.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "typical-user-workflows": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Typical User Workflows.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "example-fix-a-gameplay-script-typical-user-workflows": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Example: fix a gameplay script.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "example-create-a-new-scene-asset-typical-user-workflows": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Example: create a new scene asset.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "example-asset-discovery-typical-user-workflows": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Example: asset discovery.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "ai-console-vs-external-clients": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for AI Console vs External Clients.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "use-the-ai-console-when-you-want-ai-console-vs-external-clients": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Use the AI Console when you want.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "use-external-clients-when-you-want-ai-console-vs-external-clients": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Use external clients when you want.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
   "security-and-privacy-notes": {
@@ -254,29 +124,9 @@
     "caption": "Fighting-game-style example for Troubleshooting.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
-  "the-mcp-endpoint-says-unavailable-troubleshooting": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for The MCP endpoint says unavailable.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "claude-code-or-codex-was-not-found-automatically-troubleshooting": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Claude Code or Codex was not found automatically.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "claude-asks-for-scenemax-tools-but-cannot-find-them-troubleshooting": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Claude asks for SceneMax tools but cannot find them.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
   "local-gemma-fails-to-start-troubleshooting": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Local Gemma fails to start.",
-    "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
-  },
-  "building-from-source": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Building From Source.",
     "code": "// AI-assisted workflow result: inspect, edit, then preview the current scene\nrun set_camera_on_player\nrun shake_the_world async\nheader.print \"MCP-assisted scene update ready\""
   },
   "camera-modifiers": {
@@ -284,180 +134,10 @@
     "caption": "SceneMax example from camera-systems.md.",
     "code": "hit_fx = camera.system.modifiers.hit_modifier\nquake_fx = camera.system.modifiers.earthquake_modifier"
   },
-  "core-behavior-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nquake_fx = camera.system.modifiers.earthquake_modifier"
-  },
-  "declaration-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nquake_fx = camera.system.modifiers.earthquake_modifier"
-  },
-  "apply-syntax-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "fight_cam.apply hit_fx"
-  },
-  "important-rule-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "fight_cam = camera.system.fighting(player1, player2)\ncamera.system = fight_cam\n\nhit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx"
-  },
-  "available-override-attributes-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
   "duration-camera-modifiers-available-override-attributes": {
     "language": "scenemax",
     "caption": "SceneMax example from camera-systems.md.",
     "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "amplitude-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "frequency-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "x-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "y-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "z-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "rx-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "ry-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "rz-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "fov-camera-modifiers-available-override-attributes": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "stacking-modifiers-camera-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "hit-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nfight_cam.apply hit_fx : duration 0.25, amplitude 1.2"
-  },
-  "fall-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "fall_fx = camera.system.modifiers.fall_modifier\nplatform_cam.apply fall_fx : duration 0.6"
-  },
-  "shooting-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "shoot_fx = camera.system.modifiers.shooting_modifier\nfps_cam.apply shoot_fx : duration 0.15, amplitude 0.8"
-  },
-  "accelerating-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "accel_fx = camera.system.modifiers.accelerating_modifier\nrace_cam.apply accel_fx : duration 0.4, fov 1.5"
-  },
-  "decelerating-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "brake_fx = camera.system.modifiers.decelerating_modifier\nrace_cam.apply brake_fx : duration 0.3"
-  },
-  "bump-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "bump_fx = camera.system.modifiers.bump_modifier\nrace_cam.apply bump_fx : y 0.3, duration 0.2"
-  },
-  "landing-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "landing_fx = camera.system.modifiers.landing_modifier\nplatform_cam.apply landing_fx : duration 0.35, amplitude 1.3"
-  },
-  "earthquake-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "quake_fx = camera.system.modifiers.earthquake_modifier\nstrategy_cam.apply quake_fx : duration 2.5, amplitude 1.1"
-  },
-  "explosion-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "explosion_fx = camera.system.modifiers.explosion_modifier\nfollow_cam.apply explosion_fx : duration 0.5, amplitude 1.4, fov 1.5"
-  },
-  "near-miss-modifier-built-in-modifiers": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "miss_fx = camera.system.modifiers.near_miss_modifier\nfollow_cam.apply miss_fx : duration 0.2, ry 2"
-  },
-  "modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "miss_fx = camera.system.modifiers.near_miss_modifier\nfollow_cam.apply miss_fx : duration 0.2, ry 2"
-  },
-  "the-main-idea-modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "miss_fx = camera.system.modifiers.near_miss_modifier\nfollow_cam.apply miss_fx : duration 0.2, ry 2"
-  },
-  "when-to-use-modifiers-modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "SceneMax example from camera-systems.md.",
-    "code": "miss_fx = camera.system.modifiers.near_miss_modifier\nfollow_cam.apply miss_fx : duration 0.2, ry 2"
-  },
-  "when-not-to-use-modifiers-modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for When Not To Use Modifiers.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nbump_fx = camera.system.modifiers.bump_modifier\n\nfight_cam.apply hit_fx : duration 0.35, amplitude 1.4\nfight_cam.apply bump_fx : duration 0.2, y 0.3"
-  },
-  "recommended-workflow-modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Recommended Workflow.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nbump_fx = camera.system.modifiers.bump_modifier\n\nfight_cam.apply hit_fx : duration 0.35, amplitude 1.4\nfight_cam.apply bump_fx : duration 0.2, y 0.3"
-  },
-  "attribute-meanings-in-practice-modifier-usage-guide": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Attribute Meanings In Practice.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nbump_fx = camera.system.modifiers.bump_modifier\n\nfight_cam.apply hit_fx : duration 0.35, amplitude 1.4\nfight_cam.apply bump_fx : duration 0.2, y 0.3"
-  },
-  "duration-modifier-usage-guide-attribute-meanings-in-practice": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for duration.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nbump_fx = camera.system.modifiers.bump_modifier\n\nfight_cam.apply hit_fx : duration 0.35, amplitude 1.4\nfight_cam.apply bump_fx : duration 0.2, y 0.3"
-  },
-  "amplitude-modifier-usage-guide-attribute-meanings-in-practice": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for amplitude.",
-    "code": "hit_fx = camera.system.modifiers.hit_modifier\nbump_fx = camera.system.modifiers.bump_modifier\n\nfight_cam.apply hit_fx : duration 0.35, amplitude 1.4\nfight_cam.apply bump_fx : duration 0.2, y 0.3"
   },
   "frequency-modifier-usage-guide-attribute-meanings-in-practice": {
     "language": "scenemax",
@@ -2562,7 +2242,7 @@
   "pool-factory-functions-object-pooling": {
     "language": "scenemax",
     "caption": "SceneMax example from objects-and-models.md.",
-    "code": "create_rock = {\n  rock1 => meshy_rock : pos (22.532026,-51.0,148.68306), scale level1_dragon_rock_scale, rotate (0.0,0.0,0.0), shadow mode on, collision shape box, mass 3.0\n  return rock1\n}\n\nrocks_pool => Object.Pool(create_rock, size 5)"
+    "code": "create_rock = {\n  rock1 => sphere: pos(-4+rnd(8),0,0), material=\"pond\"\n  return rock1\n}\n\nrocks_pool => Object.Pool(create_rock, size 5)\n\nshow_rock = { \n  var rock = rocks_pool.acquire\n  do async \n    rock.move left 1+rnd(5) in 1+rnd(2) seconds \n    rock.delete\n  end do  \n}\n\nrun show_rock every 1 seconds"
   },
   "deleting-objects": {
     "language": "scenemax",

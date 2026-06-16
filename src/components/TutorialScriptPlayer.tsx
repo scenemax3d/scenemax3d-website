@@ -40,6 +40,13 @@ type TutorialPlayerSegment =
       start: number
       end: number
     }
+  | {
+      type: 'codeLayer'
+      commands: string
+      duration: 0
+      start: number
+      end: number
+    }
 
 type TutorialPlayerSegmentDraft =
   | {
@@ -69,6 +76,11 @@ type TutorialPlayerSegmentDraft =
       code: string
       duration: 0
     }
+  | {
+      type: 'codeLayer'
+      commands: string
+      duration: 0
+    }
 
 interface ParsedTutorialScript {
   segments: TutorialPlayerSegment[]
@@ -86,6 +98,12 @@ interface CodeTextRun {
   color?: string
   href?: string
   isBold: boolean
+  text: string
+}
+
+interface CodeLayerModifier {
+  color?: string
+  isBold?: boolean
   text: string
 }
 
@@ -261,7 +279,12 @@ export function TutorialScriptPlayer({
       setHighlightedWordIndex(segment.type === 'speech' ? 0 : -1)
       speechBoundaryAtRef.current = 0
 
-      if (segment.type === 'image' || segment.type === 'video' || segment.type === 'code') {
+      if (
+        segment.type === 'image' ||
+        segment.type === 'video' ||
+        segment.type === 'code' ||
+        segment.type === 'codeLayer'
+      ) {
         setPlayerTime(segment.start)
         window.setTimeout(() => runSegment(index + 1, token), 0)
         return
@@ -601,14 +624,14 @@ export function TutorialScriptPlayer({
 
 function parseTutorialScript(script: string): ParsedTutorialScript {
   const segments: TutorialPlayerSegmentDraft[] = []
-  const commandPattern = /```(\+?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img[12]?|video)\s*:\s*([^\]]+)\]/gi
+  const commandPattern = /```([+#]?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img[12]?|video)\s*:\s*([^\]]+)\]/gi
   let lastIndex = 0
   let match: RegExpExecArray | null
 
   while ((match = commandPattern.exec(script))) {
     addSpeechSegments(script.slice(lastIndex, match.index), segments)
 
-    const fencedAppendMarker = match[1]
+    const fencedMarker = match[1]
     const fencedCode = match[2]
     const legacyCode = match[3]
     const command = match[4]?.toLowerCase()
@@ -617,12 +640,20 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
     if (fencedCode !== undefined || legacyCode !== undefined) {
       const trimmedCode = normalizeCodeContent(fencedCode ?? legacyCode)
       if (trimmedCode) {
-        segments.push({
-          type: 'code',
-          appendToPrevious: fencedAppendMarker === '+',
-          code: trimmedCode,
-          duration: 0,
-        })
+        if (fencedMarker === '#') {
+          segments.push({
+            type: 'codeLayer',
+            commands: trimmedCode,
+            duration: 0,
+          })
+        } else {
+          segments.push({
+            type: 'code',
+            appendToPrevious: fencedMarker === '+',
+            code: trimmedCode,
+            duration: 0,
+          })
+        }
       }
     } else if (command === 'wait') {
       const duration = Number.parseFloat(value)
@@ -864,7 +895,8 @@ function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number
       segment.end > time &&
       segment.type !== 'image' &&
       segment.type !== 'video' &&
-      segment.type !== 'code',
+      segment.type !== 'code' &&
+      segment.type !== 'codeLayer',
   )
 
   if (index >= 0) {
@@ -893,6 +925,9 @@ function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activ
       }
     }
     if (segment?.type === 'code') {
+      return getCodeVisualForSegment(segments, index)
+    }
+    if (segment?.type === 'codeLayer') {
       return getCodeVisualForSegment(segments, index)
     }
   }
@@ -934,7 +969,7 @@ function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmen
       rightVisual = undefined
     }
 
-    if (segment.type === 'code') {
+    if (segment.type === 'code' || segment.type === 'codeLayer') {
       const codeVisual = getCodeVisualForSegment(segments, index)
       lastFullVisual = { type: 'code', code: codeVisual.code, codeRuns: codeVisual.codeRuns }
       leftVisual = undefined
@@ -968,16 +1003,30 @@ function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmen
 
 function getPaneVisualSignature(visual: PaneVisual | undefined) {
   if (!visual) return ''
-  if (visual.type === 'code') return `code:${visual.code}`
+  if (visual.type === 'code') return `code:${getCodeRunsSignature(visual.codeRuns)}`
   return `${visual.type}:${visual.url}`
 }
 
-function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentIndex: number) {
-  const blocks = []
-  let index = codeSegmentIndex
+function getCodeRunsSignature(runs: CodeTextRun[]) {
+  return runs
+    .map((run) => `${run.text}:${run.color ?? ''}:${run.href ?? ''}:${run.isBold ? '1' : '0'}`)
+    .join('|')
+}
+
+function getCodeVisualForSegment(segments: TutorialPlayerSegment[], visualSegmentIndex: number) {
+  const blocks: string[] = []
+  const layers: string[] = []
+  let index = visualSegmentIndex
 
   while (index >= 0) {
     const segment = segments[index]
+
+    if (segment?.type === 'codeLayer') {
+      layers.unshift(segment.commands)
+      index -= 1
+      continue
+    }
+
     if (segment?.type !== 'code') {
       index -= 1
       continue
@@ -992,16 +1041,16 @@ function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentI
     index -= 1
   }
 
-  const segment = segments[codeSegmentIndex]
+  const segment = segments[visualSegmentIndex]
   const previousCode = formatCodeBlocks(blocks.slice(0, -1)).text
-  const formattedCode = formatCodeBlocks(blocks)
+  const formattedCode = applyCodeLayers(formatCodeBlocks(blocks), layers)
 
   return {
     type: 'code' as const,
     start: segment.start,
     code: formattedCode.text,
     codeRuns: formattedCode.runs,
-    revealImmediately: !hasLaterPlayableSegment(segments, codeSegmentIndex),
+    revealImmediately: segment.type === 'codeLayer' || !hasLaterPlayableSegment(segments, visualSegmentIndex),
     revealedPrefixLength: previousCode ? previousCode.length + 1 : 0,
   }
 }
@@ -1009,7 +1058,13 @@ function getCodeVisualForSegment(segments: TutorialPlayerSegment[], codeSegmentI
 function hasLaterPlayableSegment(segments: TutorialPlayerSegment[], fromIndex: number) {
   return segments
     .slice(fromIndex + 1)
-    .some((segment) => segment.type !== 'image' && segment.type !== 'video' && segment.type !== 'code')
+    .some(
+      (segment) =>
+        segment.type !== 'image' &&
+        segment.type !== 'video' &&
+        segment.type !== 'code' &&
+        segment.type !== 'codeLayer',
+    )
 }
 
 function formatCodeBlocks(blocks: string[]) {
@@ -1027,6 +1082,132 @@ function formatCodeBlocks(blocks: string[]) {
     runs,
     text: runs.map((run) => run.text).join(''),
   }
+}
+
+function applyCodeLayers(formattedCode: { runs: CodeTextRun[]; text: string }, layers: string[]) {
+  let runs = formattedCode.runs
+
+  layers.forEach((layer) => {
+    parseCodeLayerCommands(layer).forEach((command) => {
+      if (command.type === 'clear') {
+        runs = resetCodeRunFormatting(runs)
+      } else {
+        runs = applyCodeLayerModifier(runs, command.modifier)
+      }
+    })
+  })
+
+  return {
+    runs,
+    text: runs.map((run) => run.text).join(''),
+  }
+}
+
+function parseCodeLayerCommands(layer: string) {
+  const commands: Array<{ type: 'clear' } | { type: 'mod'; modifier: CodeLayerModifier }> = []
+  const commandPattern = /\[\s*(?:(clear)|mod\s*:\s*"((?:\\.|[^"\\])*)"\s*(?:,\s*([^\]]+))?)\]/gi
+  let match: RegExpExecArray | null
+
+  while ((match = commandPattern.exec(layer))) {
+    if (match[1]) {
+      commands.push({ type: 'clear' })
+      continue
+    }
+
+    const modifierText = match[2]?.replace(/\\"/g, '"') ?? ''
+    if (!modifierText) continue
+
+    commands.push({
+      type: 'mod',
+      modifier: {
+        text: modifierText,
+        ...parseCodeLayerModifierOptions(match[3] ?? ''),
+      },
+    })
+  }
+
+  return commands
+}
+
+function parseCodeLayerModifierOptions(options: string) {
+  const modifier: Omit<CodeLayerModifier, 'text'> = {}
+  const colorMatch = options.match(/\bcolor\s*:\s*(#?[0-9a-f]{6})\b/i)
+
+  if (colorMatch) {
+    modifier.color = normalizeCodeColor(colorMatch[1])
+  }
+
+  if (/\bbold\b/i.test(options)) {
+    modifier.isBold = true
+  }
+
+  return modifier
+}
+
+function resetCodeRunFormatting(runs: CodeTextRun[]) {
+  return runs.map((run) => ({
+    href: run.href,
+    isBold: false,
+    text: run.text,
+  }))
+}
+
+function applyCodeLayerModifier(runs: CodeTextRun[], modifier: CodeLayerModifier) {
+  if (!modifier.text) return runs
+
+  const text = runs.map((run) => run.text).join('')
+  const ranges: TextRange[] = []
+  let matchIndex = text.indexOf(modifier.text)
+
+  while (matchIndex >= 0) {
+    ranges.push({ start: matchIndex, end: matchIndex + modifier.text.length })
+    matchIndex = text.indexOf(modifier.text, matchIndex + modifier.text.length)
+  }
+
+  if (ranges.length === 0) return runs
+
+  const nextRuns: CodeTextRun[] = []
+  let cursor = 0
+
+  runs.forEach((run) => {
+    const runStart = cursor
+    const runEnd = cursor + run.text.length
+    cursor = runEnd
+    let runCursor = runStart
+
+    ranges
+      .filter((range) => rangesOverlap(runStart, runEnd, range.start, range.end))
+      .forEach((range) => {
+        const styledStart = Math.max(runStart, range.start)
+        const styledEnd = Math.min(runEnd, range.end)
+
+        addCodeRun(
+          nextRuns,
+          run.text.slice(runCursor - runStart, styledStart - runStart),
+          run.isBold,
+          run.color,
+          run.href,
+        )
+        addCodeRun(
+          nextRuns,
+          run.text.slice(styledStart - runStart, styledEnd - runStart),
+          modifier.isBold ?? run.isBold,
+          modifier.color ?? run.color,
+          run.href,
+        )
+        runCursor = styledEnd
+      })
+
+    addCodeRun(
+      nextRuns,
+      run.text.slice(runCursor - runStart),
+      run.isBold,
+      run.color,
+      run.href,
+    )
+  })
+
+  return nextRuns
 }
 
 function parseCodeMarkup(code: string) {
