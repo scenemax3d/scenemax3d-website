@@ -1,6 +1,0 @@
-[img: /assets/tutorials/language-fundamentals/groups-and-ray-checks.svg]
-Groups let you label several objects with the same role.
-A ray check asks whether an imaginary line hits an object in that group.
-In this example, enemy1 belongs to the enemies group. The ray check tests that group from the player position.
-This is useful for aiming, selecting, line-of-sight checks, and mouse picking.
-Groups keep the rule clean because the script checks enemies as a group instead of checking every enemy name separately.

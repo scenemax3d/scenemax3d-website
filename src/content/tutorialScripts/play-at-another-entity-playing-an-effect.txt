@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/play-at-target-loop.mp4]
-Sometimes you do not want to type coordinates. You want the effect to appear where an object is now.
-Use pos with the object name for that. In the sample, player is a Sinbad model, and hit_fx plays at player.
-This is good for hit flashes, healing effects, pickup highlights, or any effect that should appear on a character or object even if it moved before the command ran.

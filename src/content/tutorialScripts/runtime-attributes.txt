@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/runtime-speed-loop.mp4]
-Runtime attributes are extra values you pass when the effect starts.
-The most common one is play_back_speed. A value of two plays the effect twice as fast as normal. A value below one plays it slower.
-Some Effekseer assets are also designed to read dynamic inputs, such as input0 or input1. Use those only when the asset was authored to react to them.

@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/packaging-loop.mp4]
-When you declare an Effekseer effect, SceneMax knows that the game uses that asset.
-During packaging, the matching folder under resources slash effects is included automatically, so the exported game can load the effect.
-SceneMax also cleans runtime effect instances when scenes change. That prevents old effects from staying alive in the next scene by mistake.

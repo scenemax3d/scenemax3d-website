@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
-Imported effects do not always face the direction you expect. If the asset points sideways, declare it with an initial rotation.
-In the sample, rotate zero, ninety, zero turns beam_fx around the y axis before it plays.
-Use this when the visual is correct, but its default direction is not aligned with your scene.

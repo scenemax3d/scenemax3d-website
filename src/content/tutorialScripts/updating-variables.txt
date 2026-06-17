@@ -1,6 +1,0 @@
-[img: /assets/tutorials/language-fundamentals/updating-variables.svg]
-Updating a variable means assigning it a new value while the game is running.
-The variable already exists, and the assignment changes what it stores.
-In this example, score starts at 0 and then becomes score plus 5.
-This is how a coin, hit, timer, or level event changes game state.
-Use updates whenever gameplay changes a value that the game needs to remember.

@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
-Some effects have a direction. A laser, cone blast, missile trail, or breath attack should face the target before it starts.
-Use look at before play. In the sample, beam_fx turns toward enemy, then plays from player.
-This separates aiming from starting the effect, which makes the code easier to read and easier to change later.

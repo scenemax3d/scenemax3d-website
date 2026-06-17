@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/runtime-speed-loop.mp4]
-A looped effect can also receive runtime attributes. This lets one effect asset behave differently in different gameplay situations.
-In the sample, play_back_speed slows the loop slightly, and input0 and input1 pass extra values to the Effekseer asset.
-The important beginner rule is simple: speed always controls timing, but input values only matter if the effect designer connected them inside the asset.

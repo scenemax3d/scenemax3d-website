@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
-Face another object when the target can move.
-Instead of calculating angles yourself, tell the effect to look at the target object. SceneMax uses the current positions to turn the effect.
-Here, beam_fx looks at enemy and then plays at player. That is the usual pattern for a character firing a beam, spell, or projectile toward an opponent.

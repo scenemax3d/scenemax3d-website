@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/show-hide-delete-loop.mp4]
-Effekseer effects use the normal object lifecycle commands.
-Hide makes the effect invisible but keeps the object available. Show makes it visible again. Delete removes it from the scene and releases its runtime resources.
-Use hide and show when you may reuse the same effect. Use delete when the effect is finished and should be cleaned up.

@@ -169,130 +169,15 @@
     "caption": "SceneMax example for When Conditions.",
     "code": "var door_open = 0\n\nwhen door_open==1 do\n  header.print \"door opened\"\nend do\n\ndoor_open = 1"
   },
-  "quick-start-2": {
-    "language": "scenemax",
-    "caption": "Declare an imported effect and play it at the player model.",
-    "code": "player => sinbad\nfire_fx => effects.effekseer.A_Salamander1\nfire_fx.play pos (player)"
-  },
   "declaring-an-effekseer-effect": {
     "language": "scenemax",
     "caption": "Declare a real imported effect from the fighting game project.",
-    "code": "fire_fx => effects.effekseer.A_Salamander1"
-  },
-  "playing-an-effect": {
-    "language": "scenemax",
-    "caption": "Play a ring effect in front of the camera.",
-    "code": "impact_fx => effects.effekseer.Simple_Ring_Shape1\nimpact_fx.play pos (3,1,7)"
-  },
-  "play-at-a-fixed-position-playing-an-effect": {
-    "language": "scenemax",
-    "caption": "Play an effect at a specific point in the world.",
-    "code": "impact_fx => effects.effekseer.Simple_Ring_Shape1\nimpact_fx.play pos (3,1,7)"
-  },
-  "play-at-another-entity-playing-an-effect": {
-    "language": "scenemax",
-    "caption": "Play a hit flash at the player model.",
-    "code": "player => sinbad\nhit_fx => effects.effekseer.Simple_Sprite_BillBoard\nhit_fx.play pos (player)"
-  },
-  "start-from-a-predefined-placement-playing-an-effect": {
-    "language": "scenemax",
-    "caption": "Declare an effect with initial placement, then play it at the enemy.",
-    "code": "enemy => ninja : pos (0,0,8)\nfire_fx => effects.effekseer.A_Salamander1 : pos (0,1,0) and rotate (0,45,0)\nfire_fx.play pos (enemy)"
-  },
-  "runtime-attributes": {
-    "language": "scenemax",
-    "caption": "Play the same effect with a faster playback speed.",
-    "code": "player => sinbad\nburst_fx => effects.effekseer.A_Salamander1\nburst_fx.play pos (player), attr = [\"play_back_speed\" 2]"
-  },
-  "looping-an-effect": {
-    "language": "scenemax",
-    "caption": "Create a looped aura around a player.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.play pos (player), loop"
-  },
-  "example-multiple-runtime-inputs-looping-an-effect": {
-    "language": "scenemax",
-    "caption": "Loop a ring effect and pass speed plus input channels.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.play pos (player), loop, attr = [\n  \"play_back_speed\" 0.8,\n  \"input0\" 1,\n  \"input1\" 0.25\n]"
-  },
-  "aiming-the-effect-before-play": {
-    "language": "scenemax",
-    "caption": "Aim a laser effect at an enemy before playing it.",
-    "code": "player => sinbad\nenemy => ninja : pos (0,0,8)\nbeam_fx => effects.effekseer.Laser01\nbeam_fx.look at (enemy)\nbeam_fx.play pos (player)"
-  },
-  "face-another-object-aiming-the-effect-before-play": {
-    "language": "scenemax",
-    "caption": "Aim a laser effect from the player toward the enemy.",
-    "code": "player => sinbad\nenemy => ninja : pos (0,0,8)\nbeam_fx => effects.effekseer.Laser01\nbeam_fx.look at (enemy)\nbeam_fx.play pos (player)"
-  },
-  "load-with-initial-rotation-aiming-the-effect-before-play": {
-    "language": "scenemax",
-    "caption": "Create a laser effect with an initial rotation.",
-    "code": "beam_fx => effects.effekseer.Laser01 : rotate (0,90,0)\nbeam_fx.play pos (0,1,0)"
-  },
-  "attaching-effects-to-other-game-objects": {
-    "language": "scenemax",
-    "caption": "Attach an aura to the player and play it.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.attach to player\naura_fx.play pos (player)"
-  },
-  "attach-to-a-model-attaching-effects-to-other-game-objects": {
-    "language": "scenemax",
-    "caption": "Attach a ring aura to the player model.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.attach to player\naura_fx.play pos (player)"
-  },
-  "attach-to-a-joint-attaching-effects-to-other-game-objects": {
-    "language": "scenemax",
-    "caption": "Attach a spark effect to fighter1's right hand joint.",
-    "code": "player => dynamic fighter1 : pos (0,0,0), scale 3,\n  joints (\"mixamorig:RightHand\") async\nhand_fx => effects.effekseer.Simple_Sprite_BillBoard\nhand_fx.attach to player.\"mixamorig:RightHand\"\nhand_fx.play pos (player.\"mixamorig:RightHand\")"
-  },
-  "attach-with-offset-attaching-effects-to-other-game-objects": {
-    "language": "scenemax",
-    "caption": "Attach a ring effect above the player with an offset.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.attach to player : pos (0,1,0)\naura_fx.play pos (player)"
-  },
-  "detach-from-parent-attaching-effects-to-other-game-objects": {
-    "language": "scenemax",
-    "caption": "Attach an effect, play it, then detach it from the player.",
-    "code": "player => sinbad\naura_fx => effects.effekseer.Simple_Ring_Shape1\naura_fx.attach to player\naura_fx.play pos (player), loop\nwait 1 seconds\naura_fx.detach from parent"
-  },
-  "show-hide-and-delete": {
-    "language": "scenemax",
-    "caption": "Hide, show, and delete a looped effect.",
-    "code": "player => sinbad\nportal_fx => effects.effekseer.Simple_Ring_Shape1\nportal_fx.play pos (player), loop\nportal_fx.hide\nportal_fx.show\nportal_fx.delete"
-  },
-  "hide-show-hide-and-delete": {
-    "language": "scenemax",
-    "caption": "Create a looped effect, then hide it without destroying it.",
-    "code": "player => sinbad\nportal_fx => effects.effekseer.Simple_Ring_Shape1\nportal_fx.play pos (player), loop\nportal_fx.hide"
-  },
-  "show-show-hide-and-delete": {
-    "language": "scenemax",
-    "caption": "Hide a looped effect, then show it again.",
-    "code": "player => sinbad\nportal_fx => effects.effekseer.Simple_Ring_Shape1\nportal_fx.play pos (player), loop\nportal_fx.hide\nportal_fx.show"
-  },
-  "delete-show-hide-and-delete": {
-    "language": "scenemax",
-    "caption": "Create an effect and delete it after it is no longer needed.",
-    "code": "player => sinbad\nportal_fx => effects.effekseer.Simple_Ring_Shape1\nportal_fx.play pos (player), loop\nportal_fx.delete"
-  },
-  "full-example": {
-    "language": "scenemax",
-    "caption": "A compact combat effect flow using real imported effects.",
-    "code": "player => sinbad\nenemy => ninja : pos (0,0,8)\n\nshield_fx => effects.effekseer.Simple_Ring_Shape1\nbeam_fx => effects.effekseer.Laser01\n\nshield_fx.attach to player\nshield_fx.play pos (player), loop\n\nbeam_fx.look at (enemy)\nbeam_fx.play pos (player), attr = [\"play_back_speed\" 1.5]\n\nwait 1 seconds\nshield_fx.hide\n\nwait 1 seconds\nshield_fx.show\n\nwait 1 seconds\nshield_fx.delete\nbeam_fx.delete"
-  },
-  "packaging-and-scene-changes": {
-    "language": "scenemax",
-    "caption": "Declare the effect so SceneMax knows to include it in the package.",
     "code": "fire_fx => effects.effekseer.A_Salamander1"
   },
   "built-in-effects": {
     "language": "scenemax",
     "caption": "SceneMax example from effects.md.",
     "code": "effects.explosion.show : pos (b)"
-  },
-  "why-a-new-path-is-required": {
-    "language": "scenemax",
-    "caption": "SceneMax example from effekseer-particle-designer.md.",
-    "code": "resources/\n  effects/\n    fire_burst_01/\n      fire_burst_01.smeffectdesign\n      main.efkefc\n      Texture/\n      Model/\n      Sound/\n      Material/\n      Curve/"
   },
   "keyboard-events": {
     "language": "scenemax",
@@ -304,16 +189,6 @@
     "caption": "SceneMax example for Mouse Events.",
     "code": "player => sinbad\n\nwhen mouse left is pressed on player do\n  player.turn left 360 in 1 second\nend do"
   },
-  "groups-and-ray-checks": {
-    "language": "scenemax",
-    "caption": "SceneMax example for Groups & Ray Checks.",
-    "code": "player => sinbad\nenemy1 => box\nenemy1 belongs to the enemies group\n\nif enemies.ray check from (player) do\n  header.print \"enemy in sight\"\nend do"
-  },
-  "designer-workflow": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Designer Workflow.",
-    "code": "player1.ik = \"ik_test_ik\"\nplayer1.ik.layer2.play : target player2.weapon.colliders[\"weapon_sphere_collider_1\"], blend 0.2, weight 1\nwait 0.5 seconds\nplayer1.ik = empty"
-  },
   "project-settings": {
     "language": "scenemax",
     "caption": "Fighting-game-style example for Project Settings.",
@@ -324,30 +199,10 @@
     "caption": "SceneMax example from levels-and-shared-state.md.",
     "code": "switch to \"level2\""
   },
-  "quick-example": {
-    "language": "scenemax",
-    "caption": "SceneMax example from lighting.md.",
-    "code": "sun => Lights.directional : color \"#fff3d2\", intensity 3.0, direction (-0.3,-0.8,-0.4), shadow high\nlamp => Lights.point : pos (2,4,1), color warm, intensity 900 lumens, range 12, shadow medium\nstageSpot => Lights.spot : pos (0,6,-4), look at player1, angle 35, intensity 2500, shadow on\nenvironment => Lights.sky : preset \"Night Neon\", exposure 0.2, ambient \"#223344\""
-  },
   "light-types-in-detail": {
     "language": "scenemax",
     "caption": "SceneMax example from lighting.md.",
     "code": "sun => Lights.directional : color \"#fff3d2\", intensity 3.0, direction (-0.3,-0.8,-0.4), shadow high"
-  },
-  "designer-workflow-2": {
-    "language": "scenemax",
-    "caption": "SceneMax example from lighting.md.",
-    "code": "keyLight => Lights.spot : pos (-3,5,-4), direction (0.4,-0.8,0.3), color warm, intensity 1800, range 25, angle 30, shadow medium"
-  },
-  "how-to-read-this-reference": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for How To Read This Reference.",
-    "code": "// After an AI tool adds a primitive or UI widget, validate it in game code\ndebug.on\nrun set_camera_on_player\nheader.print \"Check generated scene entities\""
-  },
-  "plugin-registration": {
-    "language": "scenemax",
-    "caption": "SceneMax example from meshy-ai-plugin.md.",
-    "code": "public class MeshySceneMax3DPlugin extends PluginBase {\n    static final String VIEW_ID = \"meshy.ai.models\";\n\n    @Override\n    public SceneMaxPluginManifest getManifest() {\n        return new SceneMaxPluginManifest(\n                \"meshy.ai\",\n                \"Meshy AI\",\n                \"1.0.0\",\n                \"Create, browse, refine, download and import Meshy AI 3D models.\",\n                Arrays.asList(\"menu\", \"toolbar\", \"view\", \"asset-provider\", \"settings\", \"asset-import\"));\n    }\n}"
   },
   "show-minimap": {
     "language": "scenemax",
@@ -399,11 +254,6 @@
     "caption": "SceneMax example from path-replay.md.",
     "code": "var points = [0,0,0,0,0,0,  1,1,10,0,90,0,  2,2,0,0,0,0]\ns => sinbad\ns.replay points in 10 seconds"
   },
-  "architecture": {
-    "language": "scenemax",
-    "caption": "SceneMax example from plugin-system.md.",
-    "code": "public final class ExampleSceneMax3DPlugin extends PluginBase {\n    @Override\n    public SceneMaxPluginManifest getManifest() {\n        return new SceneMaxPluginManifest(\n                \"example.plugin\",\n                \"Example Plugin\",\n                \"1.0.0\",\n                \"Adds an example view and import action.\",\n                Arrays.asList(\"menu\", \"toolbar\", \"view\", \"asset-import\"));\n    }\n\n    @Override\n    public int start(Object... args) {\n        context.registerView(new ExampleView());\n        context.registerMenuAction(\"Assets\", new OpenExampleAction());\n        context.registerToolbarAction(new OpenExampleAction());\n        return 0;\n    }\n}"
-  },
   "defining-a-procedure": {
     "language": "scenemax",
     "caption": "SceneMax example for Defining a Procedure.",
@@ -449,11 +299,6 @@
     "caption": "SceneMax example from throw-motion.md.",
     "code": "motion = system.motion(\"motion_axe_throw\", target enemy)\nmotion.apply axe async"
   },
-  "header-text": {
-    "language": "scenemax",
-    "caption": "SceneMax example from ui-and-drawing.md.",
-    "code": "header.print \"hello world\""
-  },
   "wait": {
     "language": "scenemax",
     "caption": "SceneMax example for Wait.",
@@ -489,11 +334,6 @@
     "caption": "SceneMax example for String Variables.",
     "code": "var player_name = \"Maya\"\nheader.print \"player: \"+player_name"
   },
-  "updating-variables": {
-    "language": "scenemax",
-    "caption": "SceneMax example for Updating Variables.",
-    "code": "var score = 0\nscore = score + 5\nheader.print \"score: \"+score"
-  },
   "variable-range-constraints": {
     "language": "scenemax",
     "caption": "SceneMax example for Variable Range Constraints.",
@@ -503,16 +343,6 @@
     "language": "scenemax",
     "caption": "SceneMax example for Shared Variables.",
     "code": "shared var score = 0\nscore = score + 100\nheader.print \"score: \"+score"
-  },
-  "shared-models-2": {
-    "language": "scenemax",
-    "caption": "SceneMax example for Shared Models.",
-    "code": "shared player => sinbad\nplayer.move forward 3 in 1 second"
-  },
-  "predefined-shortcut-expressions": {
-    "language": "scenemax",
-    "caption": "SceneMax example for Predefined Shortcut Expressions.",
-    "code": "var coll = 0\nvar is_jumping = 0\nvar ko = 0\nvar @allow_attack = coll==0 && is_jumping==0 && ko==0\n\nif @allow_attack {\n  header.print \"attack allowed\"\n}"
   },
   "designer-workflow-3": {
     "language": "scenemax",

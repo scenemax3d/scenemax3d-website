@@ -1,6 +1,0 @@
-[img: /assets/tutorials/effekseer-runtime/runtime-overview.svg]
-Effekseer runtime effects are particle effects that you import into SceneMax and trigger from code while the game is running.
-Use them for moments that need visual feedback, such as a magic hit, sword impact, shield aura, pickup sparkle, or laser shot.
-[video: /assets/tutorials/effekseer-runtime/play-at-target-loop.mp4]
-The basic flow has three steps. First, declare the effect object. Second, decide where it should appear. Third, call play.
-In this example, player is a Sinbad model, fire_fx is the imported A_Salamander1 effect, and play pos player right hand starts the effect from the character's hand joint.

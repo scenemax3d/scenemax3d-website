@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/show-hide-delete-loop.mp4]
-Delete is the cleanup command. It stops the active effect instance and removes the effect object from the scene.
-The full beginner pattern is: declare the effect, play it, then delete it when it should not exist anymore.
-Use delete when the effect will not be reused, such as after an impact burst, a finished missile trail, or an old aura from a previous phase. For beginners, the simple rule is: hide if you may use it again, delete if you are done.

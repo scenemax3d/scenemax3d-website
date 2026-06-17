@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
-Attach to a model when the effect belongs to the whole character or object.
-A shield around the player, a glow around a pickup, or a marker above an enemy should follow the model as one unit.
-In the sample, aura_fx attaches to player, then plays at player. The attachment keeps the aura connected while the model moves.

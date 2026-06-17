@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/play-fixed-position-loop.mp4]
-The play command starts the effect. Declaring the effect only prepares it; play is the moment when the player actually sees it.
-This is useful when something happens in the game, such as a hit, a spell, a door opening, or a pickup appearing.
-In the sample, impact_fx is a ring effect. The command play pos three, one, seven starts it at that world position.

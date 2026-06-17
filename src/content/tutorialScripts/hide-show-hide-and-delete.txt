@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/show-hide-delete-loop.mp4]
-Hide turns the effect invisible. It does not remove the effect object from the scene.
-The full beginner pattern is: declare the effect, play it, then call hide when it should disappear for a while.
-Use hide when the same effect may come back later, such as a shield that turns off and on, or a portal marker that disappears during a cutscene. If you are completely finished with the effect, use delete instead.

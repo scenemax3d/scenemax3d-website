@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/play-fixed-position-loop.mp4]
-Use a fixed position when the effect belongs to a point in the world.
-For example, a trap can flash at its location, a portal can glow in one place, and an explosion can appear where a projectile landed.
-The numbers in pos are x, y, and z. In this sample, the ring effect appears at x three, y one, z seven. It does not follow a model; it plays exactly there.

@@ -1,6 +1,0 @@
-[img: /assets/tutorials/language-fundamentals/predefined-shortcut-expressions.svg]
-A predefined shortcut expression gives a name to a condition.
-Use it when the same condition is needed in more than one place.
-In this example, @allow_attack means the player is not colliding, not jumping, and not knocked out.
-The if line can then read like plain gameplay logic: if @allow_attack.
-Shortcut expressions keep complex conditions readable and reduce mistakes when the same rule is reused.

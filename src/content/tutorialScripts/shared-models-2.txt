@@ -1,6 +1,0 @@
-[img: /assets/tutorials/language-fundamentals/shared-models-2.svg]
-A shared model is a scene object that can survive across levels.
-Use it when the same important object should continue instead of being recreated.
-In this example, player is a shared Sinbad model.
-That is useful for a main character, persistent vehicle, or other object that represents long-term player state.
-Shared models should be used carefully, because they stay alive longer than ordinary scene objects.

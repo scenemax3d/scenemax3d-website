@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/looping-aura-loop.mp4]
-Most effects are one-shot: they play once and finish. Use loop when the effect should stay alive.
-Looping is useful for a shield aura, a magical zone, a warning marker, or an engine smoke effect.
-In the sample, aura_fx plays at player with loop, so the ring keeps running. When the aura is no longer needed, hide it or delete it.

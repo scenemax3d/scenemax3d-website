@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/attach-effect-loop.mp4]
-Playing at an object uses the object's current position. Attaching is stronger: the effect becomes a child of that object.
-That means if the player moves, the effect moves with the player.
-Use attachment for a shield aura, weapon trail, engine smoke, or any effect that should stay connected after it starts.

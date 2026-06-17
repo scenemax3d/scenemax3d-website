@@ -1,4 +1,0 @@
-[video: /assets/tutorials/effekseer-runtime/aim-effect-loop.mp4]
-You can give an effect a starting placement when you declare it. This is useful when the asset needs a small offset or rotation before it looks correct.
-In the sample, fire_fx is created with pos zero, one, zero, so it starts a little higher, and rotate zero, forty five, zero turns it.
-Later, play pos enemy starts the prepared effect at the enemy. This keeps the play line simple while the setup line handles the adjustment.

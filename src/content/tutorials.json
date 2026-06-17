@@ -113,8 +113,7 @@
     "order": 4,
     "relatedTutorialIds": [
       "quick-start",
-      "string-variables",
-      "updating-variables"
+      "string-variables"
     ]
   },
   {
@@ -931,7 +930,7 @@
   {
     "id": "continuous-go-conditions-go-conditions",
     "slug": "continuous-go-conditions-go-conditions",
-    "title": "Continuous Go Conditions: Go Conditions",
+    "title": "Continuous Go Conditions",
     "description": "A short focused SceneMax3D lesson about Continuous Go Conditions.",
     "categoryId": "language-fundamentals",
     "subcategoryId": "control-flow",
@@ -962,7 +961,7 @@
   {
     "id": "when-conditions-go-conditions",
     "slug": "when-conditions-go-conditions",
-    "title": "When Conditions: Go Conditions",
+    "title": "When Conditions",
     "description": "A short focused SceneMax3D lesson about When Conditions.",
     "categoryId": "language-fundamentals",
     "subcategoryId": "control-flow",
@@ -986,35 +985,6 @@
     "order": 267,
     "relatedTutorialIds": [
       "continuous-go-conditions-go-conditions"
-    ]
-  },
-  {
-    "id": "quick-start-2",
-    "slug": "quick-start-2",
-    "title": "Quick Start",
-    "description": "Declare an imported Effekseer effect, choose where it appears, and play it during the game.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Quick Start",
-    "clipFocus": "Explain the basic Effekseer runtime flow: declare the effect, choose a position or target, then play it.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 10,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "quick",
-      "start"
-    ],
-    "featured": true,
-    "order": 268,
-    "relatedTutorialIds": [
-      "declaring-an-effekseer-effect",
-      "playing-an-effect"
     ]
   },
   {
@@ -1043,661 +1013,7 @@
     ],
     "featured": false,
     "order": 269,
-    "relatedTutorialIds": [
-      "quick-start-2",
-      "playing-an-effect",
-      "play-at-a-fixed-position-playing-an-effect"
-    ]
-  },
-  {
-    "id": "playing-an-effect",
-    "slug": "playing-an-effect",
-    "title": "Playing An Effect",
-    "description": "Use the play command to start an Effekseer effect in the scene.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Playing An Effect",
-    "clipFocus": "Explain the play command and why effects are normally triggered at a gameplay moment.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 45,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "playing",
-      "an",
-      "effect"
-    ],
-    "featured": false,
-    "order": 270,
-    "relatedTutorialIds": [
-      "declaring-an-effekseer-effect",
-      "play-at-a-fixed-position-playing-an-effect",
-      "play-at-another-entity-playing-an-effect"
-    ]
-  },
-  {
-    "id": "play-at-a-fixed-position-playing-an-effect",
-    "slug": "play-at-a-fixed-position-playing-an-effect",
-    "title": "Play At A Fixed Position: Playing An Effect",
-    "description": "Play an effect at exact world coordinates when the effect belongs to a place, not a moving object.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Play At A Fixed Position",
-    "clipFocus": "Explain fixed-position effect playback with coordinates and when to use it.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 47,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "play",
-      "at",
-      "a",
-      "fixed"
-    ],
-    "featured": false,
-    "order": 271,
-    "relatedTutorialIds": [
-      "playing-an-effect",
-      "play-at-another-entity-playing-an-effect",
-      "start-from-a-predefined-placement-playing-an-effect"
-    ]
-  },
-  {
-    "id": "play-at-another-entity-playing-an-effect",
-    "slug": "play-at-another-entity-playing-an-effect",
-    "title": "Play At Another Entity: Playing An Effect",
-    "description": "Play an effect at another object so the effect appears where that object is right now.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Play At Another Entity",
-    "clipFocus": "Explain playing an effect at a model or another entity instead of manual coordinates.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 54,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "play",
-      "at",
-      "another",
-      "entity"
-    ],
-    "featured": false,
-    "order": 272,
-    "relatedTutorialIds": [
-      "play-at-a-fixed-position-playing-an-effect",
-      "start-from-a-predefined-placement-playing-an-effect",
-      "runtime-attributes"
-    ]
-  },
-  {
-    "id": "start-from-a-predefined-placement-playing-an-effect",
-    "slug": "start-from-a-predefined-placement-playing-an-effect",
-    "title": "Start From A Predefined Placement: Playing An Effect",
-    "description": "Set an effect's starting placement when declaring it, then play it later at a target.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Start From A Predefined Placement",
-    "clipFocus": "Explain initial placement on declaration and why it helps reuse an effect with a prepared offset or rotation.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 80,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "start",
-      "from",
-      "a",
-      "predefined"
-    ],
-    "featured": false,
-    "order": 273,
-    "relatedTutorialIds": [
-      "play-at-another-entity-playing-an-effect",
-      "runtime-attributes",
-      "looping-an-effect"
-    ]
-  },
-  {
-    "id": "runtime-attributes",
-    "slug": "runtime-attributes",
-    "title": "Runtime Attributes",
-    "description": "Pass runtime values such as playback speed or dynamic inputs when an effect starts.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Runtime Attributes",
-    "clipFocus": "Explain attr lists, playback speed, and dynamic input values for effects authored to react to them.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 89,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "runtime",
-      "attributes"
-    ],
-    "featured": false,
-    "order": 274,
-    "relatedTutorialIds": [
-      "start-from-a-predefined-placement-playing-an-effect",
-      "looping-an-effect",
-      "example-multiple-runtime-inputs-looping-an-effect"
-    ]
-  },
-  {
-    "id": "looping-an-effect",
-    "slug": "looping-an-effect",
-    "title": "Looping An Effect",
-    "description": "Keep an effect running until you hide, delete, or replace it.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Looping An Effect",
-    "clipFocus": "Explain when to use loop and how a looping effect differs from a one-shot burst.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 125,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "looping",
-      "an",
-      "effect"
-    ],
-    "featured": false,
-    "order": 275,
-    "relatedTutorialIds": [
-      "runtime-attributes",
-      "example-multiple-runtime-inputs-looping-an-effect",
-      "aiming-the-effect-before-play"
-    ]
-  },
-  {
-    "id": "example-multiple-runtime-inputs-looping-an-effect",
-    "slug": "example-multiple-runtime-inputs-looping-an-effect",
-    "title": "Example: Multiple Runtime Inputs: Looping An Effect",
-    "description": "Combine loop with runtime attributes when an authored effect supports dynamic inputs.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Example: Multiple Runtime Inputs",
-    "clipFocus": "Explain multiple runtime inputs in a looped effect and when beginners should use them.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 143,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "example",
-      "multiple",
-      "runtime",
-      "inputs"
-    ],
-    "featured": false,
-    "order": 276,
-    "relatedTutorialIds": [
-      "looping-an-effect",
-      "aiming-the-effect-before-play",
-      "face-another-object-aiming-the-effect-before-play"
-    ]
-  },
-  {
-    "id": "aiming-the-effect-before-play",
-    "slug": "aiming-the-effect-before-play",
-    "title": "Aiming The Effect Before Play",
-    "description": "Turn a directional effect toward its target before playing it.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Aiming The Effect Before Play",
-    "clipFocus": "Explain look at for directional effects such as lasers, cones, and missiles.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 155,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "aiming",
-      "the",
-      "effect",
-      "before"
-    ],
-    "featured": false,
-    "order": 277,
-    "relatedTutorialIds": [
-      "example-multiple-runtime-inputs-looping-an-effect",
-      "face-another-object-aiming-the-effect-before-play",
-      "load-with-initial-rotation-aiming-the-effect-before-play"
-    ]
-  },
-  {
-    "id": "face-another-object-aiming-the-effect-before-play",
-    "slug": "face-another-object-aiming-the-effect-before-play",
-    "title": "Face Another Object: Aiming The Effect Before Play",
-    "description": "Use look at with another object so the effect faces that object.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Face Another Object",
-    "clipFocus": "Explain aiming an effect at an entity rather than manually calculating rotation.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 159,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "face",
-      "another",
-      "object"
-    ],
-    "featured": false,
-    "order": 278,
-    "relatedTutorialIds": [
-      "aiming-the-effect-before-play",
-      "load-with-initial-rotation-aiming-the-effect-before-play",
-      "attaching-effects-to-other-game-objects"
-    ]
-  },
-  {
-    "id": "load-with-initial-rotation-aiming-the-effect-before-play",
-    "slug": "load-with-initial-rotation-aiming-the-effect-before-play",
-    "title": "Load With Initial Rotation: Aiming The Effect Before Play",
-    "description": "Give a directional effect an initial rotation when the imported asset faces the wrong way.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Load With Initial Rotation",
-    "clipFocus": "Explain initial rotation on an effect declaration and when it fixes asset orientation.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 167,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "load",
-      "with",
-      "initial",
-      "rotation"
-    ],
-    "featured": false,
-    "order": 279,
-    "relatedTutorialIds": [
-      "face-another-object-aiming-the-effect-before-play",
-      "attaching-effects-to-other-game-objects",
-      "attach-to-a-model-attaching-effects-to-other-game-objects"
-    ]
-  },
-  {
-    "id": "attaching-effects-to-other-game-objects",
-    "slug": "attaching-effects-to-other-game-objects",
-    "title": "Attaching Effects To Other Game Objects",
-    "description": "Attach an effect to an object so it moves together with that object.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Attaching Effects To Other Game Objects",
-    "clipFocus": "Explain attachment and why it is different from playing once at the current position.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 176,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "attaching",
-      "to",
-      "other"
-    ],
-    "featured": false,
-    "order": 280,
-    "relatedTutorialIds": [
-      "load-with-initial-rotation-aiming-the-effect-before-play",
-      "attach-to-a-model-attaching-effects-to-other-game-objects",
-      "attach-to-a-joint-attaching-effects-to-other-game-objects"
-    ]
-  },
-  {
-    "id": "attach-to-a-model-attaching-effects-to-other-game-objects",
-    "slug": "attach-to-a-model-attaching-effects-to-other-game-objects",
-    "title": "Attach To A Model: Attaching Effects To Other Game Objects",
-    "description": "Attach an effect to a whole model so the effect follows the model.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Attach To A Model",
-    "clipFocus": "Explain model-level attachment for a character aura or object marker.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 180,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "attach",
-      "to",
-      "a",
-      "model"
-    ],
-    "featured": false,
-    "order": 281,
-    "relatedTutorialIds": [
-      "attaching-effects-to-other-game-objects",
-      "attach-to-a-joint-attaching-effects-to-other-game-objects",
-      "attach-with-offset-attaching-effects-to-other-game-objects"
-    ]
-  },
-  {
-    "id": "attach-to-a-joint-attaching-effects-to-other-game-objects",
-    "slug": "attach-to-a-joint-attaching-effects-to-other-game-objects",
-    "title": "Attach To A Joint: Attaching Effects To Other Game Objects",
-    "description": "Attach an effect to a skeleton joint such as a hand for weapon or magic effects.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Attach To A Joint",
-    "clipFocus": "Explain joint attachment with quoted joint names and why it is useful for hands and weapons.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 190,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "attach",
-      "to",
-      "a",
-      "joint"
-    ],
-    "featured": false,
-    "order": 282,
-    "relatedTutorialIds": [
-      "attach-to-a-model-attaching-effects-to-other-game-objects",
-      "attach-with-offset-attaching-effects-to-other-game-objects",
-      "detach-from-parent-attaching-effects-to-other-game-objects"
-    ]
-  },
-  {
-    "id": "attach-with-offset-attaching-effects-to-other-game-objects",
-    "slug": "attach-with-offset-attaching-effects-to-other-game-objects",
-    "title": "Attach With Offset: Attaching Effects To Other Game Objects",
-    "description": "Attach an effect with a local offset so it follows the parent from the right spot.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Attach With Offset",
-    "clipFocus": "Explain attachment offsets and why they help place effects relative to the parent.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 200,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "attach",
-      "with",
-      "offset"
-    ],
-    "featured": false,
-    "order": 283,
-    "relatedTutorialIds": [
-      "attach-to-a-joint-attaching-effects-to-other-game-objects",
-      "detach-from-parent-attaching-effects-to-other-game-objects",
-      "show-hide-and-delete"
-    ]
-  },
-  {
-    "id": "detach-from-parent-attaching-effects-to-other-game-objects",
-    "slug": "detach-from-parent-attaching-effects-to-other-game-objects",
-    "title": "Detach From Parent: Attaching Effects To Other Game Objects",
-    "description": "Detach an effect so it stops following its parent and becomes independent again.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Detach From Parent",
-    "clipFocus": "Explain detach from parent and when an attached effect should become independent.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 210,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "detach",
-      "from",
-      "parent"
-    ],
-    "featured": false,
-    "order": 284,
-    "relatedTutorialIds": [
-      "attach-with-offset-attaching-effects-to-other-game-objects",
-      "show-hide-and-delete",
-      "hide-show-hide-and-delete"
-    ]
-  },
-  {
-    "id": "show-hide-and-delete",
-    "slug": "show-hide-and-delete",
-    "title": "Show, Hide, And Delete",
-    "description": "Control an effect object's visibility and cleanup after it has been created.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Show, Hide, And Delete",
-    "clipFocus": "Explain hide, show, and delete as the effect object lifecycle.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 218,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "show",
-      "hide",
-      "and",
-      "delete"
-    ],
-    "featured": false,
-    "order": 285,
-    "relatedTutorialIds": [
-      "detach-from-parent-attaching-effects-to-other-game-objects",
-      "hide-show-hide-and-delete",
-      "show-show-hide-and-delete"
-    ]
-  },
-  {
-    "id": "hide-show-hide-and-delete",
-    "slug": "hide-show-hide-and-delete",
-    "title": "Hide: Show, Hide, And Delete",
-    "description": "Hide an effect when you want it invisible but still available for later.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Hide",
-    "clipFocus": "Explain hide and how it differs from delete.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 222,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "hide"
-    ],
-    "featured": false,
-    "order": 286,
-    "relatedTutorialIds": [
-      "show-hide-and-delete",
-      "show-show-hide-and-delete",
-      "delete-show-hide-and-delete"
-    ]
-  },
-  {
-    "id": "show-show-hide-and-delete",
-    "slug": "show-show-hide-and-delete",
-    "title": "Show: Show, Hide, And Delete",
-    "description": "Show a previously hidden effect so it becomes visible again.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Show",
-    "clipFocus": "Explain show as the command that makes a hidden effect visible again.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 228,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "show"
-    ],
-    "featured": false,
-    "order": 287,
-    "relatedTutorialIds": [
-      "hide-show-hide-and-delete",
-      "delete-show-hide-and-delete",
-      "full-example"
-    ]
-  },
-  {
-    "id": "delete-show-hide-and-delete",
-    "slug": "delete-show-hide-and-delete",
-    "title": "Delete: Show, Hide, And Delete",
-    "description": "Delete an effect when it is finished and should be removed from the scene.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Delete",
-    "clipFocus": "Explain delete as cleanup for an Effekseer runtime effect.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 234,
-    "difficulty": "intermediate",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "delete"
-    ],
-    "featured": false,
-    "order": 288,
-    "relatedTutorialIds": [
-      "show-show-hide-and-delete",
-      "full-example",
-      "packaging-and-scene-changes"
-    ]
-  },
-  {
-    "id": "full-example",
-    "slug": "full-example",
-    "title": "Full Example",
-    "description": "Combine declaration, aiming, attributes, attachment, visibility, and cleanup in one effect flow.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Full Example",
-    "clipFocus": "Explain a complete beginner-friendly effect sequence used in a combat situation.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 242,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "full",
-      "example"
-    ],
-    "featured": false,
-    "order": 289,
-    "relatedTutorialIds": [
-      "delete-show-hide-and-delete",
-      "packaging-and-scene-changes"
-    ]
-  },
-  {
-    "id": "packaging-and-scene-changes",
-    "slug": "packaging-and-scene-changes",
-    "title": "Packaging And Scene Changes",
-    "description": "SceneMax packages declared Effekseer assets and cleans them up when scenes change.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "effekseer-runtime",
-    "subject": "Packaging And Scene Changes",
-    "clipFocus": "Explain automatic packaging and scene cleanup for declared Effekseer effects.",
-    "sourceDoc": "effects.md",
-    "sourceLine": 278,
-    "difficulty": "beginner",
-    "duration": "1:45",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "effekseer-runtime",
-      "effects",
-      "packaging",
-      "and",
-      "scene",
-      "changes"
-    ],
-    "featured": false,
-    "order": 290,
-    "relatedTutorialIds": [
-      "full-example"
-    ]
+    "relatedTutorialIds": []
   },
   {
     "id": "built-in-effects",
@@ -1726,35 +1042,6 @@
     "relatedTutorialIds": []
   },
   {
-    "id": "why-a-new-path-is-required",
-    "slug": "why-a-new-path-is-required",
-    "title": "Why A New Path Is Required",
-    "description": "A short focused SceneMax3D lesson about Why A New Path Is Required.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "effekseer-designer",
-    "subject": "Why A New Path Is Required",
-    "clipFocus": "Walk through Why A New Path Is Required from Effekseer Particle System Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "effekseer-particle-designer.md",
-    "sourceLine": 34,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "effekseer-designer",
-      "effekseer-particle-designer",
-      "effekseer",
-      "particle",
-      "system",
-      "designer",
-      "why"
-    ],
-    "featured": false,
-    "order": 297,
-    "relatedTutorialIds": []
-  },
-  {
     "id": "keyboard-events",
     "slug": "keyboard-events",
     "title": "Keyboard Events",
@@ -1780,8 +1067,7 @@
     "featured": false,
     "order": 323,
     "relatedTutorialIds": [
-      "mouse-events",
-      "groups-and-ray-checks"
+      "mouse-events"
     ]
   },
   {
@@ -1810,66 +1096,8 @@
     "featured": false,
     "order": 324,
     "relatedTutorialIds": [
-      "keyboard-events",
-      "groups-and-ray-checks"
+      "keyboard-events"
     ]
-  },
-  {
-    "id": "groups-and-ray-checks",
-    "slug": "groups-and-ray-checks",
-    "title": "Groups & Ray Checks",
-    "description": "A short focused SceneMax3D lesson about Groups & Ray Checks.",
-    "categoryId": "language-fundamentals",
-    "subcategoryId": "events-input",
-    "subject": "Groups & Ray Checks",
-    "clipFocus": "Explain Groups & Ray Checks from Events & Input, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "events-and-input.md",
-    "sourceLine": 41,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "language-fundamentals",
-      "events-input",
-      "events-and-input",
-      "events",
-      "input",
-      "groups",
-      "ray",
-      "checks"
-    ],
-    "featured": false,
-    "order": 325,
-    "relatedTutorialIds": [
-      "mouse-events"
-    ]
-  },
-  {
-    "id": "designer-workflow",
-    "slug": "designer-workflow",
-    "title": "Designer Workflow",
-    "description": "A short focused SceneMax3D lesson about Designer Workflow.",
-    "categoryId": "ide-designers",
-    "subcategoryId": "ik-designer",
-    "subject": "Designer Workflow",
-    "clipFocus": "Walk through Designer Workflow from IK Designer, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "ik-designer.md",
-    "sourceLine": 24,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ide-designers",
-      "ik-designer",
-      "ik",
-      "designer",
-      "workflow"
-    ],
-    "featured": false,
-    "order": 327,
-    "relatedTutorialIds": []
   },
   {
     "id": "project-settings",
@@ -1929,32 +1157,6 @@
     "relatedTutorialIds": []
   },
   {
-    "id": "quick-example",
-    "slug": "quick-example",
-    "title": "Quick Example",
-    "description": "A short focused SceneMax3D lesson about Quick Example.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "lighting-foundations",
-    "subject": "Quick Example",
-    "clipFocus": "Explain Quick Example from Lighting, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "lighting.md",
-    "sourceLine": 17,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "lighting-foundations",
-      "lighting",
-      "quick",
-      "example"
-    ],
-    "featured": true,
-    "order": 372,
-    "relatedTutorialIds": []
-  },
-  {
     "id": "light-types-in-detail",
     "slug": "light-types-in-detail",
     "title": "Light Types In Detail",
@@ -1980,89 +1182,6 @@
     ],
     "featured": false,
     "order": 385,
-    "relatedTutorialIds": []
-  },
-  {
-    "id": "designer-workflow-2",
-    "slug": "designer-workflow-2",
-    "title": "Designer Workflow",
-    "description": "A short focused SceneMax3D lesson about Designer Workflow.",
-    "categoryId": "lighting-visuals",
-    "subcategoryId": "lighting-recipes",
-    "subject": "Designer Workflow",
-    "clipFocus": "Explain Designer Workflow from Lighting, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "lighting.md",
-    "sourceLine": 411,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "lighting-visuals",
-      "lighting-recipes",
-      "lighting",
-      "designer",
-      "workflow"
-    ],
-    "featured": false,
-    "order": 392,
-    "relatedTutorialIds": []
-  },
-  {
-    "id": "how-to-read-this-reference",
-    "slug": "how-to-read-this-reference",
-    "title": "How To Read This Reference",
-    "description": "A short focused SceneMax3D lesson about How To Read This Reference.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "mcp-tools",
-    "subject": "How To Read This Reference",
-    "clipFocus": "Walk through How To Read This Reference from SceneMax MCP Tool Reference, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "mcp-tools-reference.md",
-    "sourceLine": 7,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "mcp-tools",
-      "mcp-tools-reference",
-      "scenemax",
-      "mcp",
-      "tool",
-      "reference",
-      "how"
-    ],
-    "featured": true,
-    "order": 404,
-    "relatedTutorialIds": []
-  },
-  {
-    "id": "plugin-registration",
-    "slug": "plugin-registration",
-    "title": "Plugin Registration",
-    "description": "A short focused SceneMax3D lesson about Plugin Registration.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "meshy-ai",
-    "subject": "Plugin Registration",
-    "clipFocus": "Walk through Plugin Registration from Meshy AI Plugin, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "meshy-ai-plugin.md",
-    "sourceLine": 31,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "meshy-ai",
-      "meshy-ai-plugin",
-      "meshy",
-      "ai",
-      "plugin",
-      "registration"
-    ],
-    "featured": false,
-    "order": 467,
     "relatedTutorialIds": []
   },
   {
@@ -2341,33 +1460,6 @@
     "relatedTutorialIds": []
   },
   {
-    "id": "architecture",
-    "slug": "architecture",
-    "title": "Architecture",
-    "description": "A short focused SceneMax3D lesson about Architecture.",
-    "categoryId": "ai-automation",
-    "subcategoryId": "plugin-system",
-    "subject": "Architecture",
-    "clipFocus": "Walk through Architecture from Enhanced Plugin System, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "plugin-system.md",
-    "sourceLine": 13,
-    "difficulty": "advanced",
-    "duration": "6:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ai-automation",
-      "plugin-system",
-      "enhanced",
-      "plugin",
-      "system",
-      "architecture"
-    ],
-    "featured": false,
-    "order": 549,
-    "relatedTutorialIds": []
-  },
-  {
     "id": "defining-a-procedure",
     "slug": "defining-a-procedure",
     "title": "Defining a Procedure",
@@ -2629,34 +1721,6 @@
     "relatedTutorialIds": []
   },
   {
-    "id": "header-text",
-    "slug": "header-text",
-    "title": "Header Text",
-    "description": "A short focused SceneMax3D lesson about Header Text.",
-    "categoryId": "ui-screen",
-    "subcategoryId": "runtime-ui",
-    "subject": "Header Text",
-    "clipFocus": "Explain Header Text from UI & Drawing, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "ui-and-drawing.md",
-    "sourceLine": 3,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "ui-screen",
-      "runtime-ui",
-      "ui-and-drawing",
-      "ui",
-      "drawing",
-      "header",
-      "text"
-    ],
-    "featured": true,
-    "order": 616,
-    "relatedTutorialIds": []
-  },
-  {
     "id": "wait",
     "slug": "wait",
     "title": "Wait",
@@ -2828,8 +1892,7 @@
     "order": 626,
     "relatedTutorialIds": [
       "debug",
-      "string-variables",
-      "updating-variables"
+      "string-variables"
     ]
   },
   {
@@ -2859,39 +1922,7 @@
     "order": 627,
     "relatedTutorialIds": [
       "numeric-variables",
-      "updating-variables",
       "variable-range-constraints"
-    ]
-  },
-  {
-    "id": "updating-variables",
-    "slug": "updating-variables",
-    "title": "Updating Variables",
-    "description": "Assign a new value to an existing variable while the game is running.",
-    "categoryId": "language-fundamentals",
-    "subcategoryId": "variables",
-    "subject": "Updating Variables",
-    "clipFocus": "Use assignment to change a variable during gameplay, such as adding points with score=score+5.",
-    "sourceDoc": "variables-and-data-types.md",
-    "sourceLine": 19,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "language-fundamentals",
-      "variables",
-      "variables-and-data-types",
-      "data",
-      "types",
-      "updating"
-    ],
-    "featured": false,
-    "order": 628,
-    "relatedTutorialIds": [
-      "string-variables",
-      "variable-range-constraints",
-      "shared-variables-2"
     ]
   },
   {
@@ -2921,9 +1952,7 @@
     "featured": false,
     "order": 629,
     "relatedTutorialIds": [
-      "updating-variables",
-      "shared-variables-2",
-      "shared-models-2"
+      "shared-variables-2"
     ]
   },
   {
@@ -2952,70 +1981,7 @@
     "featured": false,
     "order": 630,
     "relatedTutorialIds": [
-      "variable-range-constraints",
-      "shared-models-2",
-      "predefined-shortcut-expressions"
-    ]
-  },
-  {
-    "id": "shared-models-2",
-    "slug": "shared-models-2",
-    "title": "Shared Models",
-    "description": "A short focused SceneMax3D lesson about Shared Models.",
-    "categoryId": "language-fundamentals",
-    "subcategoryId": "variables",
-    "subject": "Shared Models",
-    "clipFocus": "Explain Shared Models from Variables & Data Types, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "variables-and-data-types.md",
-    "sourceLine": 61,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "language-fundamentals",
-      "variables",
-      "variables-and-data-types",
-      "data",
-      "types",
-      "shared",
-      "models"
-    ],
-    "featured": false,
-    "order": 631,
-    "relatedTutorialIds": [
-      "shared-variables-2",
-      "predefined-shortcut-expressions"
-    ]
-  },
-  {
-    "id": "predefined-shortcut-expressions",
-    "slug": "predefined-shortcut-expressions",
-    "title": "Predefined Shortcut Expressions",
-    "description": "A short focused SceneMax3D lesson about Predefined Shortcut Expressions.",
-    "categoryId": "language-fundamentals",
-    "subcategoryId": "variables",
-    "subject": "Predefined Shortcut Expressions",
-    "clipFocus": "Explain Predefined Shortcut Expressions from Variables & Data Types, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "variables-and-data-types.md",
-    "sourceLine": 75,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "language-fundamentals",
-      "variables",
-      "variables-and-data-types",
-      "data",
-      "types",
-      "predefined",
-      "shortcut"
-    ],
-    "featured": false,
-    "order": 632,
-    "relatedTutorialIds": [
-      "shared-models-2"
+      "variable-range-constraints"
     ]
   },
   {
