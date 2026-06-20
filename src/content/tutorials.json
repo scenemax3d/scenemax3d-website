@@ -805,8 +805,41 @@
     "order": 263,
     "relatedTutorialIds": [
       "if-else",
+      "conditional-looping-do-while",
       "for-each",
       "go-conditions"
+    ]
+  },
+  {
+    "id": "conditional-looping-do-while",
+    "slug": "conditional-looping-do-while",
+    "title": "Conditional Looping With Do While",
+    "description": "A short focused SceneMax3D lesson about conditional looping with do while.",
+    "categoryId": "language-fundamentals",
+    "subcategoryId": "control-flow",
+    "subject": "Conditional Looping With Do While",
+    "clipFocus": "Explain conditional looping with do while from Control Flow, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
+    "sourceDoc": "control-flow.md",
+    "sourceLine": 25,
+    "difficulty": "beginner",
+    "duration": "3:00",
+    "youtubeId": "",
+    "thumbnail": "",
+    "tags": [
+      "language-fundamentals",
+      "control-flow",
+      "control",
+      "flow",
+      "loops",
+      "do",
+      "while"
+    ],
+    "featured": false,
+    "order": 263.5,
+    "relatedTutorialIds": [
+      "loops",
+      "if-else",
+      "for-each"
     ]
   },
   {
@@ -835,6 +868,7 @@
     "featured": false,
     "order": 264,
     "relatedTutorialIds": [
+      "conditional-looping-do-while",
       "loops",
       "go-conditions",
       "continuous-go-conditions-go-conditions"

@@ -284,7 +284,14 @@ export function AdminTutorialEditorPage() {
       const uploaded = await uploadAssetFile(assetFile, assetFolder)
 
       if (detail) {
-        setDetail({ ...detail, assets: uploaded.assets })
+        setDetail({
+          ...detail,
+          assets: uploaded.assets,
+          tutorial:
+            assetFile.type.startsWith('image/') && !detail.tutorial.thumbnail
+              ? { ...detail.tutorial, thumbnail: uploaded.url }
+              : detail.tutorial,
+        })
       }
       setSiteEditor((current) => ({ ...current, assets: uploaded.assets }))
       setAssetFile(undefined)
@@ -326,6 +333,7 @@ export function AdminTutorialEditorPage() {
       const insertion = withLineBreakPadding(detail.script, insertAt, replaceUntil, imageTags)
       const nextCursorPosition = insertAt + insertion.length
       const latestAssets = uploadedImages[uploadedImages.length - 1].assets
+      const thumbnail = detail.tutorial.thumbnail || uploadedImages[0]?.url || ''
 
       setDetail((current) =>
         current
@@ -333,6 +341,10 @@ export function AdminTutorialEditorPage() {
               ...current,
               script: insertTextAtSelection(current.script, insertAt, replaceUntil, insertion),
               assets: latestAssets,
+              tutorial: {
+                ...current.tutorial,
+                thumbnail,
+              },
             }
           : current,
       )
@@ -451,6 +463,12 @@ export function AdminTutorialEditorPage() {
       ...detail,
       script: [detail.script.trimEnd(), command].filter(Boolean).join('\n'),
     })
+  }
+
+  function setThumbnail(asset: TutorialAsset) {
+    updateTutorial('thumbnail', asset.url)
+    setStatus('saved')
+    setMessage('Thumbnail selected. Save to persist this change.')
   }
 
   const isTutorialMode = adminMode === 'tutorials'
@@ -787,7 +805,7 @@ export function AdminTutorialEditorPage() {
                           {asset.type === 'image' ? (
                             <button
                               className="inline-flex min-h-9 items-center gap-2 rounded-md border border-white/10 bg-white/5 px-3 text-xs font-semibold text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-cyan-300"
-                              onClick={() => updateTutorial('thumbnail', asset.url)}
+                              onClick={() => setThumbnail(asset)}
                               type="button"
                             >
                               <Check aria-hidden="true" size={15} />

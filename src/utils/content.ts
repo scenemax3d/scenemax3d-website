@@ -111,7 +111,7 @@ export function getFirstTutorialScriptImage(script: string) {
 }
 
 export function getTutorialPreviewImage(tutorial: Tutorial) {
-  return getFirstTutorialScriptImage(getTutorialScript(tutorial)) || tutorial.thumbnail
+  return tutorial.thumbnail || getFirstTutorialScriptImage(getTutorialScript(tutorial))
 }
 
 export function formatDifficulty(difficulty: Difficulty) {

@@ -73,7 +73,7 @@ const server = http.createServer(async (req, res) => {
         res,
         publicRoot,
         decodeURIComponent(url.pathname),
-        'public, max-age=300',
+        'no-cache',
       )
       if (servedTutorialAsset) return
     }

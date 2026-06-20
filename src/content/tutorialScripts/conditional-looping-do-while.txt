@@ -1,0 +1,16 @@
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-20T15-53-53-604Z.png]
+We can control the amount of times a loop is running, using the **while** condition.
+```
+var counter = 5
+d => dragon
+[g]do
+  d.turn left 30 in 1 second
+  d.turn right 20 in 0.5 seconds
+  counter = counter - 1
+[g]while counter > 0
+```
+in this example, the dragon will turn left and then turn right 5 times, as long as the counter is greater than 0. 
+```#
+[mod: "counter",color:FF0000]
+```
+the counter variable is declared outside of the "do" block and is decreased by one inside the "do" block.

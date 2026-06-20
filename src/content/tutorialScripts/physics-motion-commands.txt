@@ -1,5 +1,25 @@
-Physics Motion Commands explains a gameplay rule or feedback system.
-Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
-In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
-The sample begins with rock => meshy_rock1 : mass 8, collision shape box. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-20T13-34-09-862Z.png]
+Sometimes, the best (and easiest) way to move a game object in the scene is by using physics forces. When applying physics forces, the game object starts moving or rotating in the direction of the applied force and it will stop its movement also in reaction to physics forces. This physic simulation is handled by the physics engine.
+A classic example can be a hand grenade thrown towards an enemy or a falling rock off a cliff. we just set the initial position, apply force and let the gravitational force simulation to handle the rest of the movement for us.
+Let's examine the falling rocks in the "Dragons Gate" fighting game.
+```
+// [g]rock is a meshy_rock game object
+  rock.physics [g]stop
+```
+what we did here is first to stop the existing physics forces on the rock objects (in case there were such forces before). 
+```+
+var dist = distance(player1,dragons_gate)
+```
+Then we calculate the distance between the player and the dragons gate object.
+```+
+var [m]throw_power = dist*30/147
+```
+Then we calculate the estimated throw power needed for a rock object to reach player1 when thrown from the dragon gate position.
+```+
+rock.[g]throw at [y]player1 [g]power [m]throw_power
+```
+and last, we "throw" the rock at player1 applying power in the amount calculated in the previous step.
+[wait:3]
+In case you wondered how the throw power was calculated. well, we used the physics simulation tool,
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-20T12-12-11-447Z.png]
+ to found out that a power of 30 is needed for the rock object to reach another object in a distance of 147 meters. So all it needed was in run-time, to calculate the force based on the real distance between the gate and player1.

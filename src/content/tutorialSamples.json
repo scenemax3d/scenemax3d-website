@@ -122,7 +122,7 @@
   "physics-motion-commands": {
     "language": "scenemax",
     "caption": "SceneMax example from collisions-and-physics.md.",
-    "code": "rock => meshy_rock1 : mass 8, collision shape box\nenemy => fighter2 : pos (12, 0, 4)"
+    "code": ""
   },
   "collision-detection": {
     "language": "scenemax",
@@ -138,6 +138,11 @@
     "language": "scenemax",
     "caption": "SceneMax example for Loops.",
     "code": "d => box\n\ndo 4 times\n  d.turn left 90 in 0.4 seconds\nend do"
+  },
+  "conditional-looping-do-while": {
+    "language": "scenemax",
+    "caption": "SceneMax example for Conditional Looping With Do While.",
+    "code": "var counter = 5\nd => dragon\ndo\n  d.turn left 30 in 1 second\n  d.turn right 20 in 0.5 seconds\n  counter = counter - 1\nwhile counter > 0"
   },
   "for-each": {
     "language": "scenemax",
