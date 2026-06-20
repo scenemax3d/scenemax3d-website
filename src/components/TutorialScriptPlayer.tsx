@@ -19,6 +19,7 @@ type TutorialPlayerSegment =
     }
   | {
       type: 'image'
+      frame?: RenderFrame
       pane: ImagePane
       url: string
       duration: 0
@@ -27,6 +28,7 @@ type TutorialPlayerSegment =
     }
   | {
       type: 'video'
+      frame?: RenderFrame
       url: string
       duration: 0
       start: number
@@ -36,6 +38,7 @@ type TutorialPlayerSegment =
       type: 'code'
       appendToPrevious: boolean
       code: string
+      frame?: RenderFrame
       duration: 0
       start: number
       end: number
@@ -43,6 +46,14 @@ type TutorialPlayerSegment =
   | {
       type: 'codeLayer'
       commands: string
+      frame?: RenderFrame
+      duration: 0
+      start: number
+      end: number
+    }
+  | {
+      type: 'layout'
+      layout: TutorialPanelLayout
       duration: 0
       start: number
       end: number
@@ -61,12 +72,14 @@ type TutorialPlayerSegmentDraft =
     }
   | {
       type: 'image'
+      frame?: RenderFrame
       pane: ImagePane
       url: string
       duration: 0
     }
   | {
       type: 'video'
+      frame?: RenderFrame
       url: string
       duration: 0
     }
@@ -74,11 +87,18 @@ type TutorialPlayerSegmentDraft =
       type: 'code'
       appendToPrevious: boolean
       code: string
+      frame?: RenderFrame
       duration: 0
     }
   | {
       type: 'codeLayer'
       commands: string
+      frame?: RenderFrame
+      duration: 0
+    }
+  | {
+      type: 'layout'
+      layout: TutorialPanelLayout
       duration: 0
     }
 
@@ -93,6 +113,16 @@ interface TextRange {
 }
 
 type ImagePane = 'full' | 'left' | 'right'
+
+interface RenderFrame {
+  column: number
+  row: number
+}
+
+interface TutorialPanelLayout {
+  columns: number
+  rows: number
+}
 
 interface CodeTextRun {
   color?: string
@@ -109,7 +139,12 @@ interface CodeLayerModifier {
 
 interface ImageVisual {
   type: 'image'
-  layout: 'full' | 'split'
+  layout: 'full' | 'grid' | 'split'
+  grid?: {
+    cells: Array<PaneVisual | undefined>
+    columns: number
+    rows: number
+  }
   panes: {
     full?: PaneVisual
     left?: PaneVisual
@@ -151,6 +186,14 @@ const defaultImage = '/assets/warrior1.png'
 const wordsPerMinute = 155
 const codeCharactersPerSecond = 12
 const imageFadeDurationMs = 420
+const shortcutCodeColors = {
+  b: 'blue',
+  g: '#00FF00',
+  m: 'magenta',
+  o: 'orange',
+  r: 'red',
+  y: 'yellow',
+} as const
 
 function buildDefaultTutorialScript(tutorial: Tutorial) {
   return [
@@ -283,7 +326,8 @@ export function TutorialScriptPlayer({
         segment.type === 'image' ||
         segment.type === 'video' ||
         segment.type === 'code' ||
-        segment.type === 'codeLayer'
+        segment.type === 'codeLayer' ||
+        segment.type === 'layout'
       ) {
         setPlayerTime(segment.start)
         window.setTimeout(() => runSegment(index + 1, token), 0)
@@ -457,14 +501,11 @@ export function TutorialScriptPlayer({
     <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-950">
       <div className="relative grid aspect-video w-full place-items-center overflow-hidden bg-slate-950">
         {activeVisual?.type === 'video' ? (
-          <video
-            autoPlay
+          <VideoVisualFrame
             className="h-full w-full object-cover"
             key={activeVisual.url}
-            loop
-            muted
-            playsInline
-            src={activeVisual.url}
+            title={tutorial.title}
+            url={activeVisual.url}
           />
         ) : activeVisual?.type === 'code' ? (
           <div className="grid h-full w-full place-items-center bg-slate-950 px-4 py-5 sm:px-6">
@@ -624,33 +665,42 @@ export function TutorialScriptPlayer({
 
 function parseTutorialScript(script: string): ParsedTutorialScript {
   const segments: TutorialPlayerSegmentDraft[] = []
-  const commandPattern = /```([+#]?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|img[12]?|video)\s*:\s*([^\]]+)\]/gi
+  const commandPattern = /```([^\r\n`]*)\r?\n([\s\S]*?)```|```([+#]?)([\s\S]*?)```|\[code\s*:\s*([\s\S]*?)(?:\\\]|\/\]|\])|\[(wait|layout|img[12]?|video)(?:\s+(r\d+c\d+))?\s*:\s*([^\]]+)\]/gi
   let lastIndex = 0
   let match: RegExpExecArray | null
 
   while ((match = commandPattern.exec(script))) {
     addSpeechSegments(script.slice(lastIndex, match.index), segments)
 
-    const fencedMarker = match[1]
-    const fencedCode = match[2]
-    const legacyCode = match[3]
-    const command = match[4]?.toLowerCase()
-    const value = match[5]
+    const fencedInfo = match[1]
+    const fencedBlockCode = match[2]
+    const inlineFencedMarker = match[3]
+    const inlineFencedCode = match[4]
+    const legacyCode = match[5]
+    const command = match[6]?.toLowerCase()
+    const commandFrame = parseRenderFrame(match[7])
+    const value = match[8]
 
-    if (fencedCode !== undefined || legacyCode !== undefined) {
-      const trimmedCode = normalizeCodeContent(fencedCode ?? legacyCode)
+    if (fencedBlockCode !== undefined || inlineFencedCode !== undefined || legacyCode !== undefined) {
+      const fenceOptions =
+        fencedBlockCode !== undefined
+          ? parseCodeFenceInfo(fencedInfo ?? '')
+          : { appendToPrevious: inlineFencedMarker === '+', frame: undefined, isLayer: inlineFencedMarker === '#' }
+      const trimmedCode = normalizeCodeContent(fencedBlockCode ?? inlineFencedCode ?? legacyCode)
       if (trimmedCode) {
-        if (fencedMarker === '#') {
+        if (fenceOptions.isLayer) {
           segments.push({
             type: 'codeLayer',
             commands: trimmedCode,
+            frame: fenceOptions.frame,
             duration: 0,
           })
         } else {
           segments.push({
             type: 'code',
-            appendToPrevious: fencedMarker === '+',
+            appendToPrevious: fenceOptions.appendToPrevious,
             code: trimmedCode,
+            frame: fenceOptions.frame,
             duration: 0,
           })
         }
@@ -660,18 +710,25 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
       if (Number.isFinite(duration) && duration > 0) {
         segments.push({ type: 'wait', duration })
       }
+    } else if (command === 'layout') {
+      const layout = parsePanelLayout(value)
+      if (layout) {
+        segments.push({ type: 'layout', layout, duration: 0 })
+      }
     } else {
       const url = value.trim()
       if (url) {
         if (command === 'video') {
           segments.push({
             type: 'video',
+            frame: commandFrame,
             url,
             duration: 0,
           })
         } else {
           segments.push({
             type: 'image',
+            frame: commandFrame,
             pane: getImagePaneForCommand(command ?? 'img'),
             url,
             duration: 0,
@@ -708,9 +765,92 @@ function parseTutorialScript(script: string): ParsedTutorialScript {
   }
 }
 
+function parseCodeFenceInfo(info: string) {
+  const options: {
+    appendToPrevious: boolean
+    frame?: RenderFrame
+    isLayer: boolean
+  } = {
+    appendToPrevious: false,
+    isLayer: false,
+  }
+
+  info
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .forEach((rawToken) => {
+      let token = rawToken
+
+      while (token.startsWith('+') || token.startsWith('#')) {
+        if (token[0] === '+') {
+          options.appendToPrevious = true
+        } else {
+          options.isLayer = true
+        }
+
+        token = token.slice(1)
+      }
+
+      const frame = parseRenderFrame(token)
+      if (frame) {
+        options.frame = frame
+      }
+    })
+
+  return options
+}
+
+function parsePanelLayout(value: string | undefined): TutorialPanelLayout | undefined {
+  const frame = parseRenderFrame(value)
+  if (!frame) return undefined
+
+  return {
+    columns: frame.column,
+    rows: frame.row,
+  }
+}
+
+function parseRenderFrame(value: string | undefined): RenderFrame | undefined {
+  const match = value?.trim().match(/^r([1-9]\d*)c([1-9]\d*)$/i)
+  if (!match) return undefined
+
+  return {
+    column: Number.parseInt(match[2], 10),
+    row: Number.parseInt(match[1], 10),
+  }
+}
+
 function ImageVisualFrame({ visual }: { visual: ImageVisual }) {
   if (visual.layout === 'full') {
     return <PaneVisualFrame visual={visual.panes.full} />
+  }
+
+  if (visual.layout === 'grid' && visual.grid) {
+    const grid = visual.grid
+
+    return (
+      <div
+        className="grid h-full w-full bg-slate-950"
+        style={{
+          gridTemplateColumns: `repeat(${grid.columns}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${grid.rows}, minmax(0, 1fr))`,
+        }}
+      >
+        {grid.cells.map((cell, index) => {
+          const column = (index % grid.columns) + 1
+          const row = Math.floor(index / grid.columns) + 1
+
+          return (
+            <PaneVisualFrame
+              className={getGridCellClassName(row, column, grid)}
+              key={`${row}-${column}`}
+              visual={cell}
+            />
+          )
+        })}
+      </div>
+    )
   }
 
   return (
@@ -732,13 +872,10 @@ function PaneVisualFrame({ className = '', visual }: { className?: string; visua
           src={visual.url}
         />
       ) : visual?.type === 'video' ? (
-        <video
-          autoPlay
+        <VideoVisualFrame
           className="tutorial-pane-visual h-full w-full object-cover"
-          loop
-          muted
-          playsInline
-          src={visual.url}
+          title="Tutorial video"
+          url={visual.url}
         />
       ) : visual?.type === 'code' ? (
         <div className="tutorial-pane-visual grid h-full w-full place-items-center px-3 py-4">
@@ -749,6 +886,117 @@ function PaneVisualFrame({ className = '', visual }: { className?: string; visua
       ) : null}
     </div>
   )
+}
+
+function getGridCellClassName(row: number, column: number, layout: TutorialPanelLayout) {
+  const classes = []
+
+  if (column < layout.columns) {
+    classes.push('border-r border-white/10')
+  }
+
+  if (row < layout.rows) {
+    classes.push('border-b border-white/10')
+  }
+
+  return classes.join(' ')
+}
+
+function VideoVisualFrame({
+  className = '',
+  title,
+  url,
+}: {
+  className?: string
+  title: string
+  url: string
+}) {
+  const youtubeEmbedUrl = getYouTubeEmbedUrl(url)
+
+  if (youtubeEmbedUrl) {
+    return (
+      <iframe
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className={`${className} border-0`}
+        loading="lazy"
+        referrerPolicy="strict-origin-when-cross-origin"
+        src={youtubeEmbedUrl}
+        title={title}
+      />
+    )
+  }
+
+  return (
+    <video
+      autoPlay
+      className={className}
+      loop
+      muted
+      playsInline
+      src={url}
+    />
+  )
+}
+
+function getYouTubeEmbedUrl(url: string) {
+  const videoId = getYouTubeVideoId(url)
+  if (!videoId) return undefined
+
+  const params = new URLSearchParams({
+    autoplay: '1',
+    controls: '0',
+    loop: '1',
+    mute: '1',
+    playlist: videoId,
+    playsinline: '1',
+    rel: '0',
+  })
+
+  return `https://www.youtube.com/embed/${videoId}?${params.toString()}`
+}
+
+function getYouTubeVideoId(rawUrl: string) {
+  const trimmedUrl = rawUrl.trim()
+
+  if (/^[\w-]{11}$/.test(trimmedUrl)) {
+    return trimmedUrl
+  }
+
+  try {
+    const parsedUrl = new URL(trimmedUrl)
+    const hostname = parsedUrl.hostname.replace(/^www\./, '').toLowerCase()
+
+    if (
+      hostname === 'youtube.com' ||
+      hostname === 'm.youtube.com' ||
+      hostname === 'music.youtube.com' ||
+      hostname === 'youtube-nocookie.com'
+    ) {
+      if (parsedUrl.pathname === '/watch') {
+        return normalizeYouTubeVideoId(parsedUrl.searchParams.get('v'))
+      }
+
+      const [, pathType, pathId] = parsedUrl.pathname.split('/')
+      if (pathType === 'embed' || pathType === 'shorts' || pathType === 'live') {
+        return normalizeYouTubeVideoId(pathId)
+      }
+    }
+
+    if (hostname === 'youtu.be') {
+      return normalizeYouTubeVideoId(parsedUrl.pathname.split('/').filter(Boolean)[0])
+    }
+  } catch {
+    return undefined
+  }
+
+  return undefined
+}
+
+function normalizeYouTubeVideoId(videoId: string | null | undefined) {
+  if (!videoId) return undefined
+  const cleanVideoId = videoId.trim()
+  return /^[\w-]{11}$/.test(cleanVideoId) ? cleanVideoId : undefined
 }
 
 function normalizeCodeContent(code: string) {
@@ -896,7 +1144,8 @@ function getPlayableSegmentIndex(segments: TutorialPlayerSegment[], time: number
       segment.type !== 'image' &&
       segment.type !== 'video' &&
       segment.type !== 'code' &&
-      segment.type !== 'codeLayer',
+      segment.type !== 'codeLayer' &&
+      segment.type !== 'layout',
   )
 
   if (index >= 0) {
@@ -914,6 +1163,11 @@ function getVisualForTime(segments: TutorialPlayerSegment[], time: number, activ
 
   for (let index = indexLimit; index >= 0; index -= 1) {
     const segment = segments[index]
+    if (segment?.type === 'layout' || hasRenderFrame(segment)) {
+      const gridVisual = getGridVisualForSegment(segments, index)
+      if (gridVisual) return gridVisual
+      continue
+    }
     if (segment?.type === 'image') {
       return getImageVisualForSegment(segments, index)
     }
@@ -941,6 +1195,99 @@ function getImagePaneForCommand(command: string): ImagePane {
   return 'full'
 }
 
+function getGridVisualForSegment(segments: TutorialPlayerSegment[], visualSegmentIndex: number): ImageVisual | undefined {
+  const layoutSegmentIndex = getActiveLayoutSegmentIndex(segments, visualSegmentIndex)
+  const layoutSegment = segments[layoutSegmentIndex]
+  if (layoutSegment?.type !== 'layout') return undefined
+
+  const layout = layoutSegment.layout
+  const cells: Array<PaneVisual | undefined> = Array.from({ length: layout.rows * layout.columns })
+
+  for (let index = layoutSegmentIndex + 1; index <= visualSegmentIndex; index += 1) {
+    const segment = segments[index]
+    const frame = getRenderFrame(segment)
+
+    if (!segment || !frame || !isFrameInsideLayout(frame, layout)) {
+      continue
+    }
+
+    const cellIndex = getGridCellIndex(frame, layout)
+
+    if (segment.type === 'image') {
+      cells[cellIndex] = { type: 'image', url: segment.url }
+    } else if (segment.type === 'video') {
+      cells[cellIndex] = { type: 'video', url: segment.url }
+    } else if (segment.type === 'code' || segment.type === 'codeLayer') {
+      const codeVisual = getCodeVisualForSegment(segments, index)
+      cells[cellIndex] = { type: 'code', code: codeVisual.code, codeRuns: codeVisual.codeRuns }
+    }
+  }
+
+  return {
+    type: 'image',
+    layout: 'grid',
+    grid: {
+      cells,
+      columns: layout.columns,
+      rows: layout.rows,
+    },
+    panes: {},
+    signature: `grid:${layout.rows}x${layout.columns}:${cells.map(getPaneVisualSignature).join(':')}`,
+    start: segments[visualSegmentIndex]?.start ?? layoutSegment.start,
+  }
+}
+
+function getActiveLayoutSegmentIndex(segments: TutorialPlayerSegment[], beforeIndex: number) {
+  for (let index = beforeIndex; index >= 0; index -= 1) {
+    const segment = segments[index]
+
+    if (segment?.type === 'layout') {
+      return index
+    }
+
+    if (
+      segment &&
+      (segment.type === 'image' || segment.type === 'video' || segment.type === 'code' || segment.type === 'codeLayer') &&
+      !hasRenderFrame(segment)
+    ) {
+      return -1
+    }
+  }
+
+  return -1
+}
+
+function hasRenderFrame(segment: TutorialPlayerSegment | undefined) {
+  return getRenderFrame(segment) !== undefined
+}
+
+function getRenderFrame(segment: TutorialPlayerSegment | undefined) {
+  if (
+    segment?.type === 'image' ||
+    segment?.type === 'video' ||
+    segment?.type === 'code' ||
+    segment?.type === 'codeLayer'
+  ) {
+    return segment.frame
+  }
+
+  return undefined
+}
+
+function renderFramesMatch(left: RenderFrame | undefined, right: RenderFrame | undefined) {
+  if (!left || !right) return left === right
+
+  return left.row === right.row && left.column === right.column
+}
+
+function isFrameInsideLayout(frame: RenderFrame, layout: TutorialPanelLayout) {
+  return frame.row >= 1 && frame.row <= layout.rows && frame.column >= 1 && frame.column <= layout.columns
+}
+
+function getGridCellIndex(frame: RenderFrame, layout: TutorialPanelLayout) {
+  return (frame.row - 1) * layout.columns + (frame.column - 1)
+}
+
 function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmentIndex: number): ImageVisual {
   let leftVisual: PaneVisual | undefined
   let rightVisual: PaneVisual | undefined
@@ -949,6 +1296,8 @@ function getImageVisualForSegment(segments: TutorialPlayerSegment[], imageSegmen
   for (let index = 0; index <= imageSegmentIndex; index += 1) {
     const segment = segments[index]
     if (!segment) continue
+
+    if (segment.type === 'layout' || hasRenderFrame(segment)) continue
 
     if (segment.type === 'image') {
       if (segment.pane === 'full') {
@@ -1034,11 +1383,17 @@ function getActiveSplitImageSegmentIndex(segments: TutorialPlayerSegment[], befo
   for (let index = beforeIndex - 1; index >= 0; index -= 1) {
     const segment = segments[index]
 
+    if (segment?.type === 'layout') {
+      return -1
+    }
+
     if (segment?.type === 'image') {
+      if (hasRenderFrame(segment)) continue
       return segment.pane === 'full' ? -1 : index
     }
 
     if (segment?.type === 'video') {
+      if (hasRenderFrame(segment)) continue
       return -1
     }
   }
@@ -1061,18 +1416,22 @@ function getCodeRunsSignature(runs: CodeTextRun[]) {
 function getCodeVisualForSegment(segments: TutorialPlayerSegment[], visualSegmentIndex: number) {
   const blocks: string[] = []
   const layers: string[] = []
+  const visualFrame = getRenderFrame(segments[visualSegmentIndex])
   let index = visualSegmentIndex
 
   while (index >= 0) {
     const segment = segments[index]
 
     if (segment?.type === 'codeLayer') {
-      layers.unshift(segment.commands)
+      if (renderFramesMatch(segment.frame, visualFrame)) {
+        layers.unshift(segment.commands)
+      }
+
       index -= 1
       continue
     }
 
-    if (segment?.type !== 'code') {
+    if (segment?.type !== 'code' || !renderFramesMatch(segment.frame, visualFrame)) {
       index -= 1
       continue
     }
@@ -1108,7 +1467,8 @@ function hasLaterPlayableSegment(segments: TutorialPlayerSegment[], fromIndex: n
         segment.type !== 'image' &&
         segment.type !== 'video' &&
         segment.type !== 'code' &&
-        segment.type !== 'codeLayer',
+        segment.type !== 'codeLayer' &&
+        segment.type !== 'layout',
     )
 }
 
@@ -1277,6 +1637,32 @@ function parseCodeMarkup(code: string) {
       buffer = ''
       color = normalizeCodeColor(colorTagMatch[1])
       index += colorTagMatch[0].length
+      continue
+    }
+
+    const shortcutColorTagMatch = code.slice(index).match(/^\[([rgboym])\]/i)
+    if (shortcutColorTagMatch) {
+      addCodeRun(runs, buffer, isBold, color)
+      buffer = ''
+
+      const tagLength = shortcutColorTagMatch[0].length
+      const targetMatch = code.slice(index + tagLength).match(/^(\s*)([A-Za-z0-9_]+)/)
+
+      if (targetMatch) {
+        addCodeRun(runs, targetMatch[1], isBold, color)
+        addCodeRun(
+          runs,
+          targetMatch[2],
+          isBold,
+          shortcutCodeColors[
+            shortcutColorTagMatch[1].toLowerCase() as keyof typeof shortcutCodeColors
+          ],
+        )
+        index += tagLength + targetMatch[0].length
+      } else {
+        index += tagLength
+      }
+
       continue
     }
 

@@ -1,5 +1,14 @@
-Cinematic Camera explains how the camera supports gameplay or cinematic presentation.
-Use this when the view has a job: following, framing, revealing, focusing, or adding emotion to the action.
-In Dragon Gate style combat, the camera must keep both fighters readable, show distance clearly, and avoid losing the action during jumps or attacks.
-The sample begins with intro_cam=>cinematic.camera.stadium_intro. In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is framing: camera settings are gameplay settings because they decide what information the player can see.
+[img: /assets/tutorials/cameras-cinematics/pasted-2026-06-17T18-56-03-937Z.png]
+[video:https://www.youtube.com/watch?v=hAg3DiHOrGY]
+A game cinematic camera is a camera system used to create movie-like shots inside a game.
+[wait: 1]
+Instead of simply following the player, it controls the camera for dramatic effect: angles, movement, zoom, focus, timing, transitions, and framing.
+[wait: 1]
+The cinematic camera consists of one or more oval rigs allowing the camera to move along several parts of the rigs in a certain speed while focusing on a specific target.
+[wait: 1]
+The camera rigs are easily set in design-time and easily activated in run-time.
+[wait: 3]
+```
+[ref: CLICK HERE TO READ ABOUT CINEMATIC CAMERAS (https://github.com/scenemax3d/scenemax3d-desktop/blob/main/docs/camera.md)]
+```
+read more about cinematic cameras in the above link

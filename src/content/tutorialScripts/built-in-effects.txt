@@ -1,5 +1,38 @@
-Built-In Effects explains how visuals make the scene clearer or more expressive.
-Use this when the player needs clarity, mood, impact, or feedback from what appears on screen.
-In an arena scene, visuals can show danger, make characters readable, and make a special attack feel important.
-The sample begins with effects.explosion.show : pos (b). In plain language, it shows the command or data shape used by this lesson.
-The key idea is readability first. Effects and lights should support the action, not distract from it.
+[img: /assets/tutorials/lighting-visuals/pasted-2026-06-18T02-29-08-071Z.png]
+SceneMax3D has a few built-in, run-time only, particle effects.
+```
+Flash
+Explosion
+Debris
+Spark
+Smoketrail
+Shockwave
+TimeOrbit
+Flame
+```
+[wait: 2]
+In runtime, at any given time, you can play a built-in particle effect for example:
+```
+s => Sinbad
+effects.explosion.show : pos (s)
+```
+this code will show the "explosion" particle effect in the position if the **Sinbad** model called "S".
+[wait: 1]
+```
+effects.flame.show : pos (13,-15,43) and radius = 5 and duration 10
+```
+In the same way, 
+```#
+[mod: "radius", color:00FF00]
+```
+we can control the radius in meters
+```#
+[mod: "duration", color:00FF00]
+```
+and the duration in seconds, of the played effect.
+[wait:3]
+```
+effects.TimeOrbit.show : pos (0,0,0) and [color:00FF00]end size = 7[color:default] and duration = 10
+```
+we can also control the start-size and the end-size of the effect's particle system.
+[wait: 5]

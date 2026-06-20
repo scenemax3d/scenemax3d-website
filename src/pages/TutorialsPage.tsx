@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { DifficultyBadge } from '../components/DifficultyBadge'
 import { SectionHeader } from '../components/SectionHeader'
@@ -8,12 +8,9 @@ import { icons } from '../components/icons'
 import type { Difficulty } from '../types/content'
 import {
   difficulties,
+  fetchTutorialContentIndex,
   formatDifficulty,
-  getCategoryTitle,
-  getSubcategoriesForCategory,
-  getSubcategoryTitle,
-  orderedTutorials,
-  siteContent,
+  staticTutorialContent,
 } from '../utils/content'
 import { usePageMeta } from '../utils/meta'
 import {
@@ -34,19 +31,15 @@ interface TutorialListLocationState {
 
 export function TutorialsPage() {
   const location = useLocation()
-  const initialSnapshotRef = useRef<{ snapshot: TutorialListSnapshot | undefined } | undefined>(undefined)
-
-  if (!initialSnapshotRef.current) {
+  const [initialSnapshot] = useState(() => {
     const savedSnapshot = readTutorialListSnapshot()
     const locationState = location.state as TutorialListLocationState | null
     const shouldRestore = Boolean(locationState?.restoreTutorialList || savedSnapshot?.restorePending)
 
-    initialSnapshotRef.current = {
-      snapshot: shouldRestore ? savedSnapshot : undefined,
-    }
-  }
+    return shouldRestore ? savedSnapshot : undefined
+  })
 
-  const initialSnapshot = initialSnapshotRef.current.snapshot
+  const [tutorialContent, setTutorialContent] = useState(staticTutorialContent)
   const [query, setQuery] = useState(() => initialSnapshot?.query ?? '')
   const [categoryId, setCategoryId] = useState(() => initialSnapshot?.categoryId ?? allCategories)
   const [subcategoryId, setSubcategoryId] = useState(() => initialSnapshot?.subcategoryId ?? allSubcategories)
@@ -61,12 +54,43 @@ export function TutorialsPage() {
     'Search and filter SceneMax3D tutorials by topic, tags, and difficulty.',
   )
 
+  useEffect(() => {
+    let isCurrent = true
+
+    fetchTutorialContentIndex()
+      .then((nextContent) => {
+        if (isCurrent) {
+          setTutorialContent(nextContent)
+        }
+      })
+      .catch(() => {
+        // Bundled tutorial content remains available when the runtime API is not present.
+      })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [])
+
+  const categoryTitleById = useMemo(
+    () => new Map(tutorialContent.tutorialCategories.map((category) => [category.id, category.title])),
+    [tutorialContent.tutorialCategories],
+  )
+  const subcategoryTitleById = useMemo(
+    () => new Map(tutorialContent.tutorialSubcategories.map((subcategory) => [subcategory.id, subcategory.title])),
+    [tutorialContent.tutorialSubcategories],
+  )
+  const orderedTutorials = useMemo(
+    () => [...tutorialContent.tutorials].sort((a, b) => a.order - b.order),
+    [tutorialContent.tutorials],
+  )
+
   const searchableTutorials = useMemo(
     () =>
       orderedTutorials.map((tutorial) => ({
         ...tutorial,
-        categoryTitle: getCategoryTitle(tutorial.categoryId),
-        subcategoryTitle: getSubcategoryTitle(tutorial.subcategoryId),
+        categoryTitle: categoryTitleById.get(tutorial.categoryId) ?? 'Uncategorized',
+        subcategoryTitle: subcategoryTitleById.get(tutorial.subcategoryId) ?? 'General',
         searchText: [
           tutorial.title,
           tutorial.description,
@@ -74,12 +98,12 @@ export function TutorialsPage() {
           tutorial.clipFocus,
           tutorial.sourceDoc,
           tutorial.difficulty,
-          getCategoryTitle(tutorial.categoryId),
-          getSubcategoryTitle(tutorial.subcategoryId),
+          categoryTitleById.get(tutorial.categoryId) ?? 'Uncategorized',
+          subcategoryTitleById.get(tutorial.subcategoryId) ?? 'General',
           ...tutorial.tags,
         ].join(' '),
       })),
-    [],
+    [categoryTitleById, orderedTutorials, subcategoryTitleById],
   )
 
   const fuse = useMemo(
@@ -111,11 +135,11 @@ export function TutorialsPage() {
 
   const visibleSubcategories = useMemo(() => {
     if (categoryId === allCategories) {
-      return siteContent.tutorialSubcategories
+      return tutorialContent.tutorialSubcategories
     }
 
-    return getSubcategoriesForCategory(categoryId)
-  }, [categoryId])
+    return tutorialContent.tutorialSubcategories.filter((subcategory) => subcategory.categoryId === categoryId)
+  }, [categoryId, tutorialContent.tutorialSubcategories])
 
   function selectCategory(nextCategoryId: string) {
     setCategoryId(nextCategoryId)
@@ -157,7 +181,7 @@ export function TutorialsPage() {
         <SectionHeader
           eyebrow="Tutorial academy"
           title="Search every SceneMax3D learning path"
-          description="Find lessons by topic, difficulty, tags, category, or workflow. Add YouTube IDs in the JSON file as videos are published."
+          description="Find lessons by topic, difficulty, tags, category, or workflow."
         />
 
         <div className="mb-8 rounded-lg border border-white/10 bg-white/[0.045] p-4 md:p-5">
@@ -189,7 +213,7 @@ export function TutorialsPage() {
                 value={categoryId}
               >
                 <option value={allCategories}>All categories</option>
-                {siteContent.tutorialCategories.map((category) => (
+                {tutorialContent.tutorialCategories.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.title}
                   </option>

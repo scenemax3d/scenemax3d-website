@@ -6,22 +6,31 @@ import { TutorialCard } from '../components/TutorialCard'
 import { TutorialScriptPlayer } from '../components/TutorialScriptPlayer'
 import type { TutorialCodeSample } from '../types/content'
 import {
+  fetchTutorialContentDetail,
   findTutorialBySlug,
-  getCategoryTitle,
-  getRelatedTutorials,
-  getSubcategoryTitle,
   getTutorialScript,
-  getTutorialNeighbors,
   siteContent,
+  staticTutorialContent,
+  type TutorialContentDetail,
+  type TutorialContentIndex,
 } from '../utils/content'
 import { usePageMeta } from '../utils/meta'
 
 export function TutorialDetailPage() {
   const { slug } = useParams()
-  const tutorial = findTutorialBySlug(slug)
+  const staticTutorial = findTutorialBySlug(slug)
+  const [runtimeDetailState, setRuntimeDetailState] = useState<{
+    detail?: TutorialContentDetail
+    didLoad: boolean
+    slug: string
+  }>({ didLoad: false, slug: '' })
   const [sampleState, setSampleState] = useState<
     { tutorialId: string; sample: TutorialCodeSample | undefined } | undefined
   >()
+  const runtimeDetail = runtimeDetailState.slug === slug ? runtimeDetailState.detail : undefined
+  const didRuntimeLoad = runtimeDetailState.slug === slug ? runtimeDetailState.didLoad : false
+  const tutorial = runtimeDetail?.tutorial ?? staticTutorial
+  const tutorialContent = runtimeDetail ?? staticTutorialContent
 
   usePageMeta(
     tutorial
@@ -37,7 +46,29 @@ export function TutorialDetailPage() {
   }, [tutorial])
 
   useEffect(() => {
-    if (!tutorial) return
+    if (!slug) return
+
+    let isCurrent = true
+
+    fetchTutorialContentDetail(slug)
+      .then((detail) => {
+        if (isCurrent) {
+          setRuntimeDetailState({ detail, didLoad: true, slug })
+        }
+      })
+      .catch(() => {
+        if (isCurrent) {
+          setRuntimeDetailState({ didLoad: true, slug })
+        }
+      })
+
+    return () => {
+      isCurrent = false
+    }
+  }, [slug])
+
+  useEffect(() => {
+    if (!tutorial || runtimeDetail?.sample) return
 
     let isCurrent = true
 
@@ -50,16 +81,28 @@ export function TutorialDetailPage() {
     return () => {
       isCurrent = false
     }
-  }, [tutorial])
+  }, [runtimeDetail?.sample, tutorial])
 
   if (!tutorial) {
-    return <Navigate replace to="/tutorials" />
+    if (didRuntimeLoad) {
+      return <Navigate replace to="/tutorials" />
+    }
+
+    return (
+      <section className="py-10 md:py-16">
+        <div className="mx-auto max-w-6xl px-4 text-sm font-semibold text-slate-300 sm:px-6 lg:px-8">
+          Loading tutorial...
+        </div>
+      </section>
+    )
   }
 
-  const { previous, next } = getTutorialNeighbors(tutorial)
-  const related = getRelatedTutorials(tutorial)
-  const sampleCode = sampleState?.tutorialId === tutorial.id ? sampleState.sample : undefined
-  const tutorialScript = getTutorialScript(tutorial)
+  const { previous, next } = getTutorialNeighbors(tutorialContent, tutorial.id)
+  const related = getRelatedTutorials(tutorialContent, tutorial.relatedTutorialIds)
+  const sampleCode = runtimeDetail?.sample ?? (sampleState?.tutorialId === tutorial.id ? sampleState.sample : undefined)
+  const tutorialScript = runtimeDetail?.script ?? getTutorialScript(tutorial)
+  const categoryTitle = getCategoryTitle(tutorialContent, tutorial.categoryId)
+  const subcategoryTitle = getSubcategoryTitle(tutorialContent, tutorial.subcategoryId)
 
   return (
     <section className="py-10 md:py-16">
@@ -82,10 +125,10 @@ export function TutorialDetailPage() {
             />
             <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">
-                {getCategoryTitle(tutorial.categoryId)}
+                {categoryTitle}
               </p>
               <p className="mt-2 text-sm font-semibold text-emerald-200">
-                {getSubcategoryTitle(tutorial.subcategoryId)}
+                {subcategoryTitle}
               </p>
               <h1 className="mt-3 text-3xl font-black leading-tight text-white md:text-5xl">
                 {tutorial.title}
@@ -158,6 +201,30 @@ export function TutorialDetailPage() {
       </div>
     </section>
   )
+}
+
+function getCategoryTitle(content: TutorialContentIndex, categoryId: string) {
+  return content.tutorialCategories.find((category) => category.id === categoryId)?.title ?? 'Uncategorized'
+}
+
+function getSubcategoryTitle(content: TutorialContentIndex, subcategoryId: string) {
+  return content.tutorialSubcategories.find((subcategory) => subcategory.id === subcategoryId)?.title ?? 'General'
+}
+
+function getTutorialNeighbors(content: TutorialContentIndex, tutorialId: string) {
+  const orderedTutorials = [...content.tutorials].sort((a, b) => a.order - b.order)
+  const index = orderedTutorials.findIndex((item) => item.id === tutorialId)
+
+  return {
+    previous: index > 0 ? orderedTutorials[index - 1] : undefined,
+    next: index >= 0 && index < orderedTutorials.length - 1 ? orderedTutorials[index + 1] : undefined,
+  }
+}
+
+function getRelatedTutorials(content: TutorialContentIndex, relatedTutorialIds: string[]) {
+  return relatedTutorialIds
+    .map((id) => content.tutorials.find((item) => item.id === id))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
 }
 
 function scrollToAbsolutePageTop() {

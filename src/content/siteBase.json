@@ -25,8 +25,8 @@
     }
   ],
   "hero": {
-    "eyebrow": "Watch. Learn. Build 3D games.",
-    "title": "Build 3D games faster with SceneMax3D",
+    "eyebrow": "VISUAL DESIGN. CHOREOGRAPHIC CODE. PLAYABLE GAMES.",
+    "title": "Create 3D Games Through Choreography",
     "subtitle": "A visual game creation studio with a choreographic programming language, animation tools, physics, effects, AI-assisted workflows, and publishing support.",
     "buttons": [
       {
@@ -47,16 +47,16 @@
     ],
     "stats": [
       {
-        "value": "658",
-        "label": "short lesson placeholders"
+        "value": "MCP",
+        "label": "80+ AI Tools"
       },
       {
-        "value": "41",
-        "label": "organized subjects"
+        "value": "Open Source MIT",
+        "label": "no strings attached"
       },
       {
-        "value": "11",
-        "label": "academy tracks"
+        "value": "Virtual Classrooms",
+        "label": "work from remote with students or colleagues"
       }
     ]
   },

@@ -2,7 +2,14 @@ import rawSiteBase from '../content/siteBase.json'
 import rawTutorialCategories from '../content/tutorialCategories.json'
 import rawTutorialSubcategories from '../content/tutorialSubcategories.json'
 import rawTutorials from '../content/tutorials.json'
-import type { Difficulty, SiteContent, Tutorial } from '../types/content'
+import type {
+  Difficulty,
+  SiteContent,
+  Tutorial,
+  TutorialCategory,
+  TutorialCodeSample,
+  TutorialSubcategory,
+} from '../types/content'
 
 const rawTutorialScripts = import.meta.glob('../content/tutorialScripts/*.txt', {
   eager: true,
@@ -23,6 +30,24 @@ export const siteContent = {
   tutorialSubcategories: rawTutorialSubcategories,
   tutorials: rawTutorials,
 } as SiteContent
+
+export interface TutorialContentIndex {
+  tutorialCategories: TutorialCategory[]
+  tutorialSubcategories: TutorialSubcategory[]
+  tutorials: Tutorial[]
+}
+
+export interface TutorialContentDetail extends TutorialContentIndex {
+  sample: TutorialCodeSample
+  script: string
+  tutorial: Tutorial
+}
+
+export const staticTutorialContent: TutorialContentIndex = {
+  tutorialCategories: siteContent.tutorialCategories,
+  tutorialSubcategories: siteContent.tutorialSubcategories,
+  tutorials: siteContent.tutorials,
+}
 
 export const categoriesById = new Map(
   siteContent.tutorialCategories.map((category) => [category.id, category]),
@@ -86,9 +111,26 @@ export function getFirstTutorialScriptImage(script: string) {
 }
 
 export function getTutorialPreviewImage(tutorial: Tutorial) {
-  return getFirstTutorialScriptImage(getTutorialScript(tutorial))
+  return getFirstTutorialScriptImage(getTutorialScript(tutorial)) || tutorial.thumbnail
 }
 
 export function formatDifficulty(difficulty: Difficulty) {
   return difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
+}
+
+export async function fetchTutorialContentIndex() {
+  return fetchRuntimeJson<TutorialContentIndex>('/api/content/tutorials')
+}
+
+export async function fetchTutorialContentDetail(slug: string) {
+  return fetchRuntimeJson<TutorialContentDetail>(`/api/content/tutorials/${encodeURIComponent(slug)}`)
+}
+
+async function fetchRuntimeJson<T>(url: string): Promise<T> {
+  const response = await fetch(url, { headers: { accept: 'application/json' } })
+  if (!response.ok) {
+    throw new Error(`Runtime content request failed: ${response.status}`)
+  }
+
+  return response.json() as Promise<T>
 }

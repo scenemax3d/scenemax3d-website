@@ -618,11 +618,11 @@
   {
     "id": "camera-modifiers",
     "slug": "camera-modifiers",
-    "title": "Camera Modifiers",
+    "title": "Built-In Camera Systems",
     "description": "A short focused SceneMax3D lesson about Camera Modifiers.",
     "categoryId": "cameras-cinematics",
-    "subcategoryId": "camera-modifiers",
-    "subject": "Camera Modifiers",
+    "subcategoryId": "camera-systems",
+    "subject": "Built-In Camera Systems",
     "clipFocus": "Explain Camera Modifiers from Camera Systems, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
     "sourceDoc": "camera-systems.md",
     "sourceLine": 37,
@@ -645,7 +645,7 @@
   {
     "id": "general-usage",
     "slug": "general-usage",
-    "title": "Camera General Usage",
+    "title": "Basic Camera Usage",
     "description": "A short focused SceneMax3D lesson about General Usage.",
     "categoryId": "cameras-cinematics",
     "subcategoryId": "camera-systems",
@@ -667,31 +667,6 @@
     ],
     "featured": false,
     "order": 115,
-    "relatedTutorialIds": []
-  },
-  {
-    "id": "rotate-camera",
-    "slug": "rotate-camera",
-    "title": "Rotate Camera",
-    "description": "A short focused SceneMax3D lesson about Rotate Camera.",
-    "categoryId": "cameras-cinematics",
-    "subcategoryId": "camera-basics",
-    "subject": "Rotate Camera",
-    "clipFocus": "Explain Rotate Camera from Camera, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "camera.md",
-    "sourceLine": 3,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "cameras-cinematics",
-      "camera-basics",
-      "camera",
-      "rotate"
-    ],
-    "featured": true,
-    "order": 227,
     "relatedTutorialIds": []
   },
   {
@@ -772,38 +747,7 @@
     ],
     "featured": false,
     "order": 259,
-    "relatedTutorialIds": [
-      "joint-mapping"
-    ]
-  },
-  {
-    "id": "joint-mapping",
-    "slug": "joint-mapping",
-    "title": "Joint Mapping",
-    "description": "A short focused SceneMax3D lesson about Joint Mapping.",
-    "categoryId": "physics-gameplay",
-    "subcategoryId": "collisions",
-    "subject": "Joint Mapping",
-    "clipFocus": "Explain Joint Mapping from Collisions & Physics, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
-    "sourceDoc": "collisions-and-physics.md",
-    "sourceLine": 119,
-    "difficulty": "intermediate",
-    "duration": "4:30",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "physics-gameplay",
-      "collisions",
-      "collisions-and-physics",
-      "physics",
-      "joint",
-      "mapping"
-    ],
-    "featured": false,
-    "order": 260,
-    "relatedTutorialIds": [
-      "collision-detection"
-    ]
+    "relatedTutorialIds": []
   },
   {
     "id": "if-else",

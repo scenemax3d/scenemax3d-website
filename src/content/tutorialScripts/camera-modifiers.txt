@@ -1,5 +1,55 @@
-Camera Modifiers explains how the camera supports gameplay or cinematic presentation.
-Use this when the view has a job: following, framing, revealing, focusing, or adding emotion to the action.
-In Dragon Gate style combat, the camera must keep both fighters readable, show distance clearly, and avoid losing the action during jumps or attacks.
-The sample begins with hit_fx = camera.system.modifiers.hit_modifier. In plain language, it changes what the player sees and how the action is framed.
-The key idea is framing: camera settings are gameplay settings because they decide what information the player can see.
+[img: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T05-52-09-538Z.png]
+SceneMax3D contains several pre-built camera systems which can be used in various game genres.
+```
+camera.system.[g]fighting 
+```
+[wait: 2]
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-02-22-789Z.png]
+**Fighting camera** for fighting games where two players needs to stay visible at all times.
+```
+camera.system.[r]third_person
+```
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-04-35-769Z.png]
+**Third person camera** for action, adventure exploration games.
+```
+camera.system.[b]first_person
+```
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-05-31-543Z.png]
+**First person camera** for FPS, immersive exploration, cockpit style interaction.
+```
+camera.system.[o]racing
+```
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-06-28-269Z.png]
+**Racing camera** for racing, driving, chase camera vehicle games.
+```
+camera.system.[y]platformer
+```
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-08-08-233Z.png]
+**Platformer camera** for side scroller, 3d platformer games.
+```
+camera.system.[m]rts
+```
+[img2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-09-41-860Z.png]
+**RTS** for top-down, tactics, builders management type of games.
+[wait:3]
+[layout:r1c3]
+[img r1c1: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-02-22-789Z.png]
+In run-time, you change the camera system 
+[img r1c2: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-06-28-269Z.png]
+by setting the camera system 
+[img r1c3: /assets/tutorials/cameras-cinematics/pasted-2026-06-19T06-09-41-860Z.png]
+to one of the systems mentioned above.
+[wait: 2]
+```
+[g]fight_cam = camera.system.[g]fighting ([y]player1, [m]player2, depth 18, height 3, side 1.5, min distance 10, max distance 28, damping 8)
+camera.system = [g]fight_cam
+```
+for example, this code sets a fighting system camera in a game where the current two fighters are player1 and player2.
+[wait:1]
+[video:https://www.youtube.com/watch?v=dSj0fwh3dvQ]
+In the gameplay video, you can see the camera system operating in a real-world fighting game scenario. When the game enters combat mode, the fighting camera system is activated. Once the gameplay transitions to a search phase, where the player must locate the axe, the camera automatically switches to a third-person view. Camera systems can be dynamically changed throughout the game to match the current gameplay requirements and provide the most suitable player experience.
+[wait:2]
+```
+[ref: READ MORE ABOUT BUILT-IN CAMERA SYSTEMS (https://github.com/scenemax3d/scenemax3d-desktop/blob/main/docs/camera-systems.md)]
+```
+Click on the link above to learn more about the camera systems

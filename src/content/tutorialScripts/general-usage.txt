@@ -1,5 +1,17 @@
-General Usage explains how the camera supports gameplay or cinematic presentation.
-Use this when the view has a job: following, framing, revealing, focusing, or adding emotion to the action.
-In Dragon Gate style combat, the camera must keep both fighters readable, show distance clearly, and avoid losing the action during jumps or attacks.
-The sample begins with fight_cam = camera.system.fighting(player1, player2, ..). In plain language, it changes what the player sees and how the action is framed.
-The key idea is framing: camera settings are gameplay settings because they decide what information the player can see.
+[img: /assets/tutorials/cameras-cinematics/pasted-2026-06-18T18-48-40-222Z.png]
+SceneMax3D has a default camera object placed in the scene. The camera's position and point of view determines what the player sees on the screen at any given time.
+The camera can be modified in run-time.
+```
+s => sinbad
+camera.[color:00FF00]chase[color:default] s
+```
+In this example, the camera follows (chases) the "s" game object. So whenever the object moves, the camera will follow it (by default from behind).
+```
+camera.[g]pos (10,10,5)
+```
+camera can be placed in a random position in 3D space.
+[wait: 2]
+```
+camera.[g]turn left 360 in 10 seconds
+```
+camera can be turned to any direction like any other game object
