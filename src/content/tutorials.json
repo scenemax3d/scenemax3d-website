@@ -793,7 +793,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-20T16-34-35-735Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",
@@ -876,64 +876,64 @@
   },
   {
     "id": "go-conditions",
-    "slug": "go-conditions",
-    "title": "Go Conditions",
-    "description": "A short focused SceneMax3D lesson about Go Conditions.",
+    "slug": "guard-conditions",
+    "title": "Guard Conditions",
+    "description": "A short focused SceneMax3D lesson about Guard Conditions.",
     "categoryId": "language-fundamentals",
     "subcategoryId": "control-flow",
-    "subject": "Go Conditions",
-    "clipFocus": "Explain Go Conditions from Control Flow, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
+    "subject": "Guard Conditions",
+    "clipFocus": "Explain Guard Conditions from Control Flow, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
     "sourceDoc": "control-flow.md",
     "sourceLine": 84,
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-21T04-33-37-739Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",
       "control",
       "flow",
-      "go",
+      "guard",
       "conditions"
     ],
     "featured": false,
     "order": 265,
     "relatedTutorialIds": [
       "for-each",
-      "continuous-go-conditions-go-conditions",
-      "when-conditions-go-conditions"
+      "continuous-guard-conditions-guard-conditions",
+      "when-conditions-guard-conditions"
     ]
   },
   {
     "id": "continuous-go-conditions-go-conditions",
-    "slug": "continuous-go-conditions-go-conditions",
-    "title": "Continuous Go Conditions",
+    "slug": "continuous-guard-conditions-guard-conditions",
+    "title": "Continuous Guard Conditions",
     "description": "A short focused SceneMax3D lesson about Continuous Go Conditions.",
     "categoryId": "language-fundamentals",
     "subcategoryId": "control-flow",
-    "subject": "Continuous Go Conditions",
-    "clipFocus": "Explain Continuous Go Conditions from Control Flow, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
+    "subject": "Continuous Guard Conditions",
+    "clipFocus": "Explain Continuous Guard Conditions from Control Flow, show the exact SceneMax syntax or runtime behavior, and finish with one tiny working example.",
     "sourceDoc": "control-flow.md",
     "sourceLine": 110,
     "difficulty": "intermediate",
     "duration": "4:30",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-21T05-03-31-882Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",
       "control",
       "flow",
       "continuous",
-      "go",
+      "guard",
       "conditions"
     ],
     "featured": false,
     "order": 266,
     "relatedTutorialIds": [
-      "go-conditions",
-      "when-conditions-go-conditions"
+      "guard-conditions",
+      "when-conditions-guard-conditions"
     ]
   },
   {
@@ -950,7 +950,7 @@
     "difficulty": "intermediate",
     "duration": "4:30",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-22T03-28-55-906Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",

@@ -1,6 +1,9 @@
-[img: /assets/tutorials/language-fundamentals/loops.svg]
-A loop repeats the same commands.
-Use a loop when the game should do something several times, such as spinning a reward, spawning enemies, or counting down.
-The line do 4 times starts a block that repeats four times.
-Every command between do and end do is part of the loop.
-Loops keep scripts short and make repeated behavior easier to change later.
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-20T16-34-35-735Z.png]
+```
+d => dragon
+do [g]10 [g]times
+  d.turn left 30 in 1 second
+  d.turn right 25 in 0.5 seconds
+end do
+```
+A loop is performing a code block several times. In this sample code, the dragon turns left then right, 10 times

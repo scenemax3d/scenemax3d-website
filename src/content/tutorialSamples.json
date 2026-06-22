@@ -137,7 +137,7 @@
   "loops": {
     "language": "scenemax",
     "caption": "SceneMax example for Loops.",
-    "code": "d => box\n\ndo 4 times\n  d.turn left 90 in 0.4 seconds\nend do"
+    "code": "d => dragon\ndo 10 times\n  d.turn left 30 in 1 second\n  d.turn right 25 in 0.5 seconds\nend do"
   },
   "conditional-looping-do-while": {
     "language": "scenemax",

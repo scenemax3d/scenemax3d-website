@@ -1,6 +1,25 @@
-[img: /assets/tutorials/language-fundamentals/when-conditions-go-conditions.svg]
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-22T03-28-55-906Z.png]
 A when condition waits for something to become true.
 This is different from if, which checks only at the moment the if line runs.
-In this example, the when block watches door_open. When the value becomes 1, the message runs.
-Use when conditions for doors, puzzle triggers, timers, enemy defeat checks, and story events.
-They help scripts react to gameplay changes without constantly writing manual checks.
+```
+when player1.data.[r]attack_legs == 1 do
+  player1.look at (player2)
+  player1.move forward 0.3 for 0.5 seconds async
+  player1.leg_takedown_attacker at speed of 2.5
+end do
+```
+in this sample, the when-handler checks for the expression **attack_legs equals 1** and when it's true the handler's code runs. the code will run again and again as long as the expression evaluates to true.
+
+```
+when a == 10 [r]after a == 5 [r]after a == 1 do
+  sys.print "do something"
+end do 
+```  
+sometimes you need to wait for a sequence of conditions to happen before the handler is triggered. In this case, variable "a" needs to be equal to 1 then 5 then 10 in order for the handler's code to run. imagine a fighter, holding the opponent's body **then** turns **then** throws. this is a sequence of conditions that allows the opponent to start the being thrown animation.
+```+
+a = [r]1
+[circle: "a = 2" ]
+a = [r]5
+a = [r]10
+```
+this sequence of variable assignments will NOT trigger the when handler because variable "a" is set to  2 after it was equal to 1.

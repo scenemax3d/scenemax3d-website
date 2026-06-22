@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Pause, Pencil, Play, SkipBack, SkipForward, Volume2 } from 'lucide-react'
 import type { Tutorial } from '../types/content'
 
@@ -125,16 +125,35 @@ interface TutorialPanelLayout {
 }
 
 interface CodeTextRun {
+  circle?: CodeCircle
   color?: string
   href?: string
   isBold: boolean
   text: string
 }
 
+interface CodeCircle {
+  color: string
+  end: number
+  id: number
+  start: number
+}
+
 interface CodeLayerModifier {
   color?: string
   isBold?: boolean
   text: string
+}
+
+interface CodeCircleAnnotation {
+  color?: string
+  text: string
+}
+
+interface CodeRunRenderPiece {
+  circle?: CodeCircle
+  key: string
+  node: ReactNode
 }
 
 interface ImageVisual {
@@ -194,6 +213,7 @@ const shortcutCodeColors = {
   r: 'red',
   y: 'yellow',
 } as const
+const defaultCodeCircleColor = shortcutCodeColors.r
 
 function buildDefaultTutorialScript(tutorial: Tutorial) {
   return [
@@ -1409,7 +1429,12 @@ function getPaneVisualSignature(visual: PaneVisual | undefined) {
 
 function getCodeRunsSignature(runs: CodeTextRun[]) {
   return runs
-    .map((run) => `${run.text}:${run.color ?? ''}:${run.href ?? ''}:${run.isBold ? '1' : '0'}`)
+    .map(
+      (run) =>
+        `${run.text}:${run.color ?? ''}:${run.href ?? ''}:${run.isBold ? '1' : '0'}:${
+          run.circle ? `${run.circle.id},${run.circle.color},${run.circle.start},${run.circle.end}` : ''
+        }`,
+    )
     .join('|')
 }
 
@@ -1474,13 +1499,22 @@ function hasLaterPlayableSegment(segments: TutorialPlayerSegment[], fromIndex: n
 
 function formatCodeBlocks(blocks: string[]) {
   const runs: CodeTextRun[] = []
+  const circleAnnotations: CodeCircleAnnotation[] = []
 
   blocks.filter(Boolean).forEach((block, index, filteredBlocks) => {
-    parseCodeMarkup(block).forEach((run) => addCodeRun(runs, run.text, run.isBold, run.color, run.href))
+    const extractedBlock = extractCodeCircleAnnotations(block)
+    circleAnnotations.push(...extractedBlock.annotations)
+    parseCodeMarkup(extractedBlock.code).forEach((run) =>
+      addCodeRun(runs, run.text, run.isBold, run.color, run.href, run.circle),
+    )
 
     if (index < filteredBlocks.length - 1) {
       addCodeRun(runs, '\n', false)
     }
+  })
+
+  circleAnnotations.forEach((annotation) => {
+    applyCodeCircleAnnotation(runs, annotation)
   })
 
   return {
@@ -1496,8 +1530,10 @@ function applyCodeLayers(formattedCode: { runs: CodeTextRun[]; text: string }, l
     parseCodeLayerCommands(layer).forEach((command) => {
       if (command.type === 'clear') {
         runs = resetCodeRunFormatting(runs)
-      } else {
+      } else if (command.type === 'mod') {
         runs = applyCodeLayerModifier(runs, command.modifier)
+      } else {
+        applyCodeCircleAnnotation(runs, command.annotation)
       }
     })
   })
@@ -1509,8 +1545,10 @@ function applyCodeLayers(formattedCode: { runs: CodeTextRun[]; text: string }, l
 }
 
 function parseCodeLayerCommands(layer: string) {
-  const commands: Array<{ type: 'clear' } | { type: 'mod'; modifier: CodeLayerModifier }> = []
-  const commandPattern = /\[\s*(?:(clear)|mod\s*:\s*"((?:\\.|[^"\\])*)"\s*(?:,\s*([^\]]+))?)\]/gi
+  const commands: Array<
+    { type: 'clear' } | { type: 'mod'; modifier: CodeLayerModifier } | { type: 'circle'; annotation: CodeCircleAnnotation }
+  > = []
+  const commandPattern = /\[\s*(?:(clear)|(mod|circle)\s*:\s*"((?:\\.|[^"\\])*)"\s*(?:,\s*([^\]]+))?)\]/gi
   let match: RegExpExecArray | null
 
   while ((match = commandPattern.exec(layer))) {
@@ -1519,16 +1557,27 @@ function parseCodeLayerCommands(layer: string) {
       continue
     }
 
-    const modifierText = match[2]?.replace(/\\"/g, '"') ?? ''
-    if (!modifierText) continue
+    const commandType = match[2]?.toLowerCase()
+    const commandText = unescapeQuotedCodeText(match[3] ?? '')
+    if (!commandText) continue
 
-    commands.push({
-      type: 'mod',
-      modifier: {
-        text: modifierText,
-        ...parseCodeLayerModifierOptions(match[3] ?? ''),
-      },
-    })
+    if (commandType === 'circle') {
+      commands.push({
+        type: 'circle',
+        annotation: {
+          text: getRenderedCodeText(commandText),
+          ...parseCodeCircleOptions(match[4] ?? ''),
+        },
+      })
+    } else {
+      commands.push({
+        type: 'mod',
+        modifier: {
+          text: commandText,
+          ...parseCodeLayerModifierOptions(match[4] ?? ''),
+        },
+      })
+    }
   }
 
   return commands
@@ -1536,10 +1585,10 @@ function parseCodeLayerCommands(layer: string) {
 
 function parseCodeLayerModifierOptions(options: string) {
   const modifier: Omit<CodeLayerModifier, 'text'> = {}
-  const colorMatch = options.match(/\bcolor\s*:\s*(#?[0-9a-f]{6})\b/i)
+  const color = parseCodeColorOption(options)
 
-  if (colorMatch) {
-    modifier.color = normalizeCodeColor(colorMatch[1])
+  if (color) {
+    modifier.color = color
   }
 
   if (/\bbold\b/i.test(options)) {
@@ -1547,6 +1596,58 @@ function parseCodeLayerModifierOptions(options: string) {
   }
 
   return modifier
+}
+
+function parseCodeCircleOptions(options: string) {
+  const annotation: Omit<CodeCircleAnnotation, 'text'> = {}
+  const color = parseCodeColorOption(options)
+
+  if (color) {
+    annotation.color = color
+  }
+
+  return annotation
+}
+
+function extractCodeCircleAnnotations(code: string) {
+  const annotations: CodeCircleAnnotation[] = []
+  const lines = code.split(/\r?\n/)
+
+  const visibleLines = lines
+    .map((line) => {
+      let hasCircleCommand = false
+      const visibleLine = line.replace(getCodeCircleCommandPattern(), (_command, target: string, options = '') => {
+        hasCircleCommand = true
+
+        const text = unescapeQuotedCodeText(target)
+        if (text) {
+          annotations.push({
+            text: getRenderedCodeText(text),
+            ...parseCodeCircleOptions(options),
+          })
+        }
+
+        return text
+      })
+
+      return hasCircleCommand && visibleLine.trim() === '' ? undefined : visibleLine
+    })
+    .filter((line): line is string => line !== undefined)
+
+  return {
+    annotations,
+    code: visibleLines.join('\n'),
+  }
+}
+
+function getCodeCircleCommandPattern() {
+  return /\[\s*circle\s*:\s*"((?:\\.|[^"\\])*)"\s*(?:,\s*([^\]]+))?\]/gi
+}
+
+function getRenderedCodeText(code: string) {
+  return parseCodeMarkup(code)
+    .map((run) => run.text)
+    .join('')
 }
 
 function resetCodeRunFormatting(runs: CodeTextRun[]) {
@@ -1592,6 +1693,7 @@ function applyCodeLayerModifier(runs: CodeTextRun[], modifier: CodeLayerModifier
           run.isBold,
           run.color,
           run.href,
+          run.circle,
         )
         addCodeRun(
           nextRuns,
@@ -1599,6 +1701,7 @@ function applyCodeLayerModifier(runs: CodeTextRun[], modifier: CodeLayerModifier
           modifier.isBold ?? run.isBold,
           modifier.color ?? run.color,
           run.href,
+          run.circle,
         )
         runCursor = styledEnd
       })
@@ -1609,10 +1712,84 @@ function applyCodeLayerModifier(runs: CodeTextRun[], modifier: CodeLayerModifier
       run.isBold,
       run.color,
       run.href,
+      run.circle,
     )
   })
 
   return nextRuns
+}
+
+function applyCodeCircleAnnotation(runs: CodeTextRun[], annotation: CodeCircleAnnotation) {
+  if (!annotation.text) return runs
+
+  const text = runs.map((run) => run.text).join('')
+  const ranges: TextRange[] = []
+  let matchIndex = text.indexOf(annotation.text)
+
+  while (matchIndex >= 0) {
+    ranges.push({ start: matchIndex, end: matchIndex + annotation.text.length })
+    matchIndex = text.indexOf(annotation.text, matchIndex + annotation.text.length)
+  }
+
+  if (ranges.length === 0) return runs
+
+  const nextRuns: CodeTextRun[] = []
+  let cursor = 0
+  const nextCircleId = getNextCodeCircleId(runs)
+
+  runs.forEach((run) => {
+    const runStart = cursor
+    const runEnd = cursor + run.text.length
+    cursor = runEnd
+    let runCursor = runStart
+
+    ranges
+      .filter((range) => rangesOverlap(runStart, runEnd, range.start, range.end))
+      .forEach((range) => {
+        const styledStart = Math.max(runStart, range.start)
+        const styledEnd = Math.min(runEnd, range.end)
+        const circle = {
+          color: annotation.color ?? defaultCodeCircleColor,
+          end: range.end,
+          id: nextCircleId + ranges.indexOf(range),
+          start: range.start,
+        }
+
+        addCodeRun(
+          nextRuns,
+          run.text.slice(runCursor - runStart, styledStart - runStart),
+          run.isBold,
+          run.color,
+          run.href,
+          run.circle,
+        )
+        addCodeRun(
+          nextRuns,
+          run.text.slice(styledStart - runStart, styledEnd - runStart),
+          run.isBold,
+          run.color,
+          run.href,
+          circle,
+        )
+        runCursor = styledEnd
+      })
+
+    addCodeRun(
+      nextRuns,
+      run.text.slice(runCursor - runStart),
+      run.isBold,
+      run.color,
+      run.href,
+      run.circle,
+    )
+  })
+
+  runs.splice(0, runs.length, ...nextRuns)
+  return runs
+}
+
+function getNextCodeCircleId(runs: CodeTextRun[]) {
+  return runs.reduce((nextId, run) => Math.max(nextId, (run.circle?.id ?? -1) + 1), 0)
 }
 
 function parseCodeMarkup(code: string) {
@@ -1631,7 +1808,7 @@ function parseCodeMarkup(code: string) {
       continue
     }
 
-    const colorTagMatch = code.slice(index).match(/^\[color\s*:\s*(default|#?[0-9a-f]{6})\]/i)
+    const colorTagMatch = code.slice(index).match(/^\[color\s*:\s*(default|#?[0-9a-f]{6}|[rgboym])\]/i)
     if (colorTagMatch) {
       addCodeRun(runs, buffer, isBold, color)
       buffer = ''
@@ -1685,10 +1862,25 @@ function parseCodeMarkup(code: string) {
 }
 
 function normalizeCodeColor(value: string) {
-  if (value.toLowerCase() === 'default') return undefined
+  const trimmedValue = value.trim()
+  if (trimmedValue.toLowerCase() === 'default') return undefined
 
-  const hex = value.replace(/^#/, '')
+  const shortcutColor = shortcutCodeColors[trimmedValue.toLowerCase() as keyof typeof shortcutCodeColors]
+  if (shortcutColor) return shortcutColor
+
+  const hex = trimmedValue.replace(/^#/, '')
   return `#${hex.toUpperCase()}`
+}
+
+function parseCodeColorOption(options: string) {
+  const colorMatch = options.match(/\bcolor\s*:\s*(default|#?[0-9a-f]{6}|[rgboym])\b/i)
+  if (!colorMatch) return undefined
+
+  return normalizeCodeColor(colorMatch[1])
+}
+
+function unescapeQuotedCodeText(text: string) {
+  return text.replace(/\\(["\\])/g, '$1')
 }
 
 function addCodeRun(
@@ -1697,20 +1889,32 @@ function addCodeRun(
   isBold: boolean,
   color?: string,
   href?: string,
+  circle?: CodeCircle,
 ) {
   if (!text) return
 
   const lastRun = runs.at(-1)
-  if (lastRun?.isBold === isBold && lastRun.color === color && lastRun.href === href) {
+  if (
+    lastRun?.isBold === isBold &&
+    lastRun.color === color &&
+    lastRun.href === href &&
+    codeCirclesMatch(lastRun.circle, circle)
+  ) {
     lastRun.text += text
     return
   }
 
-  runs.push({ color, href, isBold, text })
+  runs.push({ circle, color, href, isBold, text })
+}
+
+function codeCirclesMatch(left: CodeCircle | undefined, right: CodeCircle | undefined) {
+  if (!left || !right) return left === right
+
+  return left.id === right.id && left.color === right.color && left.start === right.start && left.end === right.end
 }
 
 function renderCodeRuns(runs: CodeTextRun[], start = 0, end = Number.POSITIVE_INFINITY) {
-  const nodes = []
+  const pieces: CodeRunRenderPiece[] = []
   let cursor = 0
 
   for (const run of runs) {
@@ -1724,31 +1928,83 @@ function renderCodeRuns(runs: CodeTextRun[], start = 0, end = Number.POSITIVE_IN
 
     const text = run.text.slice(Math.max(start, runStart) - runStart, Math.min(end, runEnd) - runStart)
 
-    if (run.href) {
-      nodes.push(
-        <a
-          className={`${run.isBold ? 'font-black ' : ''}underline decoration-cyan-300/70 underline-offset-4 transition hover:text-cyan-200`}
-          href={run.href}
-          key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.href}-${run.isBold}`}
-          rel="noreferrer"
-          style={run.color ? { color: run.color } : undefined}
-          target="_blank"
-        >
-          {text}
-        </a>,
-      )
+    pieces.push({
+      circle: run.circle,
+      key: `${runStart}-${runEnd}-${run.color ?? 'default'}-${run.href ?? ''}-${run.isBold}-${run.circle?.id ?? 'none'}`,
+      node: renderCodeRunNode(run, text, runStart, runEnd),
+    })
+  }
+
+  return groupCodeRunPieces(pieces, start, end)
+}
+
+function renderCodeRunNode(run: CodeTextRun, text: string, runStart: number, runEnd: number) {
+  if (run.href) {
+    return (
+      <a
+        className={`${run.isBold ? 'font-black ' : ''}underline decoration-cyan-300/70 underline-offset-4 transition hover:text-cyan-200`}
+        href={run.href}
+        key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.href}-${run.isBold}`}
+        rel="noreferrer"
+        style={run.color ? { color: run.color } : undefined}
+        target="_blank"
+      >
+        {text}
+      </a>
+    )
+  }
+
+  return (
+    <span
+      className={run.isBold ? 'font-black' : undefined}
+      key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.isBold}`}
+      style={run.color ? { color: run.color } : undefined}
+    >
+      {text}
+    </span>
+  )
+}
+
+function groupCodeRunPieces(pieces: CodeRunRenderPiece[], start: number, end: number) {
+  const nodes: ReactNode[] = []
+  let index = 0
+
+  while (index < pieces.length) {
+    const circle = pieces[index]?.circle
+
+    if (!circle) {
+      nodes.push(pieces[index].node)
+      index += 1
       continue
     }
 
-    nodes.push(
-      <span
-        className={run.isBold ? 'font-black' : undefined}
-        key={`${runStart}-${runEnd}-${run.color ?? 'default'}-${run.isBold}`}
-        style={run.color ? { color: run.color } : undefined}
-      >
-        {text}
-      </span>,
-    )
+    const groupedPieces = []
+    let groupIndex = index
+
+    while (groupIndex < pieces.length && pieces[groupIndex].circle?.id === circle.id) {
+      groupedPieces.push(pieces[groupIndex])
+      groupIndex += 1
+    }
+
+    if (start <= circle.start && end >= circle.end) {
+      nodes.push(
+        <span
+          className="relative -mx-1 inline-block px-1"
+          key={`circle-${circle.id}-${groupedPieces.map((piece) => piece.key).join('-')}`}
+        >
+          {groupedPieces.map((piece) => piece.node)}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-x-1 -inset-y-0.5 rounded-[50%] border-2 shadow-[0_0_12px_currentColor]"
+            style={{ borderColor: circle.color, color: circle.color }}
+          />
+        </span>,
+      )
+    } else {
+      groupedPieces.forEach((piece) => nodes.push(piece.node))
+    }
+
+    index = groupIndex
   }
 
   return nodes

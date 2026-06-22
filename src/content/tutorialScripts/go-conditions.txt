@@ -1,6 +1,53 @@
-[img: /assets/tutorials/language-fundamentals/go-conditions.svg]
-A go condition is a gate placed before a procedure, event, or action.
+```
+[color:00FF00][player1_ko==0 && game_status!=GAME_STATE_OVER][color:default]
+when key X is pressed once do
+  action = PLAYER_ACTION_X_1 
+  player1.look at (player2)
+  player1.move forward 0.3 for 0.2 seconds
+end do
+```
+A guard condition is a gate placed before a procedure, event, or action.
 The command below the condition can run only when the condition is true.
-Here, game_over is allowed only when game_status equals 0 and ko equals 1.
-This protects gameplay actions from running at the wrong time.
-Use go conditions for attacks, game-over screens, level transitions, and input that should work only in a specific state.
+[wait:1]
+In this sample, pressing on "X" will do something 
+```#
+[clear]
+[mod: "player1_ko==0",color:FF0000]
+```
+only if the player is not knocked-out, 
+```#
+[clear]
+[mod: "game_status!=GAME_STATE_OVER",color:FF0000]
+```
+and the game is not over.
+[wait:2]
+```
+[color:00FF00][player2.data.is_jumping == 0][color:default]
+old_fighter_jump (p) = {
+	player2.data.is_jumping = 1
+	audio.play "jump1"
+}
+```
+In this sample, the procedure "old_fighter_jump", will work 
+```#
+[clear]
+[mod: "is_jumping == 0",color:FF0000]
+```
+only if the player is not currently jumping.
+[wait:1]
+[img2: /assets/tutorials/language-fundamentals/pasted-2026-06-21T04-33-37-739Z.png]
+the guard condition can also protect from unwanted animations to play.
+```
+[player1.data.takedown_punches==0]
+ player1.idle2 loop
+``` 
+in this example, the player will play
+```#
+[mod:"idle2",color:FF0000]
+```
+ the "idle2" animation only if he is 
+```#
+[clear]
+[mod:"takedown_punches==0",color:FF0000]
+```
+not in a takedown punches state.

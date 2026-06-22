@@ -1,6 +1,39 @@
-[img: /assets/tutorials/language-fundamentals/continuous-go-conditions-go-conditions.svg]
-A continuous go condition starts with the # symbol.
-Regular go conditions check before a command starts. Continuous go conditions keep checking while the block runs.
-In this example, the movement loop is allowed only while player_is_jumping is 0.
-If another part of the game changes player_is_jumping, the loop can stop immediately.
-Use this for movement, attacks, charging actions, or any behavior that must cancel when the game state changes.
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-21T05-03-31-882Z.png]
+A regular guard condition is working just once, allowing the procedure to run or not.
+```
+[game_over == 0]
+player_shoot = {
+  player1.look at (player2)
+  player1.move forward 0.3 in 0.5 seconds
+  player1.aim
+  player1.shoot
+}
+``` 
+in this example, the player_shoot procedure will be allowed to run just if the game is not over. then, the procedure will execute 4 commands 
+```#
+[mod:"look",color:FF0000]
+[mod:"move",color:FF00FF]
+[mod:"aim",color:00FF00]
+```
+(look, move, aim, shoot).
+a continues guard condition, protects the procedure even after it started its execution.
+```
+#[game_over == 0]
+player_shoot = {
+  player1.look at (player2)
+  player1.move forward 0.3 in 0.5 seconds
+  player1.aim
+  player1.shoot
+}
+```
+In this example, the player_shoot procedure is allowed to run only while the game is not over, just like in the previous example. However, unlike the previous example,
+```#
+[mod:"#",color:00FF00]
+```
+ the procedure continuously checks the guard condition during its execution and will stop immediately if the condition becomes false.
+[img2: /assets/tutorials/language-fundamentals/pasted-2026-06-21T05-03-31-882Z.png]
+For example, if the procedure has already started running 
+```#
+[mod: "player1.aim",color:FF0000]
+```
+and reaches the "player.aim" command, but the guard condition game_over == 0 becomes false before that command is executed, the procedure will terminate immediately and the player dot aim command will not be executed.
