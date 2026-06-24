@@ -1,5 +1,53 @@
-Move explains one basic movement, rotation, facing, or measurement idea.
-Use this when position or facing direction affects gameplay, not just appearance.
-In a fighting game, this is what makes a punch, jump, dodge, replay path, or knockback feel responsive instead of random.
-The sample begins with d.move left 3 in 2 seconds. In plain language, it moves something through the world using distance and time.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/movement-animation/pasted-2026-06-23T20-49-10-983Z.png]
+In SceneMax3D, any game object can easily move and rotate in 3D space. Being it a choreography language, the dimension of time is embedded in the various move and rotate commands.
+```
+d => dragon
+d.move [g]left 5 in 5 seconds
+```
+in this sample code, we command the dragon object to move to its left 5 meters in 5 seconds.
+```+
+d.move [g]right 7 in 3 seconds
+d.move [y]up 2 in 1 seconds
+d.move [y]down 2 in 1 seconds
+```
+we can command the object to move in other any direction as well.
+[wait:1]
+```
+d => dragon : pos (4,0,0)
+s => sinbad : pos (-4,0,0)
+s.[g]move [g]to (d) in 5 seconds
+```
+we can command an object to move to the position of another object. In this case, 
+[img2: /assets/tutorials/movement-animation/pasted-2026-06-23T20-37-24-944Z.png]
+Sinbad will move 8 meters to the position of the Dragon object.
+[wait:1]
+[layout:r1c1]
+```
+s.move to [color: y](d)+3[color:default] in 5 seconds
+```
+In this sample, the Sinbad, object will move to the position of the Dragon plus 3 meters in the same direction.
+[wait:2]
+a game Object can move to different directions at the same time using the "async" keyword.
+```
+d => dragon
+d.move [g]left 5 in 5 seconds [r]async
+d.move up 5 in 5 seconds
+``` 
+in this sample, the dragon moves to the **left** 5 meters in 5 seconds, and it is doing it asynchronously using the "async" attribute, which means that the command is non-blocking,
+```#
+[mod: "up", color: g] 
+```
+ so the next command, which moves the dragon up, 5 meters in 5 seconds, is executing at the same time. Since the dragon moves to the left and up, same amount of meters and at the same amount of time, we will see it actually moving 45 degrees up-left.
+[wait:2]
+[layout:r1c2]
+```r1c1
+d => dragon
+d.[g]turn [y]left [y]360 in 10 seconds
+```
+in the same way, we can also turn the game object to any direction. 
+alternatively, we can rotate the game object using any of the 3d axes.
+```r1c2
+d => dragon
+d.[g]rotate ([y]y+[y]360) in 10 seconds
+```
+this code, is equivalent to turning the dragon left 360 degrees.

@@ -15,11 +15,11 @@ when a == 10 [r]after a == 5 [r]after a == 1 do
   sys.print "do something"
 end do 
 ```  
-sometimes you need to wait for a sequence of conditions to happen before the handler is triggered. In this case, variable "a" needs to be equal to 1 then 5 then 10 in order for the handler's code to run. imagine a fighter, holding the opponent's body **then** turns **then** throws. this is a sequence of conditions that allows the opponent to start the being thrown animation.
+sometimes you need to wait for a sequence of conditions to happen before the handler is triggered. In this case, variable "a", needs to be equal to 1 then 5 then 10 in order for the handler's code to run. imagine a fighter, holding the opponent's body **then** turns **then** throws. this is a sequence of conditions that allows the opponent to start the being thrown animation.
 ```+
 a = [r]1
 [circle: "a = 2" ]
 a = [r]5
 a = [r]10
 ```
-this sequence of variable assignments will NOT trigger the when handler because variable "a" is set to  2 after it was equal to 1.
+this sequence of variable assignments will NOT trigger the when handler because variable "a", is set to  2 after it was equal to 1.

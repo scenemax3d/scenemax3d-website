@@ -1,6 +1,10 @@
-[img: /assets/tutorials/language-fundamentals/mouse-events.svg]
-A mouse event runs code when the player clicks.
-You can listen for a click anywhere, or you can attach the event to a specific object.
-In this example, the command runs only when the player clicks on the Sinbad model.
-That makes the click meaningful instead of reacting to every place on the screen.
-Use mouse events for selecting units, clicking buttons in a 3D scene, opening chests, or inspecting objects.
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-23T05-59-08-336Z.png]
+A mouse event runs code whenever the player clicks with the mouse on some game object.
+```
+player1 => sinbad
+
+when [g]mouse [g]left is pressed on [y]player1 do
+  player1.turn left 30 in 1 second
+end do
+```
+in this example, the player1 game object, will turn 30 degrees to the left whenever the user clicks with the mouse left button on it. In Android, this will translate to the user, touching player1.

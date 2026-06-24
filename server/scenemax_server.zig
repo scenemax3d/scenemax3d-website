@@ -11,6 +11,7 @@ const c = @cImport({
     @cInclude("string.h");
     @cInclude("sys/socket.h");
     @cInclude("sys/stat.h");
+    @cInclude("sys/time.h");
     @cInclude("sys/types.h");
     @cInclude("unistd.h");
 });
@@ -76,8 +77,14 @@ pub fn main() !void {
     addr.sin_port = c.htons(@intCast(port));
     addr.sin_addr.s_addr = c.htonl(c.INADDR_ANY);
 
-    if (c.bind(server_fd, @ptrCast(&addr), @sizeOf(c.sockaddr_in)) != 0) return error.BindFailed;
-    if (c.listen(server_fd, 128) != 0) return error.ListenFailed;
+    if (c.bind(server_fd, @ptrCast(&addr), @sizeOf(c.sockaddr_in)) != 0) {
+        std.debug.print("Failed to bind 0.0.0.0:{d}. Another process may already be listening on this port.\n", .{port});
+        return error.BindFailed;
+    }
+    if (c.listen(server_fd, 128) != 0) {
+        std.debug.print("Failed to listen on 0.0.0.0:{d}.\n", .{port});
+        return error.ListenFailed;
+    }
 
     std.debug.print("SceneMax Zig server listening on http://0.0.0.0:{d}\n", .{port});
     if (auth_header.len == 0) {
@@ -87,11 +94,21 @@ pub fn main() !void {
     while (true) {
         const client_fd = c.accept(server_fd, null, null);
         if (client_fd < 0) continue;
-        handleConnection(allocator, client_fd, auth_header) catch |err| {
-            std.debug.print("request failed: {t}\n", .{err});
+        setClientTimeouts(client_fd);
+        const thread = std.Thread.spawn(.{}, handleConnectionThread, .{ allocator, client_fd, auth_header }) catch |err| {
+            std.debug.print("failed to spawn request worker: {t}\n", .{err});
+            _ = c.close(client_fd);
+            continue;
         };
-        _ = c.close(client_fd);
+        thread.detach();
     }
+}
+
+fn handleConnectionThread(allocator: Allocator, fd: c_int, auth_header: []const u8) void {
+    defer _ = c.close(fd);
+    handleConnection(allocator, fd, auth_header) catch |err| {
+        std.debug.print("request failed: {t}\n", .{err});
+    };
 }
 
 fn handleConnection(allocator: Allocator, fd: c_int, auth_header: []const u8) !void {
@@ -129,6 +146,15 @@ fn handleConnection(allocator: Allocator, fd: c_int, auth_header: []const u8) !v
     }
 
     try handleStatic(allocator, fd, request);
+}
+
+fn setClientTimeouts(fd: c_int) void {
+    var timeout: c.timeval = .{
+        .tv_sec = 10,
+        .tv_usec = 0,
+    };
+    _ = c.setsockopt(fd, c.SOL_SOCKET, c.SO_RCVTIMEO, &timeout, @sizeOf(c.timeval));
+    _ = c.setsockopt(fd, c.SOL_SOCKET, c.SO_SNDTIMEO, &timeout, @sizeOf(c.timeval));
 }
 
 fn readHttpRequest(allocator: Allocator, fd: c_int) ![]u8 {

@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "deploy:remote": "powershell -ExecutionPolicy Bypass -File tools/deploy-remote.ps1",
     "serve": "node server/server.mjs",
     "start": "node server/server.mjs"
   },

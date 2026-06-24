@@ -76,6 +76,33 @@ The production server:
 
 Tutorial edits are written back to `src/content/` and uploaded media is written to `public/assets/tutorials/`. Public tutorial list and detail pages fetch that tutorial content from the backend on refresh, so tutorial clip/script/sample changes do not require a rebuild or restart. Changes to the general website structure still require `npm run build`.
 
+## Remote Deploy Task
+
+Use the PowerShell deploy task to rebuild the frontend, back up the remote folders, upload local tutorial content/assets, upload `dist/`, and verify the live server:
+
+```powershell
+npm run deploy:remote -- -Force
+```
+
+The task uses the saved PuTTY session `mamreem` and the remote folder `/root/scenemax-website` by default. It syncs:
+
+- `src/content/`
+- `public/assets/tutorials/`
+- `dist/`
+
+To also rebuild and deploy the Zig server binary:
+
+```powershell
+npm run deploy:remote -- -Force -DeployServer
+```
+
+Useful options:
+
+- `-SkipBuild` keeps the current local `dist/`
+- `-SkipContent` skips `src/content/`
+- `-SkipAssets` skips `public/assets/tutorials/`
+- `-SkipDist` skips `dist/`
+
 The Node backend can still be used on machines with a modern Node.js install:
 
 ```bash

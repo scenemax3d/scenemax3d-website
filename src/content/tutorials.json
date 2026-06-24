@@ -968,18 +968,18 @@
   {
     "id": "declaring-an-effekseer-effect",
     "slug": "declaring-an-effekseer-effect",
-    "title": "Declaring An Effekseer Effect",
+    "title": "An Effekseer Effect",
     "description": "Give an imported Effekseer asset a SceneMax variable name so later commands can use it.",
     "categoryId": "lighting-visuals",
     "subcategoryId": "effekseer-runtime",
-    "subject": "Declaring An Effekseer Effect",
+    "subject": "An Effekseer Effect",
     "clipFocus": "Explain how effect declaration names an imported Effekseer asset for later play, attach, hide, show, and delete commands.",
     "sourceDoc": "effects.md",
     "sourceLine": 24,
     "difficulty": "intermediate",
     "duration": "1:45",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/lighting-visuals/pasted-2026-06-22T18-08-13-317Z.png",
     "tags": [
       "lighting-visuals",
       "effekseer-runtime",
@@ -1033,7 +1033,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-23T05-50-45-728Z.png",
     "tags": [
       "language-fundamentals",
       "events-input",
@@ -1062,7 +1062,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-23T05-59-08-336Z.png",
     "tags": [
       "language-fundamentals",
       "events-input",
@@ -1120,7 +1120,7 @@
     "difficulty": "intermediate",
     "duration": "4:30",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/physics-gameplay/pasted-2026-06-23T17-32-06-444Z.png",
     "tags": [
       "physics-gameplay",
       "levels-state",
@@ -1189,7 +1189,7 @@
   {
     "id": "move",
     "slug": "move",
-    "title": "Move",
+    "title": "Move And Rotate",
     "description": "A short focused SceneMax3D lesson about Move.",
     "categoryId": "movement-animation",
     "subcategoryId": "movement-basics",
@@ -1200,7 +1200,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/movement-animation/pasted-2026-06-23T20-37-24-944Z.png",
     "tags": [
       "movement-animation",
       "movement-basics",

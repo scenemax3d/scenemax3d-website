@@ -167,7 +167,7 @@
   "declaring-an-effekseer-effect": {
     "language": "scenemax",
     "caption": "Declare a real imported effect from the fighting game project.",
-    "code": "fire_fx => effects.effekseer.A_Salamander1"
+    "code": "laser_effect => effects.effekseer.Homing_Laser01_3//Laser02_3\nlaser_effect.play pos (player1)"
   },
   "built-in-effects": {
     "language": "scenemax",
@@ -182,7 +182,7 @@
   "mouse-events": {
     "language": "scenemax",
     "caption": "SceneMax example for Mouse Events.",
-    "code": "player => sinbad\n\nwhen mouse left is pressed on player do\n  player.turn left 360 in 1 second\nend do"
+    "code": "player1 => sinbad\n\nwhen mouse left is pressed on player1 do\n  player1.turn left 360 in 1 second\nend do"
   },
   "project-settings": {
     "language": "scenemax",

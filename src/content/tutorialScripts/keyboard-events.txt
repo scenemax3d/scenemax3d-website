@@ -1,6 +1,14 @@
-[img: /assets/tutorials/language-fundamentals/keyboard-events.svg]
-A keyboard event runs code when the player presses a key.
-The event block starts with when key, the key name, and the phrase is pressed.
-Adding once means the action happens once per press instead of repeating every frame while the key is held.
-In this example, pressing the up key moves the player forward.
-Use keyboard events for movement, attacks, jumps, menu shortcuts, and testing gameplay quickly.
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-23T05-50-45-728Z.png]
+It's so easy in SceneMax3D, to react to keyboard events.
+```
+when key [g]Space is pressed do
+  player1.turn left 30 in 1 second
+end do
+```
+you simply define an event handler for key-press. In this example, we register an event handler for the Space key-press event. whenever the player presses on the Spacebar key, the player1 object will turn 30 degrees to the left. this will happen as long as the spacebar is pressed.
+```
+when key Space is pressed [circle: "once", color r] do
+  player1.turn left 30 in 1 second
+end do
+```
+you can add the keyword "Once", in the event handler. this will make sure that the code will run just once every spacebar key press. in order to make it run again, the user will need to release, and press again.

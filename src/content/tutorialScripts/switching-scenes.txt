@@ -1,5 +1,24 @@
-Switching Scenes explains a gameplay rule or feedback system.
-Use this when the scene must follow a rule, such as hit detection, physics motion, audio feedback, level state, or scoring.
-In combat gameplay, these systems decide when an attack connects, when an object moves physically, when audio plays, and when game state changes.
-The sample begins with switch to "level2". In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/physics-gameplay/pasted-2026-06-23T17-32-06-444Z.png]
+A scene, is a folder in the game project, containing "main" file and optional additional scripts and UI designers.
+A scene usually used for organizing and running everything required for a specific game level or game stage.
+```
+Game       - [g]Intro
+Game level - [y]one
+Game level - [m]Train
+``` 
+[img2: /assets/tutorials/physics-gameplay/pasted-2026-06-23T17-33-38-984Z.png]
+for example, in this fighting game folder structure, we can see how the game levels are organized. Each game level has its own folder, its own level UI designer, its own "main" file, and additional files and folders as needed.
+[wait: 2]
+```
+canvas.size 1600,900
+screen.mode borderless 
+
+switch to [circle: "\"game_intro\"", color: r]
+```
+The general "main" file of the game, decides which game level to start with. In the demo fighting game, we start with the scene called "game_intro", which is placed in a folder with exactly that name as you can see in the folder structure picture. The "switch to" command, tells the game engine to run the "main" file in the specified folder.
+[wait:2]
+[layout: r1c1]
+```
+[ref: "READ MORE ABOUT SCENES" (https://github.com/scenemax3d/scenemax3d-desktop/blob/main/docs/levels-and-shared-state.md)]
+```
+read more about scenes and game levels structure, in the link above.

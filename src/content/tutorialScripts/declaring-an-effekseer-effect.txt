@@ -1,4 +1,16 @@
-[img: /assets/tutorials/effekseer-runtime/declare-effect.svg]
-Before you can play an Effekseer effect, give it a SceneMax name.
-The left side, fire_fx, is the variable name you will use in later commands. The right side, effects dot effekseer dot A_Salamander1, points to the imported effect asset.
-After this line, fire_fx behaves like a runtime object. You can play it, attach it, aim it, hide it, show it, or delete it.
+[img: /assets/tutorials/lighting-visuals/pasted-2026-06-22T18-08-13-317Z.png]
+Effekseer is a popular open source, particle effect editing tool. SceneMax3D has a built-in Effekseer effects importer. 
+[img: /assets/tutorials/lighting-visuals/pasted-2026-06-22T18-10-35-596Z.png]
+Simply select Assets -> import Effekseer effect, select the Effekseer file which can be downloaded from their website, give an ID and that's it.
+```
+laser_effect => effects.effekseer.[circle: "Homing_Laser01_3", color r]
+laser_effect.play pos (player1)
+```
+[img2: /assets/tutorials/lighting-visuals/pasted-2026-06-22T18-21-07-109Z.png]
+in run-time, simply load the Effekseer effect and play it. in this sample, we load the "Homing_Laser01_3" effect and play it in the position of player1.
+[wait: 2]
+[layout:r1c1]
+```
+[ref: READ MORE ABOUT EFFEKSEER EFFECTS (https://github.com/scenemax3d/scenemax3d-desktop/blob/main/docs/effects.md)]
+```
+read more about using Effekseer particle effects in the link above.
