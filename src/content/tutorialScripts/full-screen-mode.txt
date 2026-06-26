@@ -1,5 +1,11 @@
-Full Screen Mode explains how information is shown on the screen.
-Use this when the player needs information without reading code or guessing what happened.
-In a game screen, this helps show health, score, prompts, messages, buttons, or feedback while the player is focused on action.
-The sample begins with Screen.mode full. In plain language, it shows the command or data shape used by this lesson.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+In your project's main file, you can set the screen size and mode.
+```
+canvas.size 1600,900
+screen.[g]mode borderless 
+```
+for example, when setting the screen mode to "borderless", the game will render on a flat screen with no borders. exiting the game will be done by pressing the **Escape** button.
+```
+canvas.size 1600,900
+screen.[g]mode full
+```
+screen mode full, is the most impressive mode. All the screen is used for rendering the game's scene.

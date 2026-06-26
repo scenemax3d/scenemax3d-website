@@ -1,6 +1,21 @@
-[img: /assets/tutorials/language-fundamentals/if-else.svg]
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-24T19-31-51-293Z.png]
 If and else let the game choose between two paths.
+```
+d => dragon
+when key space is pressed once do
+  [g]if (d.data.move_dir == 1) {
+    d.move left 3 in 3 seconds
+    d.data.move_dir = 0
+  } [g]else {
+    d.move right 3 in 1 second
+    d.data.move_dir = 1
+  }
+end do
+```
 The condition after if is checked first. If it is true, the commands inside the if block run.
 If the condition is false, SceneMax skips that block and runs the else block instead.
-In this example, the player gets the bonus message only when score equals 10.
-Use if and else for doors, rewards, health checks, game-over rules, and any moment where the game must make a decision.
+In this example, whenever the player presses on the 
+```#
+[mod: "space", color: r]
+```
+"Space" key, the "If" statement, checks the "move_dir" flag and the dragon will move to the right, or to the left, accordingly.

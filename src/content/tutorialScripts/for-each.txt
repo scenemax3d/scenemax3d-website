@@ -1,6 +1,14 @@
-[img: /assets/tutorials/language-fundamentals/for-each.svg]
+[img: /assets/tutorials/language-fundamentals/pasted-2026-06-24T19-49-19-681Z.png]
+
 For each runs the same command on many objects.
 Instead of naming every model one by one, SceneMax gives you each matching object through a temporary variable.
-In this example, m represents the current model in the loop.
-The turn command runs once for Sinbad and once for Ninja.
+```
+d => dragon: pos (-4,0,0)
+s => sinbad
+n => ninja: pos (4,0,0)
+for [g]each model ([g]m) {
+  [g]m.move up 1 in 1 + rnd (2) seconds
+}
+```
+In this example, "m", represents the current model in the loop and each model in the scene, one after another, moves up 1 meter in 1 or 2 seconds.
 Use for each for cleanup, highlighting, resetting enemies, or applying the same effect to all objects of one type.

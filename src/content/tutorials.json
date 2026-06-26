@@ -763,7 +763,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-24T19-31-51-293Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",
@@ -856,7 +856,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/language-fundamentals/pasted-2026-06-24T19-49-19-681Z.png",
     "tags": [
       "language-fundamentals",
       "control-flow",
@@ -1076,35 +1076,6 @@
     "relatedTutorialIds": [
       "keyboard-events"
     ]
-  },
-  {
-    "id": "project-settings",
-    "slug": "project-settings",
-    "title": "Project Settings",
-    "description": "A short focused SceneMax3D lesson about Project Settings.",
-    "categoryId": "publishing",
-    "subcategoryId": "publishing-itchio",
-    "subject": "Project Settings",
-    "clipFocus": "Walk through Project Settings from itch.io Integration Guide, showing the relevant IDE panel, field, setup step, or workflow as one compact clip.",
-    "sourceDoc": "itchio-integration.md",
-    "sourceLine": 42,
-    "difficulty": "beginner",
-    "duration": "3:00",
-    "youtubeId": "",
-    "thumbnail": "",
-    "tags": [
-      "publishing",
-      "publishing-itchio",
-      "itchio-integration",
-      "itch",
-      "io",
-      "integration",
-      "guide",
-      "project"
-    ],
-    "featured": false,
-    "order": 349,
-    "relatedTutorialIds": []
   },
   {
     "id": "switching-scenes",
@@ -1337,7 +1308,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/objects-assets/pasted-2026-06-25T14-36-24-387Z.png",
     "tags": [
       "objects-assets",
       "colliders-assets",
@@ -1365,7 +1336,7 @@
     "difficulty": "beginner",
     "duration": "3:00",
     "youtubeId": "",
-    "thumbnail": "",
+    "thumbnail": "/assets/tutorials/objects-assets/pasted-2026-06-26T07-38-00-686Z.png",
     "tags": [
       "objects-assets",
       "object-lifecycle",

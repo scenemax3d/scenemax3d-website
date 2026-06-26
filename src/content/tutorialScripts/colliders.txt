@@ -1,5 +1,18 @@
-Colliders explains a helper for hits, attachments, resources, or debugging around objects.
-Use this when visual objects also need gameplay meaning, such as being hit, attached, detected, or debugged.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with player1_head => collider box : size(1,2,1). In plain language, it creates or loads an object and gives it a name for later commands.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/objects-assets/pasted-2026-06-25T14-36-24-387Z.png]
+Colliders are invisible boxes or spheres that can still trigger collision detection and affect the game flow.
+[img: /assets/tutorials/objects-assets/pasted-2026-06-25T14-50-38-493Z.png]
+for example, one or more colliders are attached to some fighter bones in a fighting game so that you can tell that here was a hit. In this picture we can see two colliders attached to the hands, two colliders for the feet, and one collider attached to the head of the fighter.
+```
+body_collider => [g]collider box
+```
+to make a box or a sphere to be a collider, you simply add the keyword collider when creating the object.
+```+
+body_collider.[g]attach to [m]player1: pos (0,1,0)
+```
+then, you can **attach** the collider to another object, in this case, player1.
+```+
+hand_collider.attach to player1.[circle: "\"mixamorig:LeftHand\"", color r]: pos (0,0,0)
+```
+you can also attach a collider to an object's bone (joint) if it has such. In this example, we attach a collider to a bone named "mixamorig:LeftHand".
+[img: /assets/tutorials/objects-assets/pasted-2026-06-25T20-14-16-539Z.png]
+Finally, just like any other game object, we can test for collision detection of any of those colliders with any other game object, for example if player1 hand collider collides with player2's head collider we can handle the state where hand hit head.

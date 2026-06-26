@@ -1,5 +1,14 @@
-Dynamic Type Creation explains how scene objects are created, reused, hidden, released, or removed.
-Use this when objects appear and disappear during play. Reusing or removing objects keeps the scene manageable.
-In a fighting game, objects and assets become fighters, weapons, hit colliders, arena pieces, pickups, and visual markers.
-The sample begins with var model_type="Sinbad". In plain language, it gives a value a name so later commands can read or change it.
-The key idea is to know what problem this feature solves before using it in a larger scene.
+[img: /assets/tutorials/objects-assets/pasted-2026-06-26T07-38-00-686Z.png]
+Dynamic object type is the ability to determine the type based on some logic.
+```
+var [r]object_types = ["Sinbad", "Ninja", "Dragon"]
+```
+in this example, we put some possible object types in an array of strings.
+```+
+[r]my_model => (object_types[ rnd(3) ])
+```
+then, we create a model, where its type is randomly selected from the **object_types**  array.
+```+
+my_model.[r]turn left 360 in 5 seconds
+```
+finally, we turn the created object, left 360 degrees.

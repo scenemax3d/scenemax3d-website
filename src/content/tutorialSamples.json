@@ -184,11 +184,6 @@
     "caption": "SceneMax example for Mouse Events.",
     "code": "player1 => sinbad\n\nwhen mouse left is pressed on player1 do\n  player1.turn left 360 in 1 second\nend do"
   },
-  "project-settings": {
-    "language": "scenemax",
-    "caption": "Fighting-game-style example for Project Settings.",
-    "code": "using fighter1,fighter2 model\nusing punch1,kick3 audio\nusing perfect1 sprite\n\nheader.print \"Build ready for itch.io upload\""
-  },
   "switching-scenes": {
     "language": "scenemax",
     "caption": "SceneMax example from levels-and-shared-state.md.",
